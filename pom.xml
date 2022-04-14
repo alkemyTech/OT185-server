@@ -12,7 +12,7 @@
 	<artifactId>ong</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ong</name>
-	<description>ONG project with Spring Boot</description>
+	<description>ONG project with JAVA</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
