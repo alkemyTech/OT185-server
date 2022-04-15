@@ -1,14 +1,14 @@
 package com.alkemy.ong.domain.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -20,12 +20,12 @@ public class Activity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	
-	@NotNull
+	@Column(name ="name", nullable = false)
 	String name;
-	
-	@NotNull
+
+	@Column(name ="content", nullable = false)
 	String content;
 
-	@NotNull
+	@Column(name ="image", nullable = false)
 	String image;
 }
