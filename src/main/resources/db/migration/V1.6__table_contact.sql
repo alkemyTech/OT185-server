@@ -8,7 +8,7 @@ create table contact
     name       varchar (100) not null,
     phone      varchar (100) not null,
     email      varchar (100) not null,
-    message    varchar (100) not null,
+    message    varchar (255) not null,
 --  SoftDelete
     deleted_at bool not null default false,
 

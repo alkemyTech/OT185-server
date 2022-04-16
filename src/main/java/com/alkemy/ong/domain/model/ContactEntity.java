@@ -30,6 +30,7 @@ public class ContactEntity  {
     @Column(name = "contact_id")
     private Long id;
 
+    @Column(name= "name", nullable = false, updatable = false)
     private String name;
 
     private String phone;
