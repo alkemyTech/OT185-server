@@ -1,4 +1,4 @@
-package com.alkemy.ong.auth.configuration;
+package com.alkemy.ong.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

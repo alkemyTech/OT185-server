@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain.model.entity;
+package com.alkemy.ong.domain.model;
 
 import com.alkemy.ong.domain.model.audit.Audit;
 import com.alkemy.ong.domain.model.audit.AuditListener;
@@ -14,19 +14,20 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "contact")
+@Table(name = "contacts")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE contacts SET deletedAt = true WHERE id=?")
-@Where(clause = "deletedAt = false")
+@SQLDelete(sql = "UPDATE contacts SET deleted_at = true WHERE id=?")
+@Where(clause = "deleted_at = false")
 @EntityListeners(AuditListener.class)
 public class ContactEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "contact_id")
     private Long id;
 
     private String name;
@@ -37,6 +38,7 @@ public class ContactEntity  {
 
     private String message;
 
+    @Column(name = "deleted_at")
     private boolean deletedAt;
 
     @Embedded
