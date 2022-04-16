@@ -1,7 +1,7 @@
-drop table if exists contact;
+drop table if exists contacts;
 
 
-create table contact
+create table contacts
 (
 --  Fields
     contact_id bigint  not null auto_increment,
@@ -12,5 +12,5 @@ create table contact
 --  SoftDelete
     deleted_at bool not null default false,
 
-    constraint contact_pk primary key (contact_id)
+    constraint contacts_pk primary key (contact_id)
 );
