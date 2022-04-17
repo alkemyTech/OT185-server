@@ -1,31 +1,55 @@
 package com.alkemy.ong.domain.model;
 
-import lombok.Data;
+import com.alkemy.ong.domain.model.audit.Audit;
+import com.alkemy.ong.domain.model.audit.AuditListener;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
-@Entity
-@Table(name ="activities")
+@Entity(name = "activity")
+@Table(name = "activities")
+@Where(clause = "is_active=true")
+@SQLDelete(sql = "UPDATE activities SET is_active=false WHERE activity_id=?")
+@EntityListeners(AuditListener.class)
 public class Activity {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
-	
-	@Column(name ="name", nullable = false)
-	String name;
 
-	@Column(name ="content", nullable = false)
-	String content;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "activity_id")
+    Long id;
 
-	@Column(name ="image", nullable = false)
-	String image;
+    @Column(name = "name", nullable = false)
+    String name;
+
+    @Column(name = "content", nullable = false)
+    String content;
+
+    @Column(name = "image", nullable = false)
+    String image;
+
+    @Embedded
+    private Audit audit;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Activity activity = (Activity) o;
+        return Objects.equals(id, activity.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, content, image);
+    }
 }
