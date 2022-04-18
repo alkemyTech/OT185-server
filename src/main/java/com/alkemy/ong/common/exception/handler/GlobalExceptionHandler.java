@@ -30,7 +30,7 @@ public final class GlobalExceptionHandler extends AbstractExceptionHandler {
 
         ErrorDetails error = ErrorDetails.builder()
                 .code(ApplicationErrorCode.RESOURCE_NOT_FOUND)
-                .detail("The resource with email %s is not found".formatted(ex.getEmail()))
+                .detail("The resource with email %s is not found".formatted(/*ex.getEmail())*/))
                 .location(ErrorLocation.PATH)
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);

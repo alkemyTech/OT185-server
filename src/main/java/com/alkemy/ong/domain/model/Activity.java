@@ -18,9 +18,9 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @Entity(name = "activity")
-@Table(name = "activitiy")
+@Table(name = "activity")
 @Where(clause = "is_active=true")
-@SQLDelete(sql = "UPDATE activities SET is_active=false WHERE activity_id=?")
+@SQLDelete(sql = "UPDATE activity SET is_active=false WHERE activity_id=?")
 @EntityListeners(AuditListener.class)
 public class Activity implements Auditable {
 
