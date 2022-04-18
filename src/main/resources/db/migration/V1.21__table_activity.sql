@@ -1,6 +1,6 @@
-drop table if exists activities;
+drop table if exists activity;
 
-create table activities
+create table activity
 (
    activity_id    bigint       not null,
     name  varchar(255)  not null,
