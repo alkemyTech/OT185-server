@@ -3,8 +3,10 @@ package com.alkemy.ong.domain.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +26,10 @@ public class Role {
 
     @Column(name="description", nullable = false, updatable = false)
     private String description;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdAt;
 
 
     @Override
