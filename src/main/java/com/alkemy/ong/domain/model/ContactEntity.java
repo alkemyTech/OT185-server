@@ -27,7 +27,7 @@ public class ContactEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contact_id")
+    @Column(name = "id_contact")
     private Long id;
 
     @Column(name= "name", nullable = false, updatable = false)
