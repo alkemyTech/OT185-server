@@ -8,7 +8,9 @@ create table contact
     phone   varchar (100) not null,
     email   varchar (100) not null,
     message varchar (255) not null,
-    deleted_at bit not null,
+    created_at datetime(6)  not null,
+    is_active  bit          not null,
+    updated_at datetime(6)  null,
 
      primary key (id_contact)
 ) engine = InnoDB;
