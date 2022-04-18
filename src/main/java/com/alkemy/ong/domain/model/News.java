@@ -25,7 +25,7 @@ public class News implements Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="news_id")
-    Long id;
+    private Long id;
 
     @Column(name = "name", nullable = false, updatable = false)
     private String name;
