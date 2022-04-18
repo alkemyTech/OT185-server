@@ -2,6 +2,7 @@ package com.alkemy.ong.domain.model;
 
 import com.alkemy.ong.domain.model.audit.Audit;
 import com.alkemy.ong.domain.model.audit.AuditListener;
+import com.alkemy.ong.domain.model.audit.Auditable;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -20,10 +21,12 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE contacts SET is_active = true WHERE id=?")
+
+@SQLDelete(sql = "UPDATE contacts SET is_active = true WHERE id_contact=?")
+
 @Where(clause = "is_active = false")
 @EntityListeners(AuditListener.class)
-public class ContactEntity  {
+public class ContactEntity implements Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +42,12 @@ public class ContactEntity  {
 
     private String message;
 
-    @Column(name = "is_active")
-    private boolean isActive;
+
 
     @Embedded
     private Audit audit;
+
+
 
     @Override
     public boolean equals(Object o) {
