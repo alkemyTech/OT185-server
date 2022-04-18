@@ -3,8 +3,9 @@ package com.alkemy.ong.common.exception;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter
-@AllArgsConstructor
+
 public class UserNotFoundException extends  RuntimeException{
-    private final Object email;
+    public UserNotFoundException(String message) {
+        super(message);
+    }
 }
