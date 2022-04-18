@@ -14,7 +14,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "contacts")
+@Table(name = "contact")
 @Getter
 @Setter
 @Builder
