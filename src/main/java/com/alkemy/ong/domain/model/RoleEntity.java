@@ -15,10 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Table(name="roles")
-@Where(clause = "is_active=true")
-@SQLDelete(sql = "UPDATE roles SET is_active=false where id=?")
-@EntityListeners(AuditListener.class)
-public class RoleEntity implements Auditable {
+public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +28,6 @@ public class RoleEntity implements Auditable {
     @Column(name="description")
     private String description;
 
-    @Embedded
-    private Audit audit;
 
     @Override
     public boolean equals(Object o) {
