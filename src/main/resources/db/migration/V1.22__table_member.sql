@@ -6,9 +6,9 @@ create table member (
     is_active  bit          not null,
     updated_at datetime(6)  null,
     name varchar(255) not null,
-    facebookUrl varchar(255) null,
-    instagramUrl varchar(255) null,
-    linkedinUrl varchar(255) null,
+    facebook_url varchar(255) null,
+    instagram_url varchar(255) null,
+    linkedin_url varchar(255) null,
     image varchar(255) not null,
     description varchar(255) null,
     primary key (member_id)

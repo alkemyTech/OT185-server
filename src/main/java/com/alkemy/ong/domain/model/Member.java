@@ -37,13 +37,13 @@ public class Member implements Auditable {
 	@Column(name = "name", nullable = false, updatable = false)
     private String name;
 	
-	@Column(name = "facebookUrl", nullable = true, updatable = true)
+	@Column(name = "facebook_url", nullable = true, updatable = true)
     private String facebookUrl;
 	
-	@Column(name = "instagramUrl", nullable = true, updatable = true)
+	@Column(name = "instagram_url", nullable = true, updatable = true)
     private String instagramUrl;
 	
-	@Column(name = "linkedinUrl", nullable = true, updatable = true)
+	@Column(name = "linkedin_url", nullable = true, updatable = true)
     private String linkedinUrl;
 	
 	@Column(name = "image", nullable = false, updatable = true)
