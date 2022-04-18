@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.usecase.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,10 +14,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         //TODO
-        /*
-
+/*
         User user= userRepository.findUserByEmail(email)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(new UsernameNotFoundException("email or password incorrect"));
 
 
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -28,20 +28,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         return userDetail;
 */
-
         return null;
     }
 
-    //TODO
-    /*
-    User login(String email, String password){
-
-
-
-
-    }
-
-
-
-    * */
 }

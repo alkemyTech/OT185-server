@@ -15,30 +15,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-
+    private final PasswordEncoder bcrypt;
     private final UserDetailsService userDetailService;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-
-        return new BCryptPasswordEncoder();
-
-    }
 
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-
         return super.authenticationManagerBean();
-
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
-
+        auth.userDetailsService(userDetailService).passwordEncoder(bcrypt);
     }
 
     @Override
