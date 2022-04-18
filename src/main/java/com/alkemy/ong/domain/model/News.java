@@ -5,20 +5,21 @@ import com.alkemy.ong.domain.model.audit.Audit;
 import com.alkemy.ong.domain.model.audit.AuditListener;
 import com.alkemy.ong.domain.model.audit.Auditable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @Table(name="news")
+@NoArgsConstructor
 @Where(clause = "is_active=true")
-@SQLDelete(sql = "UPDATE news SET is_active=false WHERE id=?")
+@SQLDelete(sql = "UPDATE news SET is_active=false WHERE news_id=?")
 @EntityListeners(AuditListener.class)
 
 public class News implements Auditable {
