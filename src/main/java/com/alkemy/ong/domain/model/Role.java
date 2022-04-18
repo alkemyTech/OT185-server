@@ -1,12 +1,8 @@
 package com.alkemy.ong.domain.model;
 
-import com.alkemy.ong.domain.model.audit.Audit;
-import com.alkemy.ong.domain.model.audit.AuditListener;
-import com.alkemy.ong.domain.model.audit.Auditable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,8 +10,9 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@Table(name="roles")
-public class RoleEntity {
+@NoArgsConstructor
+@Table(name="role")
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +22,7 @@ public class RoleEntity {
     @Column(name="name", nullable = false, updatable = false)
     private String name;
 
-    @Column(name="description")
+    @Column(name="description", nullable = false, updatable = false)
     private String description;
 
 
@@ -33,7 +30,7 @@ public class RoleEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RoleEntity role = (RoleEntity) o;
+        Role role = (Role) o;
         return Objects.equals(id, role.id);
     }
 

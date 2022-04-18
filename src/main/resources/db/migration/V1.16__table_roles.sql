@@ -1,6 +1,6 @@
-drop table if exists roles;
+drop table if exists role;
 
-create table alkymer
+create table role
 (
     role_id bigint       not null auto_increment,
     name       varchar(255) not null,
