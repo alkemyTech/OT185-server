@@ -1,6 +1,6 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
-import com.alkemy.ong.common.exception.AuthService;
+import com.alkemy.ong.common.security.AuthService;
 import com.alkemy.ong.ports.input.rs.request.AuthenticationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

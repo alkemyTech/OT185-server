@@ -1,5 +1,6 @@
-package com.alkemy.ong.common.exception;
+package com.alkemy.ong.common.security;
 
+import com.alkemy.ong.common.exception.BadUserLoginException;
 import com.alkemy.ong.ports.input.rs.request.AuthenticationRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
