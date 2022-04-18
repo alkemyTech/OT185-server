@@ -1,6 +1,5 @@
 package com.alkemy.ong.domain.usecase.impl;
 
-import com.alkemy.ong.domain.usecase.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserDetailsService {
 
     private final AuthenticationManager authenticationManager;
 
