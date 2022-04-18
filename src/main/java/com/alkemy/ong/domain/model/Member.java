@@ -46,7 +46,7 @@ public class Member implements Auditable {
 	@Column(name = "linkedinUrl", nullable = true, updatable = true)
     private String linkedinUrl;
 	
-	@Column(name = "image", nullable = false, updatable = false)
+	@Column(name = "image", nullable = false, updatable = true)
     private String image;
 	
 	@Column(name = "description", nullable = false, updatable = true)
