@@ -4,6 +4,7 @@ import com.alkemy.ong.domain.model.audit.Audit;
 import com.alkemy.ong.domain.model.audit.AuditListener;
 import com.alkemy.ong.domain.model.audit.Auditable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -15,6 +16,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @EntityListeners(AuditListener.class)
+@NoArgsConstructor
 @Where(clause = "is_active=true")
 @SQLDelete(sql = "UPDATE comment SET is_active=false WHERE comment_id=?")
 
