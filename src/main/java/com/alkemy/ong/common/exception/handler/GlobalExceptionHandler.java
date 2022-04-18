@@ -1,6 +1,7 @@
 package com.alkemy.ong.common.exception.handler;
 
 import com.alkemy.ong.common.exception.NotFoundException;
+import com.alkemy.ong.common.exception.UserNotFoundException;
 import com.alkemy.ong.common.exception.error.ApplicationErrorCode;
 import com.alkemy.ong.common.exception.error.ErrorDetails;
 import com.alkemy.ong.common.exception.error.ErrorLocation;
@@ -21,6 +22,17 @@ public final class GlobalExceptionHandler extends AbstractExceptionHandler {
                 .location(ErrorLocation.PATH)
                 .build();
 
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    private ResponseEntity<ErrorDetails> handleUserNotFound(UserNotFoundException ex) {
+
+        ErrorDetails error = ErrorDetails.builder()
+                .code(ApplicationErrorCode.RESOURCE_NOT_FOUND)
+                .detail("The resource with email %s is not found".formatted(ex.getEmail()))
+                .location(ErrorLocation.PATH)
+                .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }

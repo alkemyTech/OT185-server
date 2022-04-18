@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class UserNotFoundException extends  RuntimeException{
-    private final Object resourceId;
+    private final Object email;
 }

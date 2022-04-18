@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         //TODO
 /*
         User user= userRepository.findUserByEmail(email)
-                .orElseThrow(new UsernameNotFoundException("email or password incorrect"));
+                .orElseThrow(new UsernameNotFoundException(email));
 
 
         List<GrantedAuthority> authorities = new ArrayList<>();
