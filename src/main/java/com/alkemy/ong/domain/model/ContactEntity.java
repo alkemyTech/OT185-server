@@ -20,8 +20,8 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE contacts SET deleted_at = true WHERE id=?")
-@Where(clause = "deleted_at = false")
+@SQLDelete(sql = "UPDATE contacts SET is_active = true WHERE id=?")
+@Where(clause = "is_active = false")
 @EntityListeners(AuditListener.class)
 public class ContactEntity  {
 
@@ -39,8 +39,8 @@ public class ContactEntity  {
 
     private String message;
 
-    @Column(name = "deleted_at")
-    private boolean deletedAt;
+    @Column(name = "is_active")
+    private boolean isActive;
 
     @Embedded
     private Audit audit;
