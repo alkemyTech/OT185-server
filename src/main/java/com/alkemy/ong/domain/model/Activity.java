@@ -2,6 +2,7 @@ package com.alkemy.ong.domain.model;
 
 import com.alkemy.ong.domain.model.audit.Audit;
 import com.alkemy.ong.domain.model.audit.AuditListener;
+import com.alkemy.ong.domain.model.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +22,7 @@ import java.util.Objects;
 @Where(clause = "is_active=true")
 @SQLDelete(sql = "UPDATE activities SET is_active=false WHERE activity_id=?")
 @EntityListeners(AuditListener.class)
-public class Activity {
+public class Activity implements Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

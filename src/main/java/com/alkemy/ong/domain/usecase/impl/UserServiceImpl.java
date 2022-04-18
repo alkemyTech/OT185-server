@@ -14,10 +14,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         //TODO
         /*
-          User user = findByEmail(email);
 
-         if(user == null)
-          throw new NotFoundExceptions("Nombre de usuario incorrecto");
+        User user= userRepository.findUserByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         user.getRoles()
@@ -32,4 +32,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return null;
     }
 
+    //TODO
+    /*
+    User login(String email, String password){
+
+
+
+
+    }
+
+
+
+    * */
 }
