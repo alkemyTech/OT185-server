@@ -14,10 +14,11 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
-@Entity(name = "organizations")
+@Entity(name = "organization")
 @Where(clause = "is_active=true")
 @SQLDelete(sql = "UPDATE organization SET is_active=false WHERE organization_id=?")
 @EntityListeners(AuditListener.class)

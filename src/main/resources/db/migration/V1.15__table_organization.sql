@@ -1,6 +1,6 @@
-drop table if exists organizations;
+drop table if exists organization;
 
-create table organizations
+create table organization
 (
     organization_id bigint  not null auto_increment,
     created_at datetime(6)  not null,
