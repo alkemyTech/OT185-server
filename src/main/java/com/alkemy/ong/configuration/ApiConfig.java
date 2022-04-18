@@ -11,8 +11,6 @@ public class ApiConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-
         return new BCryptPasswordEncoder();
-
     }
 }
