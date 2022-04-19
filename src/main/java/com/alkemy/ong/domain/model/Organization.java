@@ -52,14 +52,6 @@ public class Organization implements Auditable {
     @Type(type="text")
     private String aboutUsText;
 
-    @Column(name = "start_date", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime startDate;
-
-    @Column(name = "end_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime endDate;
-
     @Embedded
     private Audit audit;
 
