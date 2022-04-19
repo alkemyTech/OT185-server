@@ -1,7 +1,5 @@
 package com.alkemy.ong.common.exception.handler;
 
-import com.alkemy.ong.common.exception.NotFoundException;
-import com.alkemy.ong.common.exception.UserNotFoundException;
 import com.alkemy.ong.common.exception.error.ApplicationErrorCode;
 import com.alkemy.ong.common.exception.error.ErrorDetails;
 import com.alkemy.ong.common.exception.error.ErrorLocation;

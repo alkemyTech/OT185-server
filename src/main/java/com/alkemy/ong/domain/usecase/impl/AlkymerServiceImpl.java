@@ -1,6 +1,5 @@
 package com.alkemy.ong.domain.usecase.impl;
 
-import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Alkymer;
 import com.alkemy.ong.domain.model.AlkymerList;
 import com.alkemy.ong.domain.model.Skill;
