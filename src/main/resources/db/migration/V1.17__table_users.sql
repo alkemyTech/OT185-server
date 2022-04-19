@@ -9,7 +9,9 @@ create table user
     password    varchar(255) not null,
     photo       varchar(255) not null,
     created_at  datetime(6) not null,
+    role_id     bigint  not null,
+    primary key (user_id),
+    key role_id (role_id)
     constraint fk_role
         foreign key (role_id) references role (role_id),
-    primary key (user_id)
 ) engine = InnoDB;
