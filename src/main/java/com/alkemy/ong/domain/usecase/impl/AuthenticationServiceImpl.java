@@ -1,6 +1,7 @@
 package com.alkemy.ong.domain.usecase.impl;
 
 import com.alkemy.ong.common.exception.NotFoundException;
+import com.alkemy.ong.domain.usecase.AuthenticationService;
 import com.alkemy.ong.ports.input.rs.request.AuthenticationRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class AuthenticationServiceImpl {
+public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
