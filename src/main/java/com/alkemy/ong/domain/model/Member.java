@@ -28,45 +28,46 @@ import lombok.ToString;
 @SQLDelete(sql = "UPDATE member SET is_active=false WHERE member_id=?")
 @EntityListeners(AuditListener.class)
 public class Member implements Auditable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "member_id")
 	private Long id;
-	
+
 	@Column(name = "name", nullable = false, updatable = false)
-    private String name;
-	
+	private String name;
+
 	@Column(name = "facebook_url", nullable = true, updatable = true)
-    private String facebookUrl;
-	
+	private String facebookUrl;
+
 	@Column(name = "instagram_url", nullable = true, updatable = true)
-    private String instagramUrl;
-	
+	private String instagramUrl;
+
 	@Column(name = "linkedin_url", nullable = true, updatable = true)
-    private String linkedinUrl;
-	
+	private String linkedinUrl;
+
 	@Column(name = "image", nullable = false, updatable = true)
-    private String image;
-	
+	private String image;
+
 	@Column(name = "description", nullable = false, updatable = true)
-    private String description;
-	
+	private String description;
+
 	@Embedded
-    private Audit audit;
-	
+	private Audit audit;
+
 	@Override
 	public boolean equals(Object o) {
-		   if (this == o) return true;
-		   if (o == null || getClass() != o.getClass()) return false;
-		   Member member = (Member) o;
-		   return Objects.equals(id, member.id);
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Member member = (Member) o;
+		return Objects.equals(id, member.id);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-	
 
 }
