@@ -20,23 +20,23 @@ import java.util.Objects;
 @Entity
 @Table(name = "activity")
 @Where(clause = "is_active=true")
-@SQLDelete(sql = "UPDATE alkymer SET is_active=false WHERE alkymer_id=?")
+@SQLDelete(sql = "UPDATE activity SET is_active=false WHERE activity_id=?")
 @EntityListeners(AuditListener.class)
 public class Activity implements Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "activity_id")
-    Long id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
-    String name;
+    private String name;
 
     @Column(name = "content", nullable = false)
-    String content;
+    private String content;
 
     @Column(name = "image", nullable = false)
-    String image;
+    private String image;
 
     @Embedded
     private Audit audit;
