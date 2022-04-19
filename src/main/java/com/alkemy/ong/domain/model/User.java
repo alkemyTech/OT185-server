@@ -14,7 +14,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
+@Entity(name="user")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -47,6 +47,10 @@ public class User implements Auditable{
     @Column(name = "created_at", nullable = false, updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
