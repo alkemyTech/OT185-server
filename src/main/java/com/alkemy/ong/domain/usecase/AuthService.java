@@ -1,4 +1,4 @@
-package com.alkemy.ong.common.security;
+package com.alkemy.ong.domain.usecase;
 
 import com.alkemy.ong.common.exception.BadUserLoginException;
 import com.alkemy.ong.ports.input.rs.request.AuthenticationRequest;
@@ -8,14 +8,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
 @RequiredArgsConstructor
+@Service
 public class AuthService {
 
-    private final AuthenticationRequest authRequest;
-    private final AuthenticationResponse authResponse;
+
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse login(AuthenticationRequest authRequest) {
