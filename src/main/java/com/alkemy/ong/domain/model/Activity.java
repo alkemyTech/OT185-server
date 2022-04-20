@@ -38,6 +38,7 @@ public class Activity implements Auditable {
     @Column(name = "image", nullable = false)
     private String image;
 
+
     @Embedded
     private Audit audit;
 
