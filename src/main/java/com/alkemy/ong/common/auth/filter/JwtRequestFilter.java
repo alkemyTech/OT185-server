@@ -20,9 +20,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private final JwtUtil jwtUtil;
+//    private final JwtUtil jwtUtil;
 
-    private final UserDetailsCustomService userDetailsCustomService;
+//    private final UserDetailsCustomService userDetailsCustomService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -34,23 +34,23 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 
-            jwt = authorizationHeader.substring(7);
-            username = jwtUtil.extractUsername(jwt);
+//            jwt = authorizationHeader.substring(7);
+//            username = jwtUtil.extractUsername(jwt);
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = userDetailsCustomService.loadUserByUsername(username);
+//            UserDetails userDetails = userDetailsCustomService.loadUserByUsername(username);
 
-            if (jwtUtil.validateToken(jwt, userDetails)) {
-
-                UsernamePasswordAuthenticationToken authReq
-                        = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, null);
-
-                SecurityContextHolder.getContext().setAuthentication(authReq);
-
-            }
+//            if (jwtUtil.validateToken(jwt, userDetails)) {
+//
+//                UsernamePasswordAuthenticationToken authReq
+//                        = new UsernamePasswordAuthenticationToken(
+//                        userDetails, null, null);
+//
+//                SecurityContextHolder.getContext().setAuthentication(authReq);
+//
+//            }
         }
 
         filterChain.doFilter(request, response);

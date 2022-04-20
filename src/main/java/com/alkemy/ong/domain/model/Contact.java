@@ -22,15 +22,15 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@SQLDelete(sql = "UPDATE contacts SET is_active = true WHERE id_contact=?")
+@SQLDelete(sql = "UPDATE contacts SET is_active = true WHERE contact_id=?")
 
 @Where(clause = "is_active = false")
 @EntityListeners(AuditListener.class)
-public class ContactEntity implements Auditable {
+public class Contact implements Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_contact")
+    @Column(name = "contact_id")
     private Long id;
 
     @Column(name= "name", nullable = false, updatable = false)
@@ -53,7 +53,7 @@ public class ContactEntity implements Auditable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContactEntity that = (ContactEntity) o;
+        Contact that = (Contact) o;
         return id.equals(that.id);
     }
 
