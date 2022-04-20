@@ -39,10 +39,10 @@ public class News implements Auditable {
     @Column(name = "image", nullable = false, updatable = false)
     private String image;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "category_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @JoinColumn(name = "category_id", nullable = false, updatable = false)
     private Category category;
-    private Long category_id;
 
     @Embedded
     private Audit audit;
