@@ -6,15 +6,24 @@ import com.alkemy.ong.domain.model.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Objects;
 
-@Entity(name="user")
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,7 +31,7 @@ import java.util.Objects;
 @Where(clause = "is_active=true")
 @SQLDelete(sql = "UPDATE user SET is_active=false WHERE user_id=?")
 @EntityListeners(AuditListener.class)
-public class User implements Auditable{
+public class User implements Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,22 +53,10 @@ public class User implements Auditable{
     @Column(name = "photo", nullable = false, updatable = false)
     private String photo;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updatedAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
+    @ToString.Exclude
     private Role role;
-
-    @Column(name = "role_id")
-    private Long role_id;
-
-
 
     @Embedded
     private Audit audit;
