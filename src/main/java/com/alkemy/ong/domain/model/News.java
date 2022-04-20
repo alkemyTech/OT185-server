@@ -7,6 +7,7 @@ import com.alkemy.ong.domain.model.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -17,6 +18,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Table(name="news")
+@ToString
 @NoArgsConstructor
 @Where(clause = "is_active=true")
 @SQLDelete(sql = "UPDATE news SET is_active=false WHERE news_id=?")
@@ -38,9 +40,9 @@ public class News implements Auditable {
     private String image;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private Category category;
-    private Long categoryId;
+    private Long category_id;
 
     @Embedded
     private Audit audit;
