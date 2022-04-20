@@ -39,6 +39,7 @@ public class News implements Auditable {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id")
+    private Category category;
     private Long categoryId;
 
     @Embedded
