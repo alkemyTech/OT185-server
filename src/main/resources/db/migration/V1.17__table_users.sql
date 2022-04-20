@@ -15,5 +15,5 @@ create table user
     primary key (user_id),
     key role_id (role_id),
         constraint fk_role
-        foreign key (role_id) references role (role_id),
+        foreign key (role_id) references role (role_id)
 ) engine = InnoDB;
