@@ -9,6 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -21,6 +23,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 @Entity
@@ -31,7 +35,7 @@ import java.util.Objects;
 @Where(clause = "is_active=true")
 @SQLDelete(sql = "UPDATE user SET is_active=false WHERE user_id=?")
 @EntityListeners(AuditListener.class)
-public class User implements Auditable {
+public class User implements Auditable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +48,7 @@ public class User implements Auditable {
     @Column(name = "last_name", nullable = false, updatable = false)
     private String lastName;
 
-    @Column(name = "email", nullable = false, updatable = false)
+    @Column(name = "email", nullable = false, updatable = false, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false, updatable = false)
@@ -72,5 +76,38 @@ public class User implements Auditable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.role != null) {
+            return (Collection<? extends GrantedAuthority>) Collections.singleton(this.role);
+        }
+        return Collections.emptySet();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return audit.getIsActive();
     }
 }
