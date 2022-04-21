@@ -12,5 +12,7 @@ create table contact
     is_active  bit          not null,
     updated_at datetime(6)  null,
 
-     primary key (id_contact)
+
+     primary key (contact_id)
+
 ) engine = InnoDB;
