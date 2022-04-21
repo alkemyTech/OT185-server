@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -26,10 +27,21 @@ public class Slide {
     @Column(name = "number")
     private Integer number;
 
-    @ManyToOne
-    @JoinTable(name = "slide_organization",
-            joinColumns = @JoinColumn(name = "slide_id"),
-            inverseJoinColumns = @JoinColumn(name = "organization_id"))
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id")
     @ToString.Exclude
     private Organization organization;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Slide slide = (Slide) o;
+        return Objects.equals(id, slide.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

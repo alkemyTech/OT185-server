@@ -4,15 +4,12 @@ import com.alkemy.ong.domain.model.audit.Audit;
 import com.alkemy.ong.domain.model.audit.AuditListener;
 import com.alkemy.ong.domain.model.audit.Auditable;
 import lombok.*;
-import lombok.ToString.Exclude;
-import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -56,8 +53,8 @@ public class Organization implements Auditable {
     @Type(type="text")
     private String aboutUsText;
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
-    @ToStringExclude
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<Slide> slide = new HashSet<>();
 
     @Embedded
