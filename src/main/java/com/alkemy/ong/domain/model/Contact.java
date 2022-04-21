@@ -21,11 +21,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
-
-@SQLDelete(sql = "UPDATE contacts SET is_active = true WHERE contact_id=?")
-
-
+@SQLDelete(sql = "UPDATE contact SET is_active = true WHERE contact_id=?")
 @Where(clause = "is_active = false")
 @EntityListeners(AuditListener.class)
 public class Contact implements Auditable {
