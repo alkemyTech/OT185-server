@@ -36,3 +36,4 @@ create table alkymer_skill
     constraint fk_alkymer_skill_2
         foreign key (skill_id) references skill (skill_id)
 ) engine = InnoDB;
+
