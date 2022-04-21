@@ -42,7 +42,6 @@ public class JwtUtil {
     public  Claims extractAllClaims(String token){
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
 
-//                Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody(); Hasta la version 10.
     }
 
 

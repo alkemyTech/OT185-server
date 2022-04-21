@@ -3,64 +3,54 @@ package com.alkemy.ong.domain.model;
 import com.alkemy.ong.domain.model.audit.Audit;
 import com.alkemy.ong.domain.model.audit.AuditListener;
 import com.alkemy.ong.domain.model.audit.Auditable;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(name = "contact")
 @Getter
 @Setter
-@Builder
+@ToString
 @NoArgsConstructor
-@AllArgsConstructor
-
-
-@SQLDelete(sql = "UPDATE contacts SET is_active = true WHERE contact_id=?")
-
-
-@Where(clause = "is_active = false")
+@Entity
+@Table(name = "activity")
+@Where(clause = "is_active=true")
+@SQLDelete(sql = "UPDATE activity SET is_active=false WHERE activity_id=?")
 @EntityListeners(AuditListener.class)
-public class Contact implements Auditable {
+public class Activity implements Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contact_id")
+    @Column(name = "activity_id")
     private Long id;
 
-    @Column(name= "name", nullable = false, updatable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    private String phone;
+    @Column(name = "content", nullable = false)
+    private  String content;
 
-    private String email;
-
-    private String message;
-
-
+    @Column(name = "image", nullable = false)
+    private  String image;
 
     @Embedded
     private Audit audit;
-
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Contact that = (Contact) o;
-        return id.equals(that.id);
+        Activity activity = (Activity) o;
+        return Objects.equals(id, activity.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, content, image);
     }
 }

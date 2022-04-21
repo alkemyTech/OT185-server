@@ -1,5 +1,6 @@
 package com.alkemy.ong.common.auth.filter;
 
+import com.alkemy.ong.common.auth.services.UserDetailsCustomService;
 import com.alkemy.ong.common.auth.utils.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
