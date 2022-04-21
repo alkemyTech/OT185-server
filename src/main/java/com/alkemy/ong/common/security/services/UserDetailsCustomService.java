@@ -1,4 +1,4 @@
-package com.alkemy.ong.common.auth.services;
+package com.alkemy.ong.common.security.services;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

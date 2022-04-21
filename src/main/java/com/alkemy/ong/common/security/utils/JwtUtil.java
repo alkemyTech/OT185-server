@@ -1,4 +1,4 @@
-package com.alkemy.ong.common.auth.utils;
+package com.alkemy.ong.common.security.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
