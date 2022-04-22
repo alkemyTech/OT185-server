@@ -6,6 +6,7 @@ import java.util.function.Function;
 
 public interface ApiConstants {
     String ALKYMERS_URI = "/v1/alkymers";
+    String MEMBERS_URI = "/v1/members";
 
     int DEFAULT_PAGE = 0;
     int DEFAULT_PAGE_SIZE = 10;

@@ -1,0 +1,22 @@
+package com.alkemy.ong.domain.usecase.impl;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.alkemy.ong.domain.repository.MemberRepository;
+import com.alkemy.ong.domain.usecase.MemberService;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class MemberServiceImpl implements MemberService {
+
+	private final MemberRepository memberJpaRepository;
+
+	@Override
+	@Transactional
+	public void deleteById(Long id) {
+		memberJpaRepository.findById(id).ifPresent(memberJpaRepository::delete);
+	}
+
+}
