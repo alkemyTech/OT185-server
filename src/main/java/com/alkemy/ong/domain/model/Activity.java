@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class Activity implements Auditable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Type(type = "type")
     @Column(name = "content", nullable = false)
     private  String content;
 
