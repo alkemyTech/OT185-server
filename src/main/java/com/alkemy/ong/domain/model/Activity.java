@@ -33,10 +33,10 @@ public class Activity implements Auditable {
     private String name;
 
     @Column(name = "content", nullable = false)
-    private String content;
+    private  String content;
 
     @Column(name = "image", nullable = false)
-    private String image;
+    private  String image;
 
     @Embedded
     private Audit audit;
