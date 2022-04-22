@@ -3,6 +3,7 @@ package com.alkemy.ong.common.security.services;
 import com.alkemy.ong.domain.model.Role;
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.repository.UserRepository;
+import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,6 +38,19 @@ public class UserDetailsCustomService implements UserDetailsService {
                 (user.get().getUsername(), user.get().getPassword(), true, true, true,
                         true, new ArrayList<>());
 
+    }
+
+    public UserResponse meData(String email) {
+
+
+        Optional<User> user = userRepository.findUserByEmail(email);
+
+        return UserResponse.builder()
+                .email(user.get().getEmail())
+                .firstName(user.get().getFirstName())
+                .lastName((user.get().getLastName()))
+                .photo(user.get().getPhoto())
+                .build();
     }
 
 
