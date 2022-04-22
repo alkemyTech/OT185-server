@@ -81,7 +81,7 @@ public class User implements Auditable, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role != null) {
-            return (Collection<? extends GrantedAuthority>) Collections.singleton(this.role);
+            return Collections.singleton(this.role);
         }
         return Collections.emptySet();
     }
@@ -93,17 +93,17 @@ public class User implements Auditable, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
