@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -31,6 +32,7 @@ public class Activity implements Auditable {
 
     @Column(name = "name", nullable = false)
     private String name;
+
 
     @Column(name = "content", nullable = false)
     private String content;
