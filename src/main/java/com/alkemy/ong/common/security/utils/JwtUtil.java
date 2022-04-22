@@ -18,7 +18,7 @@ import javax.crypto.SecretKey;
 @Service
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "4LK3MY";
+    private static final String SECRET_KEY = "4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY";
 
     SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
 
