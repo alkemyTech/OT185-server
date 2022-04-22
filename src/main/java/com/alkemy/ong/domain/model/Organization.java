@@ -7,11 +7,12 @@ import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Getter
@@ -51,6 +52,10 @@ public class Organization implements Auditable {
     @Column(name = "aboutUsText")
     @Type(type="text")
     private String aboutUsText;
+
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Set<Slide> slide = new HashSet<>();
 
     @Embedded
     private Audit audit;
