@@ -1,4 +1,4 @@
-package com.alkemy.ong.ports.input.rs.mapper;
+package com.alkemy.ong.ports.input.rs.response.mapper;
 
 import org.mapstruct.Named;
 

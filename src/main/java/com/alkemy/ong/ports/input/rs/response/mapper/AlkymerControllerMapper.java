@@ -1,4 +1,4 @@
-package com.alkemy.ong.ports.input.rs.mapper;
+package com.alkemy.ong.ports.input.rs.response.mapper;
 
 import com.alkemy.ong.domain.model.Alkymer;
 import com.alkemy.ong.ports.input.rs.request.CreateAlkymerRequest;
