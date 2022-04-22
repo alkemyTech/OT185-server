@@ -3,56 +3,59 @@ package com.alkemy.ong.domain.model;
 import com.alkemy.ong.domain.model.audit.Audit;
 import com.alkemy.ong.domain.model.audit.AuditListener;
 import com.alkemy.ong.domain.model.audit.Auditable;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "contact")
 @Getter
 @Setter
-@ToString
+@Builder
 @NoArgsConstructor
-@Entity
-@Table(name = "activity")
-@Where(clause = "is_active=true")
-@SQLDelete(sql = "UPDATE activity SET is_active=false WHERE activity_id=?")
+@AllArgsConstructor
+@SQLDelete(sql = "UPDATE contact SET is_active = true WHERE contact_id=?")
+@Where(clause = "is_active = false")
 @EntityListeners(AuditListener.class)
-public class Activity implements Auditable {
+public class Contact implements Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "activity_id")
+    @Column(name = "contact_id")
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name= "name", nullable = false, updatable = false)
     private String name;
 
-    @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "content", nullable = false)
-    private  String content;
+    private String phone;
 
-    @Column(name = "image", nullable = false)
-    private  String image;
+    private String email;
+
+    private String message;
+
 
     @Embedded
     private Audit audit;
+
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Activity activity = (Activity) o;
-        return Objects.equals(id, activity.id);
+        Contact that = (Contact) o;
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, content, image);
+        return Objects.hash(id);
     }
 }
