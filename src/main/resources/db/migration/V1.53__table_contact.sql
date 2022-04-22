@@ -14,5 +14,5 @@ create table contact
 
      primary key (contact_id)
 
->>>>>>> main:src/main/resources/db/migration/V1.53__schema_contact.sql
+
 ) engine = InnoDB;

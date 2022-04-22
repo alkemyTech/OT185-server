@@ -1,4 +1,4 @@
-package com.alkemy.ong.common.security.filter;
+package com.alkemy.ong.ports.input.rs.controller.filter;
 
 import com.alkemy.ong.common.security.services.UserDetailsCustomService;
 import com.alkemy.ong.common.security.utils.JwtUtil;
