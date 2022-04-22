@@ -3,6 +3,7 @@ package com.alkemy.ong.common.security.services;
 import com.alkemy.ong.domain.model.Role;
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.repository.UserRepository;
+import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,7 +25,7 @@ public class UserDetailsCustomService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByEmail(username);
 
         if (user.isEmpty()) {
 
@@ -37,6 +38,24 @@ public class UserDetailsCustomService implements UserDetailsService {
                         true, new ArrayList<>());
 
     }
+
+    public UserResponse meData(String username) {
+
+        System.out.println(username);
+
+        Optional<User> user = userRepository.findByEmail(username);
+
+        System.out.println(user);
+
+        return UserResponse.builder()
+                .firstName(user.get().getFirstName())
+                .lastName(user.get().getLastName())
+                .email(user.get().getEmail())
+                .photo(user.get().getPhoto())
+                .id(user.get().getId())
+                .build();
+    }
+
 
 
 

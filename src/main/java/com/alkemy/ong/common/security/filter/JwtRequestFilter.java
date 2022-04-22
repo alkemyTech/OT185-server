@@ -3,6 +3,7 @@ package com.alkemy.ong.common.security.filter;
 import com.alkemy.ong.common.security.services.UserDetailsCustomService;
 import com.alkemy.ong.common.security.utils.JwtUtil;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,7 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;

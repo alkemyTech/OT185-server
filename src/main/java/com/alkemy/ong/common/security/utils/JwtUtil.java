@@ -18,9 +18,9 @@ import javax.crypto.SecretKey;
 @Service
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "4LK3MY";
+    private static final String SECRET_KEY = "4LK3MY232131232131231231231231231231231231232131231";
 
-    SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
+    SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(SECRET_KEY));
 
     public String extractUsername(String token) {
 
@@ -60,7 +60,7 @@ public class JwtUtil {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+ 1000*60*60*10))
-                .signWith(key, SignatureAlgorithm.HS256).compact();
+                .signWith(key).compact();
     }
 
 
