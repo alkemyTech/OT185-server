@@ -33,7 +33,7 @@ public class Activity implements Auditable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Type(type = "type")
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "content", nullable = false)
     private  String content;
 
