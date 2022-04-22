@@ -13,4 +13,6 @@ public interface ApiConstants {
     Function<Integer, String> uriByPageAsString = (page) ->
             ServletUriComponentsBuilder.fromCurrentRequest()
                     .replaceQueryParam("page", page).toUriString();
+
+    String ORGANIZATION_URI = "/v1/organization";
 }
