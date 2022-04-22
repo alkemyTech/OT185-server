@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
 
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     private final JwtUtil jwtUtil;
 

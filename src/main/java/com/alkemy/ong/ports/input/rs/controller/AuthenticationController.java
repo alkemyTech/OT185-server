@@ -21,11 +21,13 @@ public class AuthenticationController {
 
     private final JwtUtil jwtUtil;
 
-    @PostMapping("auth/login")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> userLogin(@Valid @RequestBody AuthenticationRequest authRequest) throws Exception {
 
 
             String jwt = authService.singIn(authRequest);
+
+
             return ResponseEntity.ok(new AuthenticationResponse(jwt));
 
 
