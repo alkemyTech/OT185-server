@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import static com.alkemy.ong.ports.input.rs.api.ApiConstants.ORGANIZATION_URI;
+import static com.alkemy.ong.ports.input.rs.api.ApiConstants.ORGANIZATIONS_URI;
 
 @RestController
-@RequestMapping(ORGANIZATION_URI)
+@RequestMapping(ORGANIZATIONS_URI)
 @RequiredArgsConstructor
 public class OrganizationController {
 
