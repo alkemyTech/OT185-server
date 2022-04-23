@@ -57,7 +57,7 @@ public class User implements Auditable, UserDetails {
     @Column(name = "photo", nullable = false, updatable = false)
     private String photo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "role_id")
     @ToString.Exclude
     private Role role;

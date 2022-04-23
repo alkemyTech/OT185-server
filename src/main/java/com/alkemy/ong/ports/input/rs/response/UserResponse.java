@@ -24,5 +24,4 @@ public class UserResponse {
 
     private String photo;
 
-    private Role role;
 }

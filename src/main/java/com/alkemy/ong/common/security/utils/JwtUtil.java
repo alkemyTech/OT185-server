@@ -1,8 +1,11 @@
 package com.alkemy.ong.common.security.utils;
 
+import com.alkemy.ong.domain.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +32,7 @@ public class JwtUtil {
     }
 
     public Date extractExpiration(String token) {
+
         return extractClaim(token, Claims::getExpiration);
     }
 
@@ -37,6 +41,10 @@ public class JwtUtil {
         final Claims claims = extractAllClaims(token);
 
         return claimsResolver.apply(claims);
+    }
+
+    public String extractRole(String token){
+       return extractAllClaims(token).get("ROLE").toString();
     }
 
     public  Claims extractAllClaims(String token){
@@ -53,18 +61,24 @@ public class JwtUtil {
 
         Map<String,Object> claims = new HashMap<>();
 
-        return createToken(claims, userDetails.getUsername());
+        return createToken(claims, userDetails);
     }
 
-    private String createToken(Map<String, Object> claims, String subject){
-
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+    private String createToken(Map<String, Object> claims, UserDetails userDetails){
+//        claims.put("Role", userDetails.getAuthorities());
+        System.out.println(userDetails.getAuthorities());
+        return Jwts.builder()
+                .claim("ROLE", userDetails.getAuthorities().getClass().getName())
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+ 1000*60*60*10))
                 .signWith(key, SignatureAlgorithm.HS256).compact();
     }
 
 
     public Boolean validateToken(String token, UserDetails userDetails){
+
+        System.out.println("Entro aca");
 
         final String username = extractUsername(token);
 
