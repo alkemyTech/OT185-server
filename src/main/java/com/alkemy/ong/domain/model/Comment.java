@@ -6,34 +6,36 @@ import com.alkemy.ong.domain.model.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name="comment")
+@Entity
 @Getter
 @Setter
-@EntityListeners(AuditListener.class)
+@ToString
 @NoArgsConstructor
 @Where(clause = "is_active=true")
 @SQLDelete(sql = "UPDATE comment SET is_active=false WHERE comment_id=?")
+@EntityListeners(AuditListener.class)
 
 public class Comment implements Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
+    @Column(name = "comment_id", nullable = false, updatable = false)
     private Long id;
 
     @Column(name="comment_body")
     private String commentBody;
 
-    @Column(name="news_id")
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     @JoinColumn(name = "news_id")
-    private Long newsId;
+    private News news;
 
     @Embedded
     private Audit audit;
