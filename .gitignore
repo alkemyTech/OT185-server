@@ -12,7 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
+/bin
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -31,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+sendgrid.env
