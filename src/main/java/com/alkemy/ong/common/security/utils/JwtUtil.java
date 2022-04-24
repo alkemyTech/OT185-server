@@ -65,8 +65,7 @@ public class JwtUtil {
     }
 
     private String createToken(Map<String, Object> claims, UserDetails userDetails){
-//        claims.put("Role", userDetails.getAuthorities());
-        System.out.println(userDetails.getAuthorities());
+
         return Jwts.builder()
                 .claim("ROLE", userDetails.getAuthorities().getClass().getName())
                 .setSubject(userDetails.getUsername())

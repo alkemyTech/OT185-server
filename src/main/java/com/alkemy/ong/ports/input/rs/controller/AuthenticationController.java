@@ -3,6 +3,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.common.security.services.AuthenticationService;
 import com.alkemy.ong.common.security.services.UserDetailsCustomService;
 import com.alkemy.ong.common.security.utils.JwtUtil;
+import com.alkemy.ong.domain.usecase.UserService;
 import com.alkemy.ong.ports.input.rs.request.AuthenticationRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;
@@ -24,14 +25,12 @@ public class AuthenticationController {
 
     private final JwtUtil jwtUtil;
 
-    private final UserDetailsCustomService userDetailsCustomService;
+    private final UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> userLogin(@Valid @RequestBody AuthenticationRequest authRequest) throws Exception {
 
-
             String jwt = authService.singIn(authRequest);
-
 
             return ResponseEntity.ok(new AuthenticationResponse(jwt));
 
@@ -40,12 +39,8 @@ public class AuthenticationController {
 
     @GetMapping("/me")
     @ResponseStatus(HttpStatus.OK)
-
-
     public UserResponse meData(@CurrentSecurityContext(expression = "authentication") Authentication authentication) {
-
-
-        return userDetailsCustomService.meData(authentication.getName());
+        return userService.meData(authentication.getName());
     }
 
 }

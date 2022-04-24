@@ -40,20 +40,7 @@ public class UserDetailsCustomService implements UserDetailsService {
 
     }
 
-    public UserResponse meData(String email) {
 
-
-
-        Optional<User> user = userRepository.findUserByEmail(email);
-
-        return UserResponse.builder()
-                .id(user.get().getId())
-                .email(user.get().getEmail())
-                .firstName(user.get().getFirstName())
-                .lastName((user.get().getLastName()))
-                .photo(user.get().getPhoto())
-                .build();
-    }
 
 
     private static Set<? extends GrantedAuthority> getAuthorities(User user) {
