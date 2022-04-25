@@ -9,6 +9,8 @@ public interface ApiConstants {
     String ORGANIZATIONS_URI = "/v1/organizations";
     String MEMBERS_URI = "/v1/members";
     String SLIDES_URI = "/v1/slides";
+    String CATEGORIES_URI = "/v1/categories";
+
 
     int DEFAULT_PAGE = 0;
     int DEFAULT_PAGE_SIZE = 10;
