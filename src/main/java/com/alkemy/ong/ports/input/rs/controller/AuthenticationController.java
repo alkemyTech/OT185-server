@@ -18,8 +18,7 @@ import javax.validation.Valid;
 public class AuthenticationController {
 
     private final AuthenticationService authService;
-
-    private final JwtUtil jwtUtil;
+    
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> userLogin(@Valid @RequestBody AuthenticationRequest authRequest) throws Exception {
