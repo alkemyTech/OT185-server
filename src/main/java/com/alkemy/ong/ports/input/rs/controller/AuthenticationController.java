@@ -24,7 +24,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> userLogin(@Valid @RequestBody AuthenticationRequest authRequest) throws Exception {
 
 
-            String jwt = authService.singIn(authRequest);
+            String jwt = authService.singIn(authRequest.getEmail(), authRequest.getPassword());
 
 
             return ResponseEntity.ok(new AuthenticationResponse(jwt));

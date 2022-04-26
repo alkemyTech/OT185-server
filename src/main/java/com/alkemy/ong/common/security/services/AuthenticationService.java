@@ -19,13 +19,13 @@ public class AuthenticationService {
 
     private final JwtUtil jwtUtil;
 
-    public String singIn(AuthenticationRequest authRequest) throws Exception {
+    public String singIn(String email, String password) throws Exception {
 
         UserDetails userDetails;
 
         try {
 
-            Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+            Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
             userDetails = (UserDetails) auth.getPrincipal();
 

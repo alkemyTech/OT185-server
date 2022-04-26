@@ -3,26 +3,30 @@ package com.alkemy.ong.common.security.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import javax.crypto.SecretKey;
 
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY";
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
 
-    SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
+//    SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
 
+
+    private Key getSigningKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(this.SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
     public String extractUsername(String token) {
 
         return extractClaim(token, Claims::getSubject);
@@ -41,7 +45,7 @@ public class JwtUtil {
     }
 
     public  Claims extractAllClaims(String token){
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token).getBody();
 
     }
 
@@ -61,7 +65,7 @@ public class JwtUtil {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+ 1000*60*60*10))
-                .signWith(key, SignatureAlgorithm.HS256).compact();
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
 
