@@ -6,10 +6,7 @@ import com.alkemy.ong.ports.input.rs.response.ActivityResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -28,6 +25,16 @@ public class ActivityController {
         ActivityResponse response = activityService.createActivity(activityRequest);
 
         return new ResponseEntity<ActivityResponse>(response, HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{id}")
+    //@ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<ActivityResponse> updateActivity(@PathVariable Long id,
+                                                           @Valid @RequestBody ActivityRequest activityRequest
+    ) {
+        ActivityResponse response = activityService.updateActivity(activityRequest, id);
+
+        return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
     }
 
 

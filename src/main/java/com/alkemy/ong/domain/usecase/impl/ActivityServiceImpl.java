@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Activity;
 import com.alkemy.ong.domain.repository.ActivityRepository;
 import com.alkemy.ong.domain.usecase.ActivityService;
@@ -9,6 +10,8 @@ import com.alkemy.ong.ports.input.rs.response.ActivityResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +29,29 @@ public class ActivityServiceImpl implements ActivityService {
         activityRepository.save(activity);
 
         return mapper.activityToActivityResponse(activity);
+    }
+
+    @Override
+    public ActivityResponse updateActivity(ActivityRequest request, Long id) {
+
+     /*   activityRepository.findById(id)
+                .map(activityJpa -> {
+                    activityJpa.setName(request.getName());
+                    activityJpa.setContent(request.getContent());
+                    activityJpa.setImage(request.getImage());
+                    activityRepository.save(activityJpa);
+
+                    return mapper.activityToActivityResponse(activityJpa);
+                }).orElseThrow(()-> new NotFoundException(id));*/
+
+        Activity activity = activityRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
+        activity.setName(request.getName());
+        activity.setContent(request.getContent());
+        activity.setImage(request.getImage());
+
+        activityRepository.save(activity);
+
+        return mapper.activityToActivityResponse(activity);
+
     }
 }
