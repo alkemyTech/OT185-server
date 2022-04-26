@@ -34,9 +34,9 @@ public class AuthenticationService {
             throw new Exception("Incorrect username or password", e.getCause());
         }
 
-        final String jwt = jwtUtil.generateToken(userDetails);
+        return  jwtUtil.generateToken(userDetails);
 
-        return jwt;
+
 
     }
 }

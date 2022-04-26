@@ -11,11 +11,12 @@ import java.util.function.Function;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 
-@Service
+@Component
 public class JwtUtil {
 
     private static final String SECRET_KEY = "4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY4LK3MY";

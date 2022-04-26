@@ -1,8 +1,9 @@
 package com.alkemy.ong.common.security.filter;
 
-import com.alkemy.ong.common.security.services.UserDetailsCustomService;
 import com.alkemy.ong.common.security.utils.JwtUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -23,12 +24,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
 
-    private final UserDetailsCustomService userDetailsCustomService;
+    private final UserDetailsService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        final String authorizationHeader = request.getHeader("Authorization");
+        final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         String username = null;
         String jwt = null;
@@ -41,13 +42,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = userDetailsCustomService.loadUserByUsername(username);
+
+              UserDetails userDetails = userService.loadUserByUsername(username);
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
 
-                UsernamePasswordAuthenticationToken authReq
-                        = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, null);
+                UsernamePasswordAuthenticationToken authReq= new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
 
                 SecurityContextHolder.getContext().setAuthentication(authReq);
 
