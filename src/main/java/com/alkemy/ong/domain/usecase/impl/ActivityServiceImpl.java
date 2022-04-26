@@ -18,7 +18,6 @@ public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityControllerMapper mapper;
 
-    @Transactional
     @Override
     public ActivityResponse createActivity(ActivityRequest request) {
 
