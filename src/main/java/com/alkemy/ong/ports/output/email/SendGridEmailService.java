@@ -1,6 +1,5 @@
-package com.alkemy.ong.domain.usecase;
+package com.alkemy.ong.ports.output.email;
 
-        import com.alkemy.ong.domain.usecase.impl.EmailService;
         import com.sendgrid.Method;
         import com.sendgrid.Request;
         import com.sendgrid.Response;
