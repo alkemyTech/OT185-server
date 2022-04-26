@@ -1,8 +1,6 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.common.security.services.AuthenticationService;
-import com.alkemy.ong.common.security.services.UserDetailsCustomService;
-import com.alkemy.ong.common.security.utils.JwtUtil;
 import com.alkemy.ong.domain.usecase.UserService;
 import com.alkemy.ong.ports.input.rs.request.AuthenticationRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
