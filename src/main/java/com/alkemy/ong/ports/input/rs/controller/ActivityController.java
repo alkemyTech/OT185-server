@@ -28,13 +28,10 @@ public class ActivityController {
     }
 
     @PatchMapping("/{id}")
-    //@ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<ActivityResponse> updateActivity(@PathVariable Long id,
-                                                           @Valid @RequestBody ActivityRequest activityRequest
-    ) {
-        ActivityResponse response = activityService.updateActivity(activityRequest, id);
-
-        return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateActivity(@PathVariable Long id,
+                               @Valid @RequestBody ActivityRequest activityRequest) {
+        activityService.updateActivity(activityRequest, id);
     }
 
 

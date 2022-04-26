@@ -9,9 +9,6 @@ import com.alkemy.ong.ports.input.rs.request.ActivityRequest;
 import com.alkemy.ong.ports.input.rs.response.ActivityResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,9 +29,9 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public ActivityResponse updateActivity(ActivityRequest request, Long id) {
+    public void updateActivity(ActivityRequest request, Long id) {
 
-     /*   activityRepository.findById(id)
+        activityRepository.findById(id)
                 .map(activityJpa -> {
                     activityJpa.setName(request.getName());
                     activityJpa.setContent(request.getContent());
@@ -42,16 +39,6 @@ public class ActivityServiceImpl implements ActivityService {
                     activityRepository.save(activityJpa);
 
                     return mapper.activityToActivityResponse(activityJpa);
-                }).orElseThrow(()-> new NotFoundException(id));*/
-
-        Activity activity = activityRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
-        activity.setName(request.getName());
-        activity.setContent(request.getContent());
-        activity.setImage(request.getImage());
-
-        activityRepository.save(activity);
-
-        return mapper.activityToActivityResponse(activity);
-
+                }).orElseThrow(() -> new NotFoundException(id));
     }
 }
