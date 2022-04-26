@@ -27,7 +27,7 @@ public class ActivityController {
 
         ActivityResponse response = activityService.createActivity(activityRequest);
 
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<ActivityResponse>(response, HttpStatus.CREATED);
     }
 
 

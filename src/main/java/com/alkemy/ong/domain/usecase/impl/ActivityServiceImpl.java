@@ -8,6 +8,7 @@ import com.alkemy.ong.ports.input.rs.request.ActivityRequest;
 import com.alkemy.ong.ports.input.rs.response.ActivityResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityControllerMapper mapper;
 
+    @Transactional
     @Override
     public ActivityResponse createActivity(ActivityRequest request) {
 
