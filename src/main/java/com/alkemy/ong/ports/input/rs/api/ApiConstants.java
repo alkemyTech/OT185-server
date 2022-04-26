@@ -10,6 +10,7 @@ public interface ApiConstants {
     String MEMBERS_URI = "/v1/members";
     String SLIDES_URI = "/v1/slides";
     String CATEGORIES_URI = "/v1/categories";
+    String ACTIVITIES_URI= "/v1/activities";
 
 
     int DEFAULT_PAGE = 0;
