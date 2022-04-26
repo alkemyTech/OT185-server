@@ -4,7 +4,7 @@ import com.alkemy.ong.domain.model.Alkymer;
 import com.alkemy.ong.domain.model.AlkymerList;
 import com.alkemy.ong.domain.usecase.AlkymerService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
-import com.alkemy.ong.ports.input.rs.response.mapper.AlkymerControllerMapper;
+import com.alkemy.ong.ports.input.rs.mapper.AlkymerControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateAlkymerRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateAlkymerRequest;
 import com.alkemy.ong.ports.input.rs.response.AlkymerResponse;

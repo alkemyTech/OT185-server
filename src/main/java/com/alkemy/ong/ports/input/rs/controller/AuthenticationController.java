@@ -22,15 +22,17 @@ import javax.validation.Valid;
 public class AuthenticationController {
 
     private final AuthenticationService authService;
-
-    private final JwtUtil jwtUtil;
+    
 
     private final UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> userLogin(@Valid @RequestBody AuthenticationRequest authRequest) throws Exception {
 
-            String jwt = authService.singIn(authRequest);
+
+
+            String jwt = authService.singIn(authRequest.getEmail(), authRequest.getPassword());
+
 
             return ResponseEntity.ok(new AuthenticationResponse(jwt));
 

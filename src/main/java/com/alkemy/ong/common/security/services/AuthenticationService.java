@@ -19,13 +19,13 @@ public class AuthenticationService {
 
     private final JwtUtil jwtUtil;
 
-    public String singIn(AuthenticationRequest authRequest) throws Exception {
+    public String singIn(String email, String password) throws Exception {
 
         UserDetails userDetails;
 
         try {
 
-            Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+            Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
             userDetails = (UserDetails) auth.getPrincipal();
 
@@ -34,9 +34,9 @@ public class AuthenticationService {
             throw new Exception("Incorrect username or password", e.getCause());
         }
 
-        final String jwt = jwtUtil.generateToken(userDetails);
+        return  jwtUtil.generateToken(userDetails);
 
-        return jwt;
+
 
     }
 }
