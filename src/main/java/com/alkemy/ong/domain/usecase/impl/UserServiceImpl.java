@@ -4,8 +4,8 @@ import com.alkemy.ong.domain.model.Role;
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.repository.UserRepository;
 import com.alkemy.ong.domain.usecase.UserService;
+import com.alkemy.ong.ports.input.rs.mapper.UserMapper;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;
-import com.alkemy.ong.ports.input.rs.response.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.GrantedAuthority;

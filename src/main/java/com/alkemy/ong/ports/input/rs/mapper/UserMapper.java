@@ -1,4 +1,4 @@
-package com.alkemy.ong.ports.input.rs.response.mapper;
+package com.alkemy.ong.ports.input.rs.mapper;
 
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;
