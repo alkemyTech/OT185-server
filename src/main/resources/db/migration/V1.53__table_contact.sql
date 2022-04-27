@@ -11,9 +11,5 @@ create table contact (
     is_active  bit          not null,
     updated_at datetime(6)  null,
      primary key (contact_id)
-<<<<<<< HEAD
-=======
 
-
->>>>>>> feature/OT185-32
 ) engine = InnoDB;
