@@ -33,7 +33,7 @@ public class ActivityController {
 
         ActivityResponse response = activityService.updateActivity(activityRequest, id);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<ActivityResponse>(response, HttpStatus.OK);
     }
 
 
