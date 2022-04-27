@@ -21,7 +21,7 @@ public class ActivityServiceImpl implements ActivityService {
 
 
     @Override
-    public void updateActivity(Activity request, Long id) {
+    public void updateActivity(Long id, Activity request) {
 
         Activity activity = activityRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 

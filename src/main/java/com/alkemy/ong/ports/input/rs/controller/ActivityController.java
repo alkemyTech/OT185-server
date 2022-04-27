@@ -5,7 +5,6 @@ import com.alkemy.ong.domain.usecase.ActivityService;
 import com.alkemy.ong.ports.input.rs.mapper.ActivityControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.ActivityRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,12 +38,14 @@ public class ActivityController {
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateActivity(@Valid @NotNull @PathVariable Long id,
-                               @Valid @RequestBody ActivityRequest activityRequest) {
+    public ResponseEntity<?> updateActivity(@Valid @NotNull @PathVariable Long id,
+                                            @Valid @RequestBody ActivityRequest activityRequest) {
+
         Activity activity = mapper.activityRequestToActivity(activityRequest);
 
-        activityService.updateActivity(activity, id);
+        activityService.updateActivity(id, activity);
+
+        return ResponseEntity.ok(activity);
     }
 
 }
