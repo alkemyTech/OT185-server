@@ -1,8 +1,7 @@
 package com.alkemy.ong.domain.usecase;
 
-import com.alkemy.ong.ports.input.rs.request.ActivityRequest;
-import com.alkemy.ong.ports.input.rs.response.ActivityResponse;
+import com.alkemy.ong.domain.model.Activity;
 
 public interface ActivityService {
-    ActivityResponse createActivity(ActivityRequest request);
+    Long createActivity(Activity request);
 }
