@@ -6,6 +6,4 @@ public interface ActivityService {
     Long createActivity(Activity request);
 
     void updateActivity(Activity request, Long id);
-
-
 }

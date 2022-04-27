@@ -1,6 +1,9 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+<<<<<<< HEAD
 import com.alkemy.ong.common.exception.NotFoundException;
+=======
+>>>>>>> main
 import com.alkemy.ong.domain.model.Activity;
 import com.alkemy.ong.domain.repository.ActivityRepository;
 import com.alkemy.ong.domain.usecase.ActivityService;
@@ -19,6 +22,7 @@ public class ActivityServiceImpl implements ActivityService {
         return activityRepository.save(request).getId();
     }
 
+
     @Override
     public void updateActivity(Activity request, Long id) {
 
@@ -31,4 +35,5 @@ public class ActivityServiceImpl implements ActivityService {
         }
         activityRepository.save(activity);
     }
+
 }

@@ -5,6 +5,7 @@ import com.alkemy.ong.domain.usecase.ActivityService;
 import com.alkemy.ong.ports.input.rs.mapper.ActivityControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.ActivityRequest;
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+=======
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
+>>>>>>> main
 import java.net.URI;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.ACTIVITIES_URI;
@@ -46,6 +57,5 @@ public class ActivityController {
 
         activityService.updateActivity(activity, id);
     }
-
 
 }
