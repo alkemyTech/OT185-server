@@ -27,10 +27,9 @@ public class ActivityServiceImpl implements ActivityService {
 
         activity.setName(request.getName());
         activity.setContent(request.getContent());
-        if (request.getImage() != null) {
-            activity.setImage(request.getImage());
-        }
-       return activityRepository.save(activity);
+        activity.setImage(request.getImage());
+
+        return activityRepository.save(activity);
     }
 
 }
