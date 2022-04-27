@@ -29,16 +29,15 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public void updateActivity(ActivityRequest request, Long id) {
+    public ActivityResponse updateActivity(ActivityRequest request, Long id) {
 
-        activityRepository.findById(id)
-                .map(activityJpa -> {
-                    activityJpa.setName(request.getName());
-                    activityJpa.setContent(request.getContent());
-                    activityJpa.setImage(request.getImage());
-                    activityRepository.save(activityJpa);
+        Activity activity = activityRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 
-                    return mapper.activityToActivityResponse(activityJpa);
-                }).orElseThrow(() -> new NotFoundException(id));
+        activity.setName(request.getName());
+        activity.setContent(request.getContent());
+        activity.setImage(request.getImage());
+        activityRepository.save(activity);
+
+        return mapper.activityToActivityResponse(activity);
     }
 }

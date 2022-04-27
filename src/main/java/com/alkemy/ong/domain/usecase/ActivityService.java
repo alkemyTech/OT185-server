@@ -6,7 +6,7 @@ import com.alkemy.ong.ports.input.rs.response.ActivityResponse;
 public interface ActivityService {
     ActivityResponse createActivity(ActivityRequest request);
 
-    void updateActivity(ActivityRequest request, Long id);
+    ActivityResponse updateActivity(ActivityRequest request, Long id);
 
 
 }
