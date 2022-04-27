@@ -27,13 +27,13 @@ public class ActivityController {
         return new ResponseEntity<ActivityResponse>(response, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ActivityResponse> updateActivity(@PathVariable Long id,
                                                            @Valid @RequestBody ActivityRequest activityRequest) {
 
         ActivityResponse response = activityService.updateActivity(activityRequest, id);
 
-        return new ResponseEntity<ActivityResponse>(response, HttpStatus.OK);
+        return  ResponseEntity.ok(response);
     }
 
 
