@@ -10,6 +10,7 @@ public interface ApiConstants {
     String ORGANIZATIONS_URI = "/v1/organizations";
     String MEMBERS_URI = "/v1/members";
     String SLIDES_URI = "/v1/slides";
+    String NEWS_URI = "/v1/news";
     String TESTIMONIAL_URI = "/v1/testimonials";
     String CATEGORIES_URI = "/v1/categories";
 
