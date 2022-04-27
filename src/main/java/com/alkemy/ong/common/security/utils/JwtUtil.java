@@ -1,26 +1,40 @@
 package com.alkemy.ong.common.security.utils;
 
+import com.alkemy.ong.domain.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import java.security.Key;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 
-@Service
+@Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "4LK3MY232131232131231231231231231231231231232131231";
 
-    SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(SECRET_KEY));
+
+
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
+
+    private SecretKey key;
+    @PostConstruct
+    protected void init() {
+        this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
+    }
+
 
     public String extractUsername(String token) {
 
@@ -29,6 +43,7 @@ public class JwtUtil {
     }
 
     public Date extractExpiration(String token) {
+
         return extractClaim(token, Claims::getExpiration);
     }
 
@@ -37,6 +52,10 @@ public class JwtUtil {
         final Claims claims = extractAllClaims(token);
 
         return claimsResolver.apply(claims);
+    }
+
+    public String extractRole(String token){
+       return extractAllClaims(token).get("ROLE").toString();
     }
 
     public  Claims extractAllClaims(String token){
@@ -53,18 +72,23 @@ public class JwtUtil {
 
         Map<String,Object> claims = new HashMap<>();
 
-        return createToken(claims, userDetails.getUsername());
+        return createToken(claims, userDetails);
     }
 
-    private String createToken(Map<String, Object> claims, String subject){
+    private String createToken(Map<String, Object> claims, UserDetails userDetails){
 
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+        return Jwts.builder()
+                .claim("ROLE", userDetails.getAuthorities().getClass().getName())
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+ 1000*60*60*10))
                 .signWith(key).compact();
     }
 
 
     public Boolean validateToken(String token, UserDetails userDetails){
+
+        System.out.println("Entro aca");
 
         final String username = extractUsername(token);
 

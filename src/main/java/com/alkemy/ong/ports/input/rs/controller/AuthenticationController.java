@@ -1,9 +1,11 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
-
 import com.alkemy.ong.common.security.services.AuthenticationService;
-import com.alkemy.ong.common.security.services.UserDetailsCustomService;
+
+
+import com.alkemy.ong.domain.usecase.UserService;
 import com.alkemy.ong.ports.input.rs.request.AuthenticationRequest;
+import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,22 +16,34 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@RequestMapping("auth")
 @RestController
 @RequiredArgsConstructor
 public class AuthenticationController {
 
     private final AuthenticationService authService;
+    
 
-    private final UserDetailsCustomService userDetailsCustomService;
+    private final UserService userService;
 
-    @PostMapping("auth/login")
-    public ResponseEntity<?> userLogin(@Valid @RequestBody AuthenticationRequest authRequest) {
-        return ResponseEntity.ok(this.authService.login(authRequest));
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> userLogin(@Valid @RequestBody AuthenticationRequest authRequest) throws Exception {
+
+
+        String jwt = authService.singIn(authRequest.getEmail(), authRequest.getPassword());
+
+
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+
+
     }
-
     @GetMapping("/me")
     @ResponseStatus(HttpStatus.OK)
     public UserResponse meData(@CurrentSecurityContext(expression = "authentication") Authentication authentication) {
-        return userDetailsCustomService.meData(authentication.getName());
+
+        return userService.meData(authentication.getName());
     }
+
 }
+
+

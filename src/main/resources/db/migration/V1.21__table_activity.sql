@@ -4,7 +4,7 @@ create table activity
 (
    activity_id    bigint       not null,
    name  varchar(255)  not null,
-   content  varchar(255)  not null,
+   content  TEXT  not null,
    image  varchar(255)  not null,
 
    created_at datetime(6)  not null,
