@@ -13,6 +13,7 @@ public interface ApiConstants {
     String NEWS_URI = "/v1/news";
     String TESTIMONIAL_URI = "/v1/testimonials";
     String CATEGORIES_URI = "/v1/categories";
+    String ACTIVITIES_URI= "/v1/activities";
 
     int DEFAULT_PAGE = 0;
     int DEFAULT_PAGE_SIZE = 10;
