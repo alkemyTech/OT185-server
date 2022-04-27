@@ -21,7 +21,7 @@ public class ActivityServiceImpl implements ActivityService {
 
 
     @Override
-    public void updateActivity(Long id, Activity request) {
+    public Activity updateActivity(Long id, Activity request) {
 
         Activity activity = activityRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 
@@ -30,7 +30,7 @@ public class ActivityServiceImpl implements ActivityService {
         if (request.getImage() != null) {
             activity.setImage(request.getImage());
         }
-        activityRepository.save(activity);
+       return activityRepository.save(activity);
     }
 
 }
