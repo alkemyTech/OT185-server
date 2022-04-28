@@ -7,11 +7,12 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
+@Slf4j
 public class SendGridEmailService implements EmailService {
 
     private final SendGrid sendGridClient;
@@ -23,9 +24,10 @@ public class SendGridEmailService implements EmailService {
     }
 
     @Override
+
     public void sendText(String from, String to, String subject, String body) {
         Response response = sendEmail(from, to, subject, new Content("text/plain", body));
-        System.out.println("Status Code: " + response.getStatusCode() + ", Body: " + response.getBody() + ", Headers: "
+        log.info("Status Code: " + response.getStatusCode() + ", Body: " + response.getBody() + ", Headers: "
                 + response.getHeaders());
 
     }
@@ -33,11 +35,11 @@ public class SendGridEmailService implements EmailService {
     @Override
     public void sendHTML(String from, String to, String subject, String body) {
         Response response = sendEmail(from, to, subject, new Content("text/html", body));
-        System.out.println("Status Code: " + response.getStatusCode() + ", Body: " + response.getBody() + ", Headers: "
+        log.info("Status Code: " + response.getStatusCode() + ", Body: " + response.getBody() + ", Headers: "
                 + response.getHeaders());
     }
 
-    private Response sendEmail(String from, String to, String subject, Content content) {
+    private Response sendEmail(String from, String to, String subject, Content content){
         Mail mail = new Mail(new Email(from), subject, new Email(to), content);
         mail.setReplyTo(new Email("abc@gmail.com"));
         Request request = new Request();
@@ -48,7 +50,9 @@ public class SendGridEmailService implements EmailService {
             request.setBody(mail.build());
             this.sendGridClient.api(request);
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            log.error(ex.getMessage());
+        }catch (RuntimeException ex ){
+            log.error(ex.getMessage());
         }
         return response;
     }
