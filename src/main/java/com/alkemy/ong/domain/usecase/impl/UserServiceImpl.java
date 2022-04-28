@@ -1,10 +1,10 @@
-package com.alkemy.ong.domain.repository.usecase.impl;
+package com.alkemy.ong.domain.usecase.impl;
 
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Role;
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.repository.UserRepository;
-import com.alkemy.ong.domain.repository.usecase.UserService;
+import com.alkemy.ong.domain.usecase.UserService;
 import com.alkemy.ong.ports.input.rs.mapper.UserMapper;
 import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;

@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain.repository.usecase;
+package com.alkemy.ong.domain.usecase;
 
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;

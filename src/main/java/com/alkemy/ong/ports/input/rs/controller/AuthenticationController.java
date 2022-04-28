@@ -3,7 +3,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.common.security.services.AuthenticationService;
 
 
-import com.alkemy.ong.domain.repository.usecase.UserService;
+import com.alkemy.ong.domain.usecase.UserService;
 import com.alkemy.ong.ports.input.rs.request.AuthenticationRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;

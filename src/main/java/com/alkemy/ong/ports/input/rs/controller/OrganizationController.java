@@ -1,7 +1,7 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.domain.model.Organization;
-import com.alkemy.ong.domain.repository.usecase.OrganizationService;
+import com.alkemy.ong.domain.usecase.OrganizationService;
 import com.alkemy.ong.ports.input.rs.mapper.OrganizationControllerMapper;
 import com.alkemy.ong.ports.input.rs.response.OrganizationResponse;
 import lombok.RequiredArgsConstructor;

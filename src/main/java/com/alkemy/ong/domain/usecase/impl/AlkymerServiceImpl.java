@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain.repository.usecase.impl;
+package com.alkemy.ong.domain.usecase.impl;
 
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Alkymer;
@@ -6,7 +6,7 @@ import com.alkemy.ong.domain.model.AlkymerList;
 import com.alkemy.ong.domain.model.Skill;
 import com.alkemy.ong.domain.repository.AlkymerRepository;
 import com.alkemy.ong.domain.repository.SkillRepository;
-import com.alkemy.ong.domain.repository.usecase.AlkymerService;
+import com.alkemy.ong.domain.usecase.AlkymerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

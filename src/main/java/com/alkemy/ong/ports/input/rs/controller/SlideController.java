@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.alkemy.ong.domain.repository.usecase.SlideService;
+import com.alkemy.ong.domain.usecase.SlideService;
 import lombok.RequiredArgsConstructor;
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.SLIDES_URI;
 import javax.validation.Valid;

@@ -1,6 +1,6 @@
-package com.alkemy.ong.domain.repository.usecase.impl;
+package com.alkemy.ong.domain.usecase.impl;
 
-import com.alkemy.ong.domain.repository.usecase.MemberService;
+import com.alkemy.ong.domain.usecase.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

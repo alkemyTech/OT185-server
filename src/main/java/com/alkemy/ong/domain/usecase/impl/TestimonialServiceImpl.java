@@ -1,7 +1,7 @@
-package com.alkemy.ong.domain.repository.usecase.impl;
+package com.alkemy.ong.domain.usecase.impl;
 
 import com.alkemy.ong.domain.repository.TestimonialRepository;
-import com.alkemy.ong.domain.repository.usecase.TestimonialService;
+import com.alkemy.ong.domain.usecase.TestimonialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
