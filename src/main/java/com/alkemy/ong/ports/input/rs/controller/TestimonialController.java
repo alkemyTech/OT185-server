@@ -6,14 +6,12 @@ import com.alkemy.ong.ports.input.rs.mapper.TestimonialControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateTestimonialRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import java.net.URI;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.TESTIMONIAL_URI;
 
