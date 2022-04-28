@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain.usecase;
+package com.alkemy.ong.domain.repository.usecase;
 
 public interface TestimonialService {
     void deleteById(Long id);

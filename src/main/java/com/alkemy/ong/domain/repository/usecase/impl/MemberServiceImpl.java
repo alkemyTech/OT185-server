@@ -1,10 +1,10 @@
-package com.alkemy.ong.domain.usecase.impl;
+package com.alkemy.ong.domain.repository.usecase.impl;
 
+import com.alkemy.ong.domain.repository.usecase.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alkemy.ong.domain.repository.MemberRepository;
-import com.alkemy.ong.domain.usecase.MemberService;
 import lombok.RequiredArgsConstructor;
 
 @Service

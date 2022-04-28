@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain.usecase;
+package com.alkemy.ong.domain.repository.usecase;
 
 import com.alkemy.ong.domain.model.Alkymer;
 import com.alkemy.ong.domain.model.AlkymerList;

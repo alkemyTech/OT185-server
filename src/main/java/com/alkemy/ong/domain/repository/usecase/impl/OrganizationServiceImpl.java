@@ -1,9 +1,9 @@
-package com.alkemy.ong.domain.usecase.impl;
+package com.alkemy.ong.domain.repository.usecase.impl;
 
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Organization;
 import com.alkemy.ong.domain.repository.OrganizationRepository;
-import com.alkemy.ong.domain.usecase.OrganizationService;
+import com.alkemy.ong.domain.repository.usecase.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

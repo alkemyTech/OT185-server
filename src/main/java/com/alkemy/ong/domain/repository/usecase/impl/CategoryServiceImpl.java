@@ -1,7 +1,7 @@
-package com.alkemy.ong.domain.usecase.impl;
+package com.alkemy.ong.domain.repository.usecase.impl;
 
 import com.alkemy.ong.domain.repository.CategoryRepository;
-import com.alkemy.ong.domain.usecase.CategoryService;
+import com.alkemy.ong.domain.repository.usecase.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

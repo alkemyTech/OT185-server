@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain.usecase;
+package com.alkemy.ong.domain.repository.usecase;
 
 public interface SlideService {
 	void deleteById(Long id);

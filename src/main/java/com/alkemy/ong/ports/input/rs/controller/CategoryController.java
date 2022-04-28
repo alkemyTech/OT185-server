@@ -1,6 +1,6 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
-import com.alkemy.ong.domain.usecase.CategoryService;
+import com.alkemy.ong.domain.repository.usecase.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

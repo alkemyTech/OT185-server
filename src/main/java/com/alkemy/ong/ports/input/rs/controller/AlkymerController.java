@@ -2,7 +2,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.domain.model.Alkymer;
 import com.alkemy.ong.domain.model.AlkymerList;
-import com.alkemy.ong.domain.usecase.AlkymerService;
+import com.alkemy.ong.domain.repository.usecase.AlkymerService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.mapper.AlkymerControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateAlkymerRequest;

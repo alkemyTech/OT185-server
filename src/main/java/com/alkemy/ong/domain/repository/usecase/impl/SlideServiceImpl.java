@@ -1,9 +1,9 @@
-package com.alkemy.ong.domain.usecase.impl;
+package com.alkemy.ong.domain.repository.usecase.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.alkemy.ong.domain.repository.SlideRepository;
-import com.alkemy.ong.domain.usecase.SlideService;
+import com.alkemy.ong.domain.repository.usecase.SlideService;
 import lombok.RequiredArgsConstructor;
 
 @Service

@@ -1,10 +1,12 @@
-package com.alkemy.ong.domain.usecase.impl;
+package com.alkemy.ong.domain.repository.usecase.impl;
 
+import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Role;
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.repository.UserRepository;
-import com.alkemy.ong.domain.usecase.UserService;
+import com.alkemy.ong.domain.repository.usecase.UserService;
 import com.alkemy.ong.ports.input.rs.mapper.UserMapper;
+import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -25,14 +27,14 @@ import java.util.Set;
 public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserMapper userMapper;
-    private final UserRepository userRepository;
+    private final UserRepository userJpaRepository;
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
 
-        Optional<User> user = userRepository.findUserByEmail(email);
+        Optional<User> user = userJpaRepository.findUserByEmail(email);
 
         if (user.isEmpty()) {
 
@@ -45,19 +47,49 @@ public class UserServiceImpl implements UserDetailsService, UserService {
                         true, getAuthorities(user.get()));
     }
 
-        public Optional<User> findUserByEmail(String email) throws UsernameNotFoundException {
-            return userRepository.findUserByEmail(email);
+        private Optional<User> findUserById(Long id) throws UsernameNotFoundException {
+            return userJpaRepository.findById(id);
 
         }
 
         public UserResponse meData(String email) {
 
-            Optional<User> user = findUserByEmail(email);
+            Optional<User> user = userJpaRepository.findUserByEmail(email);
 
-            UserResponse userResponse = userMapper.toDto(user.get());
+            UserResponse userResponse = userMapper.usertoUserResponse(user.get());
 
             return userResponse;
         }
+
+
+    @Override
+    @Transactional
+    public void updateEntityIfExists(Long id, UpdateUserRequest updateUserRequest) {
+        User user = userMapper.updateUserRequestToUser(updateUserRequest);
+        findUserById(id)
+                .map(userJpa -> {
+                    Optional.ofNullable(user.getEmail()).ifPresent(userJpa::setEmail);
+                    Optional.ofNullable(user.getFirstName()).ifPresent(userJpa::setFirstName);
+                    Optional.ofNullable(user.getLastName()).ifPresent(userJpa::setLastName);
+                    Optional.ofNullable(user.getPhoto()).ifPresent(userJpa::setPhoto);
+                    Optional.ofNullable(user.getRole()).ifPresent(userJpa::setRole);
+                    Optional.ofNullable(user.getPassword()).ifPresent(userJpa::setPassword);
+
+                    return userMapper.userToUpdateUserResponse(userJpaRepository.save(userJpa));
+                }).orElseThrow(() -> new NotFoundException(id));
+    }
+
+
+
+    @Override
+    @Transactional
+    public void deleteUserById(Long id) {
+
+        findUserById(id).ifPresent(userJpaRepository::delete);
+    }
+
+
+
 
     private static Set<? extends GrantedAuthority> getAuthorities(User user) {
 
