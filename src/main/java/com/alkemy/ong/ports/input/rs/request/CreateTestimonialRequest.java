@@ -16,7 +16,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TestimonialRequest {
+public class CreateTestimonialRequest {
 
     @NotBlank
     @JsonProperty("name")
