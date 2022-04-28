@@ -32,15 +32,9 @@ public class TestimonialController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createTestimonial(@Valid @RequestBody CreateTestimonialRequest createTestimonialRequest) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createTestimonial(@Valid @RequestBody CreateTestimonialRequest createTestimonialRequest) {
         Testimonial testimonial = mapper.createTestimonialRequestToTestimonial(createTestimonialRequest);
-
-        final long id = testimonialService.createEntity(testimonial);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("{/id}").buildAndExpand(id)
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+        testimonialService.createEntity(testimonial);
     }
 }

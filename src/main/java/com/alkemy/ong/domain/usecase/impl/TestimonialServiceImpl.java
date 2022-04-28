@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+import com.alkemy.ong.domain.model.Testimonial;
 import com.alkemy.ong.domain.repository.TestimonialRepository;
 import com.alkemy.ong.domain.usecase.TestimonialService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,12 @@ import javax.transaction.Transactional;
 public class TestimonialServiceImpl implements TestimonialService {
 
     private final TestimonialRepository testimonialRepository;
+
+    @Override
+    @Transactional
+    public void createEntity(Testimonial testimonial) {
+        testimonialRepository.save(testimonial);
+    }
 
     @Override
     @Transactional
