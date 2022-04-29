@@ -15,9 +15,9 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-
 @RequestMapping(method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
+
 
 @Operation(summary = "get resource", description = "get resource by ID if exist", responses = {
         @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
@@ -26,3 +26,4 @@ import java.lang.annotation.Target;
 })
 public @interface ApiGetByIdMappingDocs {
 }
+
