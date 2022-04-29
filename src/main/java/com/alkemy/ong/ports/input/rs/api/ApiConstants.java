@@ -14,6 +14,8 @@ public interface ApiConstants {
     String TESTIMONIAL_URI = "/v1/testimonials";
     String CATEGORIES_URI = "/v1/categories";
     String ACTIVITIES_URI= "/v1/activities";
+    String USER_URI = "/v1/users";
+
 
     int DEFAULT_PAGE = 0;
     int DEFAULT_PAGE_SIZE = 10;
