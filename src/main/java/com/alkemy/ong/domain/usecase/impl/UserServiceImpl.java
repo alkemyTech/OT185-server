@@ -32,19 +32,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-
-        Optional<User> user = userJpaRepository.findUserByEmail(email);
-
-        if (user.isEmpty()) {
-
-            throw new UsernameNotFoundException("username or password not fount".formatted(email));
-
-        }
-
-        return new org.springframework.security.core.userdetails.User
-                (user.get().getUsername(), user.get().getPassword(), true, true, true,
-                        true, getAuthorities(user.get()));
+        
+        return userJpaRepository.findUserByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User name: %s not found".formatted(email)));
     }
 
         private Optional<User> findUserById(Long id) throws UsernameNotFoundException {
