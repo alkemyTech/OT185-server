@@ -2,8 +2,6 @@ package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.domain.model.Organization;
 import com.alkemy.ong.domain.usecase.OrganizationService;
-import com.alkemy.ong.ports.input.rs.api.ApiGetByIdMappingDocs;
-import com.alkemy.ong.ports.input.rs.api.ApiResponsesBody.ApiOrganizationResponseDocs;
 import com.alkemy.ong.ports.input.rs.mapper.OrganizationControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.UpdateOrganizationRequest;
 import com.alkemy.ong.ports.input.rs.response.OrganizationResponse;
@@ -26,8 +24,6 @@ public class OrganizationController {
     private final OrganizationControllerMapper mapper;
 
     @GetMapping("/public/{id}")
-    @ApiGetByIdMappingDocs
-    @ApiOrganizationResponseDocs
     public ResponseEntity<OrganizationResponse> getOrganization(@Valid @NotNull @PathVariable Long id) {
         Organization organization = service.getByIdIfExists(id);
         OrganizationResponse response = mapper.organizationToOrganizationResponse(organization);
