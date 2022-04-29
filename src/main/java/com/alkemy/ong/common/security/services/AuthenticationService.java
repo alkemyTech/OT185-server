@@ -2,6 +2,8 @@ package com.alkemy.ong.common.security.services;
 
 import com.alkemy.ong.common.security.utils.JwtUtil;
 
+
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,6 +22,7 @@ public class AuthenticationService {
 
     private final JwtUtil jwtUtil;
 
+
     public String singIn(String email, String password) {
 
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
@@ -29,6 +32,8 @@ public class AuthenticationService {
 
 
 
+
     }
+
 
 }

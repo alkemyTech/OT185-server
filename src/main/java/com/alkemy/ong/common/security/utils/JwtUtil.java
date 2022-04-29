@@ -23,9 +23,6 @@ import javax.crypto.SecretKey;
 @Component
 public class JwtUtil {
 
-
-
-
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
@@ -82,7 +79,9 @@ public class JwtUtil {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+ 1000*60*60*10))
-                .signWith(key).compact();
+
+                .signWith(key, SignatureAlgorithm.HS256).compact();
+
     }
 
 
