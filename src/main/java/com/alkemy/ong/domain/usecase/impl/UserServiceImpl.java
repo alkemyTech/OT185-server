@@ -4,7 +4,7 @@ package com.alkemy.ong.domain.usecase.impl;
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.repository.UserRepository;
 import com.alkemy.ong.domain.usecase.UserService;
-import com.alkemy.ong.ports.input.rs.mapper.UserMapper;
+import com.alkemy.ong.ports.input.rs.mapper.AuthenticationControllerMapper;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserDetailsService, UserService {
 
 
-    private final UserMapper userMapper;
+
     private final UserRepository userRepository;
 
     private final UserRepository userJpaRepository;
@@ -39,13 +39,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
         }
 
-        public UserResponse meData(String email) {
+        public Optional<User> meData(String email) {
 
             Optional<User> user = findUserByEmail(email);
 
-            UserResponse userResponse = userMapper.toDto(user.get());
 
-            return userResponse;
+
+            return user;
         }
 
 
