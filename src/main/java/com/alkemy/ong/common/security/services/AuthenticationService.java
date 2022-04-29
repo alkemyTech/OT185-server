@@ -20,22 +20,12 @@ public class AuthenticationService {
 
     private final JwtUtil jwtUtil;
 
-    public String singIn(String email, String password) throws Exception {
+    public String singIn(String email, String password) {
 
-        UserDetails userDetails;
-
-        try {
-
-            Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-
-            userDetails = (UserDetails) auth.getPrincipal();
-
-        } catch (BadCredentialsException e) {
-
-            throw new Exception("Incorrect username or password", e.getCause());
-        }
-
+        Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
         return  jwtUtil.generateToken(userDetails);
+
 
 
 
