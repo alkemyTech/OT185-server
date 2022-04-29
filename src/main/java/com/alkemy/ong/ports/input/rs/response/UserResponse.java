@@ -24,6 +24,6 @@ public class UserResponse {
 
     private String photo;
 
-   
+
 
 }
