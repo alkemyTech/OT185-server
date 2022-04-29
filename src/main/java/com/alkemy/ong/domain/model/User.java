@@ -39,22 +39,22 @@ public class User implements Auditable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "user_id", updatable = false)
     private Long id;
 
-    @Column(name = "first_name", nullable = false, updatable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, updatable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "email", nullable = false, updatable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false, updatable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "photo", nullable = false, updatable = false)
+    @Column(name = "photo", nullable = false)
     private String photo;
 
     @ManyToOne

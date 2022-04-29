@@ -26,14 +26,14 @@ public class AuthenticationController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> userLogin(@Valid @RequestBody AuthenticationRequest authRequest) throws Exception {
+    public ResponseEntity<AuthenticationResponse> userLogin(@Valid @RequestBody AuthenticationRequest authRequest)  {
 
 
+        String jwt = authService.singIn(authRequest.getEmail(), authRequest.getPassword());
 
-            String jwt = authService.singIn(authRequest.getEmail(), authRequest.getPassword());
 
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
 
-            return ResponseEntity.ok(new AuthenticationResponse(jwt));
 
 
     }
@@ -43,6 +43,7 @@ public class AuthenticationController {
     public UserResponse meData(@CurrentSecurityContext(expression = "authentication") Authentication authentication) {
         return userService.meData(authentication.getName());
     }
+
 
 }
 

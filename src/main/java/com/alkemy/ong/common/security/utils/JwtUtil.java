@@ -32,6 +32,7 @@ public class JwtUtil {
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
     }
 
+
     public String extractUsername(String token) {
 
         return extractClaim(token, Claims::getSubject);
@@ -78,7 +79,9 @@ public class JwtUtil {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+ 1000*60*60*10))
+
                 .signWith(key, SignatureAlgorithm.HS256).compact();
+
     }
 
 

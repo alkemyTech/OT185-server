@@ -26,9 +26,11 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
+nb-configuration.xml
 !**/src/main/**/build/
 !**/src/test/**/build/
 nb-configuration.xml
+
 
 ### VS Code ###
 .vscode/

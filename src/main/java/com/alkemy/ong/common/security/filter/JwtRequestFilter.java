@@ -1,18 +1,14 @@
 package com.alkemy.ong.common.security.filter;
 
 import com.alkemy.ong.common.security.utils.JwtUtil;
-import com.alkemy.ong.domain.model.Role;
-import lombok.AllArgsConstructor;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-
-
 import java.io.IOException;
-import java.util.Collection;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
