@@ -2,7 +2,6 @@ package com.alkemy.ong.domain.usecase.impl;
 
 import com.alkemy.ong.domain.repository.UserRepository;
 import com.alkemy.ong.domain.usecase.UserService;
-import com.alkemy.ong.ports.input.rs.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserServiceImpl implements UserDetailsService, UserService {
 
-    private final UserMapper userMapper;
     private final UserRepository userJpaRepository;
 
     @Override
