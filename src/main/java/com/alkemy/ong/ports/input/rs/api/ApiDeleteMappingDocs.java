@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @RequestMapping(method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
 
-@Operation(summary = "update new resource", description = "update a resource completely", responses = {
+@Operation(summary = "delete resource", description = "delete resource by id if exist", responses = {
         @ApiResponse(responseCode = "204", description = "deleted resource "),
         @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
         @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
