@@ -6,12 +6,8 @@ import com.alkemy.ong.common.security.services.AuthenticationService;
 import com.alkemy.ong.domain.usecase.UserService;
 import com.alkemy.ong.ports.input.rs.request.AuthenticationRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
-import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,12 +33,7 @@ public class AuthenticationController {
 
 
     }
-    @GetMapping("/me")
-    @ResponseStatus(HttpStatus.OK)
-    public UserResponse meData(@CurrentSecurityContext(expression = "authentication") Authentication authentication) {
 
-        return userService.meData(authentication.getName());
-    }
 
 }
 
