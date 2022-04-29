@@ -1,5 +1,6 @@
 package com.alkemy.ong.ports.input.rs.api;
 
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,14 +16,13 @@ import java.lang.annotation.Target;
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 
-@RequestMapping(method = RequestMethod.DELETE,
+@RequestMapping(method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
 
-@Operation(summary = "update new resource", description = "update a resource completely", responses = {
-        @ApiResponse(responseCode = "204", description = "deleted resource "),
+@Operation(summary = "get resource", description = "get resource by ID if exist", responses = {
         @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
         @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
         @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
 })
-public @interface ApiDeleteMappingDocs {
+public @interface ApiGetByIdMappingDocs {
 }

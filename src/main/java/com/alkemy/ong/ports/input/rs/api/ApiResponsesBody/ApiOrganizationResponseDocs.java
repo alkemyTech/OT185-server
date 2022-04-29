@@ -9,7 +9,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
 /*
  * annotation to document the body returned by the PUT method
  */
@@ -17,8 +16,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 
-@ApiResponse(responseCode = "200", description = "update resource ",
+@ApiResponse(responseCode = "200", description = "OK",
         content = {@Content(mediaType = "application/json",
                 schema = @Schema(implementation = OrganizationResponse.class))})
-public @interface ApiCategoryResponse {
+
+public @interface ApiOrganizationResponseDocs {
 }

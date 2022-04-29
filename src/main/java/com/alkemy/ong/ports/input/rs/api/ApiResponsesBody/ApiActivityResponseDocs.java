@@ -20,5 +20,5 @@ import java.lang.annotation.Target;
         content = {@Content(mediaType = "application/json",
                 schema = @Schema(implementation = ActivityResponse.class))})
 
-public @interface ApiActivityResponse {
+public @interface ApiActivityResponseDocs {
 }
