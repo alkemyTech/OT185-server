@@ -1,12 +1,9 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.domain.usecase.MemberService;
-import com.alkemy.ong.ports.input.rs.api.ApiDeleteMappingDocs;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -21,7 +18,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @DeleteMapping("/{id}")
-    @ApiDeleteMappingDocs
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMember(@Valid @NotNull @PathVariable Long id) {
         memberService.deleteById(id);
     }

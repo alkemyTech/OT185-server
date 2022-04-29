@@ -1,7 +1,6 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.domain.usecase.CategoryService;
-import com.alkemy.ong.ports.input.rs.api.ApiDeleteMappingDocs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @DeleteMapping("/{id}")
-    @ApiDeleteMappingDocs
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@Valid @NotNull @PathVariable Long id) {
         categoryService.deleteById(id);
     }
