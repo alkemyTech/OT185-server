@@ -35,9 +35,7 @@ public class AuthenticationController {
 
         String jwt = authService.singIn(authRequest.getEmail(), authRequest.getPassword());
 
-
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
-
 
 
     }
@@ -45,7 +43,7 @@ public class AuthenticationController {
     @GetMapping("/me")
     @ResponseStatus(HttpStatus.OK)
     public UserResponse meData(@AuthenticationPrincipal User user) {
-        return authenticationControllerMapper.toDto(userService.meData(user.getEmail()).get());
+        return authenticationControllerMapper.toDto(user);
     }
 
 
