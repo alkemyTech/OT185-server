@@ -25,23 +25,23 @@ public class SendGridEmailService implements EmailService {
 
     @Override
 
-    public void sendText(String from, String to, String subject, String body) {
-        Response response = sendEmail(from, to, subject, new Content("text/plain", body));
+    public void sendText(String from, String subject, String body) {
+        Response response = sendEmail(from,  subject, new Content("text/plain", body));
         log.info("Status Code: " + response.getStatusCode() + ", Body: " + response.getBody() + ", Headers: "
                 + response.getHeaders());
 
     }
 
     @Override
-    public void sendHTML(String from, String to, String subject, String body) {
-        Response response = sendEmail(from, to, subject, new Content("text/html", body));
+    public void sendHTML(String from,  String subject, String body) {
+        Response response = sendEmail(from, subject, new Content("text/html", body));
         log.info("Status Code: " + response.getStatusCode() + ", Body: " + response.getBody() + ", Headers: "
                 + response.getHeaders());
     }
 
-    private Response sendEmail(String from, String to, String subject, Content content){
-        Mail mail = new Mail(new Email(from), subject, new Email(to), content);
-        mail.setReplyTo(new Email("abc@gmail.com"));
+    private Response sendEmail(String from,  String subject, Content content){
+        Mail mail = new Mail(new Email(from), subject, new Email(), content);
+        mail.setReplyTo(new Email("somosfundacionmas@gmail.com"));
         Request request = new Request();
         Response response = null;
         try {
@@ -50,9 +50,8 @@ public class SendGridEmailService implements EmailService {
             request.setBody(mail.build());
             this.sendGridClient.api(request);
         } catch (IOException ex) {
-            log.error(ex.getMessage());
-        }catch (RuntimeException ex ){
-            log.error(ex.getMessage());
+            log.error("Error sending email", ex);
+            throw new RuntimeException("Error sending email due " + ex);
         }
         return response;
     }
