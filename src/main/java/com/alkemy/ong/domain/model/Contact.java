@@ -41,6 +41,7 @@ public class Contact implements Auditable {
     private String message;
 
 
+
     @Embedded
     private Audit audit;
 
