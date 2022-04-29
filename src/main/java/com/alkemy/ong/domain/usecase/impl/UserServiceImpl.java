@@ -62,30 +62,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         }
 
 
-    @Override
-    @Transactional
-    public void updateEntityIfExists(Long id, UpdateUserRequest updateUserRequest) {
-        User user = userMapper.updateUserRequestToUser(updateUserRequest);
-        findUserById(id)
-                .map(userJpa -> {
-                    Optional.ofNullable(user.getFirstName()).ifPresent(userJpa::setFirstName);
-                    Optional.ofNullable(user.getLastName()).ifPresent(userJpa::setLastName);
-                    Optional.ofNullable(user.getPhoto()).ifPresent(userJpa::setPhoto);
-                    Optional.ofNullable(user.getPassword()).ifPresent(userJpa::setPassword);
-                    Optional.ofNullable(user.getRole()).ifPresent(userJpa::setRole);
 
-                    return userMapper.userToUpdateUserResponse(userJpaRepository.save(userJpa));
-                }).orElseThrow(() -> new NotFoundException(id));
-    }
 
 
 
     @Override
     @Transactional
-    public void deleteUserById(Long id) {
-
-        findUserById(id).ifPresent(userJpaRepository::delete);
-    }
+    public void deleteUserById(Long id) {findUserById(id).ifPresent(userJpaRepository::delete);}
 
 
 

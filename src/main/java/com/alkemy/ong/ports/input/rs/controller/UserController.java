@@ -19,12 +19,6 @@ public class UserController {
     private final UserService userService;
 
 
-    @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateUser(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateUserRequest) {
-
-        userService.updateEntityIfExists(id, updateUserRequest);
-    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -13,7 +13,7 @@ public interface UserService {
 
    UserResponse meData(String email);
 
-   void updateEntityIfExists(Long id, UpdateUserRequest updateUserRequest);
+
 
    void deleteUserById(Long id);
 
