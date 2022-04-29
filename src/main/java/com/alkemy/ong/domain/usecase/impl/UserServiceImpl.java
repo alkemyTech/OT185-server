@@ -30,19 +30,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-
-        Optional<User> user = userRepository.findUserByEmail(email);
-
-        if (user.isEmpty()) {
-
-            throw new UsernameNotFoundException("username or password not fount".formatted(email));
-
-        }
-
-        return new org.springframework.security.core.userdetails.User
-                (user.get().getUsername(), user.get().getPassword(), true, true, true,
-                        true, getAuthorities(user.get()));
+        return userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User name: %s not found".formatted(email)));
     }
 
         public Optional<User> findUserByEmail(String email) throws UsernameNotFoundException {
@@ -59,15 +48,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
             return userResponse;
         }
 
-    private static Set<? extends GrantedAuthority> getAuthorities(User user) {
-
-        Role role = user.getRole();
-        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        System.out.println(role.getName());
-        authorities.add(new SimpleGrantedAuthority(role.getName()));
-
-        return authorities;
-    }
 
 }
 
