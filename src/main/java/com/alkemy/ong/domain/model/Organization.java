@@ -3,11 +3,13 @@ package com.alkemy.ong.domain.model;
 import com.alkemy.ong.domain.model.audit.Audit;
 import com.alkemy.ong.domain.model.audit.AuditListener;
 import com.alkemy.ong.domain.model.audit.Auditable;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
-
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -26,7 +28,7 @@ import java.util.Set;
 public class Organization implements Auditable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "organization_id")
     private Long id;
 
@@ -45,13 +47,22 @@ public class Organization implements Auditable {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "welcomeText", nullable = false )
-    @Type(type="text")
+    @Column(name = "welcome_text", nullable = false)
+    @Type(type = "text")
     private String welcomeText;
 
-    @Column(name = "aboutUsText")
-    @Type(type="text")
+    @Column(name = "about_us_text")
+    @Type(type = "text")
     private String aboutUsText;
+
+    @Column(name = "facebook_url")
+    private String facebookUrl;
+
+    @Column(name = "linkedin_url")
+    private String linkedinUrl;
+
+    @Column(name = "instagram_Url")
+    private String instagramUrl;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
