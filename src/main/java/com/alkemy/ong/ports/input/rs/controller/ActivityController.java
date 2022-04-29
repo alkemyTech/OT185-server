@@ -2,6 +2,8 @@ package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.domain.model.Activity;
 import com.alkemy.ong.domain.usecase.ActivityService;
+import com.alkemy.ong.ports.input.rs.api.ApiPostMapping;
+import com.alkemy.ong.ports.input.rs.api.ApiPutMapping;
 import com.alkemy.ong.ports.input.rs.mapper.ActivityControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.ActivityRequest;
 import com.alkemy.ong.ports.input.rs.response.ActivityResponse;
@@ -24,7 +26,8 @@ public class ActivityController {
     private final ActivityService activityService;
     private final ActivityControllerMapper mapper;
 
-    @PostMapping
+
+    @ApiPostMapping
     public ResponseEntity<Void> createActivity(@Valid @RequestBody ActivityRequest activityRequest) {
 
         Activity activity = mapper.activityRequestToActivity(activityRequest);
@@ -38,7 +41,7 @@ public class ActivityController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping("/{id}")
+   @ApiPutMapping("/{id}")
     public ResponseEntity<ActivityResponse> updateActivity(@Valid @NotNull @PathVariable Long id,
                                                            @Valid @RequestBody ActivityRequest activityRequest) {
 
