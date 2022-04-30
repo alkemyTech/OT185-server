@@ -24,4 +24,13 @@ public class OrganizationResponse {
 
     @JsonProperty("address")
     private String address;
+
+    @JsonProperty("facebook_url")
+    private String facebookUrl;
+
+    @JsonProperty("linkedin_url")
+    private String linkedinUrl;
+
+    @JsonProperty("instagram_url")
+    private String instagramUrl;
 }
