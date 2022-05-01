@@ -1,18 +1,13 @@
-package com.alkemy.ong.ports.input.rs.response;
+package com.alkemy.ong.ports.input.rs.request;
 
-import com.alkemy.ong.domain.model.Role;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class UserResponse {
-
+public class UpdateUserRequest {
 
     private Long id;
 
@@ -22,8 +17,7 @@ public class UserResponse {
 
     private String email;
 
+    private String password;
+
     private String photo;
-
-
-
 }
