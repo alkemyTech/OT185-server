@@ -6,12 +6,16 @@ import com.alkemy.ong.ports.input.rs.mapper.TestimonialControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateTestimonialRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+
+import java.net.URI;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.TESTIMONIAL_URI;
 
@@ -30,9 +34,16 @@ public class TestimonialController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createTestimonial(@Valid @RequestBody CreateTestimonialRequest createTestimonialRequest) {
+    public ResponseEntity<Void> createTestimonial(@Valid @RequestBody CreateTestimonialRequest createTestimonialRequest) {
+
         Testimonial testimonial = mapper.createTestimonialRequestToTestimonial(createTestimonialRequest);
-        testimonialService.createEntity(testimonial);
+
+        final long id = testimonialService.createEntity(testimonial);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(id)
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 }
