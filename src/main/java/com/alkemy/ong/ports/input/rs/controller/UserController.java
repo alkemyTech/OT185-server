@@ -26,7 +26,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateUserRequest) {
 
-        User user = userControllerMapper.userRequestToUpdateUserRequest(updateUserRequest);
+        User user = userControllerMapper.updateUserRequestToUser(updateUserRequest);
 
         userService.updateEntityIfExists(id, user);
     }

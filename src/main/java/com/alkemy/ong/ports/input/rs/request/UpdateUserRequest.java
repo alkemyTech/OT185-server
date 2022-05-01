@@ -9,13 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateUserRequest {
 
-    private Long id;
-
     private String firstName;
 
     private String lastName;
-
-    private String email;
 
     private String password;
 

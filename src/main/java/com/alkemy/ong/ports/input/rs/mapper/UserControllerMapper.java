@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface UserControllerMapper {
 
-    User userRequestToUpdateUserRequest(UpdateUserRequest userRequest);
+    User updateUserRequestToUser(UpdateUserRequest userRequest);
 
     UserResponse userToUserResponse(User user);
 }
