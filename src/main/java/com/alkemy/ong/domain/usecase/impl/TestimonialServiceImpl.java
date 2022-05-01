@@ -16,8 +16,8 @@ public class TestimonialServiceImpl implements TestimonialService {
 
     @Override
     @Transactional
-    public void createEntity(Testimonial testimonial) {
-        testimonialRepository.save(testimonial);
+    public Long createEntity(Testimonial testimonial) {
+        return testimonialRepository.save(testimonial).getId();
     }
 
     @Override
