@@ -4,7 +4,6 @@ import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.repository.CommentRepository;
 import com.alkemy.ong.domain.usecase.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +16,10 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public void deleteById(Long id, User user) {
         if (user.getRole().getAuthority() == "ADMIN"){
-            commentJpaRepository.findById(id).ifPresent(commentJpaRepository::delete);
+            commentJpaRepository.deleteById(id);
         }else{
             if(user.getId() == commentJpaRepository.findById(id).get().getUser().getId()){
-                commentJpaRepository.findById(id).ifPresent(commentJpaRepository::delete);
+                commentJpaRepository.deleteById(id);
             }
         }
     }
