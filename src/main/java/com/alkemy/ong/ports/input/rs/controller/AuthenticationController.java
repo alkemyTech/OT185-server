@@ -40,7 +40,8 @@ public class AuthenticationController {
 		User createdUser = userService.createUser(user);
 		UserResponse userResponse = authenticationControllerMapper.userToUserResponse(createdUser);
 		String jwt = authService.singIn(userRequest.getEmail(), userRequest.getPassword());
-		return new ResponseEntity<>(new RegisterResponse(userResponse, new AuthenticationResponse(jwt)), HttpStatus.CREATED);
+		return new ResponseEntity<>(new RegisterResponse(userResponse, new AuthenticationResponse(jwt)),
+				HttpStatus.CREATED);
 	}
 
 	@PostMapping("/login")
