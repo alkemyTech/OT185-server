@@ -2,7 +2,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.domain.model.Activity;
 import com.alkemy.ong.domain.usecase.ActivityService;
-import com.alkemy.ong.ports.input.rs.api.IActivitySwagger;
+import com.alkemy.ong.ports.input.rs.api.ActivityApi;
 import com.alkemy.ong.ports.input.rs.mapper.ActivityControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.ActivityRequest;
 import com.alkemy.ong.ports.input.rs.response.ActivityResponse;
@@ -20,7 +20,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.ACTIVITIES_URI;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(ACTIVITIES_URI)
-public class ActivityController implements IActivitySwagger {
+public class ActivityController implements ActivityApi {
 
     private final ActivityService activityService;
     private final ActivityControllerMapper mapper;
