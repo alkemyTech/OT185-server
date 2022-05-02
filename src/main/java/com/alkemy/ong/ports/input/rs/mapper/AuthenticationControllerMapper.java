@@ -9,6 +9,6 @@ import org.mapstruct.Mapper;
 public interface AuthenticationControllerMapper extends CommonMapper{
 
 
-     UserResponse toDto(User user);
+     UserResponse userToUserResponse(User user);
      User createUserRequestToUser(CreateUserRequest user);
 }

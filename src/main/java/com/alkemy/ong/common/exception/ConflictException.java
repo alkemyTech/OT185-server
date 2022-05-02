@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class BadRequestException extends RuntimeException {
+public class ConflictException extends RuntimeException {
 	private final Object msg;
 }

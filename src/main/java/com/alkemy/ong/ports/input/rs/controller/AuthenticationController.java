@@ -37,7 +37,7 @@ public class AuthenticationController {
 	public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequest userRequest) {
 		User user = authenticationControllerMapper.createUserRequestToUser(userRequest);
 		User createdUser = userService.createUser(user);
-		UserResponse userResponse = authenticationControllerMapper.toDto(createdUser);
+		UserResponse userResponse = authenticationControllerMapper.userToUserResponse(createdUser);
 		return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
 	}
 
@@ -53,7 +53,7 @@ public class AuthenticationController {
 	@GetMapping("/me")
 	@ResponseStatus(HttpStatus.OK)
 	public UserResponse meData(@AuthenticationPrincipal User user) {
-		return authenticationControllerMapper.toDto(user);
+		return authenticationControllerMapper.userToUserResponse(user);
 	}
 
 }

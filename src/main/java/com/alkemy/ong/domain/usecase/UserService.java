@@ -10,6 +10,4 @@ public interface UserService {
 
 	User createUser(User user);
 
-	boolean existsByEmail(String email);
-
 }

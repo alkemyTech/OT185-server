@@ -5,11 +5,10 @@ import java.util.Optional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.alkemy.ong.common.exception.BadRequestException;
+import com.alkemy.ong.common.exception.ConflictException;
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Role;
 import com.alkemy.ong.domain.model.User;
@@ -28,6 +27,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	private final RoleRepository roleJpaRepository;
 
 	private final PasswordEncoder passwordEncoder;
+	
+	private static final Long ROLE_ADMIN_ID = (long) 1;
+	private static final Long ROLE_USER_ID = (long) 2;
+	
 
 	@Override
 	@Transactional(readOnly = true)
@@ -41,19 +44,16 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	@Transactional
 	public User createUser(User user) {
 		if (existsByEmail(user.getEmail())) {
-			throw new BadRequestException("The %s email address already exists".formatted(user.getEmail()));
+			throw new ConflictException("Email address '%s' already exists".formatted(user.getEmail()));
 		}
-		Role role = roleJpaRepository.findById((long) 2).orElseThrow(() -> new NotFoundException(2));
+		Role role = roleJpaRepository.findById(ROLE_USER_ID).orElseThrow(() -> new NotFoundException(ROLE_USER_ID));
 		user.setRole(role);
-		String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+		String encryptedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
 		return userJpaRepository.save(user);
 	}
 
-	@Override
-	public boolean existsByEmail(String email) {
-		return userJpaRepository.findUserByEmail(email).isPresent();
-	}
+
 
 	@Override
 	@Transactional
@@ -77,6 +77,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	@Transactional
 	public void deleteUserById(Long id) {
 		userJpaRepository.findById(id).ifPresent(userJpaRepository::delete);
+	}
+	
+	private boolean existsByEmail(String email) {
+		return userJpaRepository.findUserByEmail(email).isPresent();
 	}
 
 }
