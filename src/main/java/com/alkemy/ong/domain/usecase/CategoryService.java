@@ -6,4 +6,6 @@ public interface CategoryService {
     void deleteById(Long id);
 
     Long createCategory(Category request);
+
+    Category getByIdIfExists(Long id);
 }
