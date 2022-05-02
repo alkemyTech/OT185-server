@@ -34,4 +34,4 @@ nb-configuration.xml
 
 ### VS Code ###
 .vscode/
-sendgrid.env
+*.env
