@@ -4,6 +4,7 @@ import com.alkemy.ong.common.security.filter.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,7 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 
-        http.csrf().disable().authorizeRequests().anyRequest().permitAll()
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/auth/login").permitAll()
+                .antMatchers("auth/register").permitAll()
+                .antMatchers("/api/docs/**").permitAll()
+                .antMatchers("/api/swagger-ui/**").permitAll()
+                .antMatchers(HttpMethod.POST).hasRole("ADMIN")
+                .antMatchers(HttpMethod.PATCH).hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT).hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET).authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
