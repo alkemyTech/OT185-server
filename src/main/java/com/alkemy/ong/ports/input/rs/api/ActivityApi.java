@@ -23,8 +23,8 @@ import javax.validation.constraints.NotNull;
 @SecurityRequirement(name = "bearerAuth")
 public interface ActivityApi {
 
-    @Operation(summary = "create a new resource", responses = {
-            @ApiResponse(responseCode = "200", description = "resource created", content = @Content),
+    @Operation(summary = "create a new activity", responses = {
+            @ApiResponse(responseCode = "201", description = "activity created", content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid request",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
@@ -39,8 +39,8 @@ public interface ActivityApi {
     ResponseEntity<Void> createActivity(@Valid @RequestBody ActivityRequest activityRequest);
 
 
-    @Operation(summary = "update new resource", description = "update a resource completely", responses = {
-            @ApiResponse(responseCode = "200", description = "update resource ",
+    @Operation(summary = "update new activity", description = "update a activity completely", responses = {
+            @ApiResponse(responseCode = "200", description = "update activity ",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ActivityResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
