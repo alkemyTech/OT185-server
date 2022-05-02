@@ -27,38 +27,33 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final AuthenticationService authService;
+	private final AuthenticationService authService;
 
-    private final AuthenticationControllerMapper authenticationControllerMapper;
+	private final AuthenticationControllerMapper authenticationControllerMapper;
 
-    private final UserService userService;
-    
-    @PostMapping("/register")
-    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequest userRequest) {
-    	User user = authenticationControllerMapper.createUserRequestToUser(userRequest);
-    	User createdUser = userService.createUser(user);
-    	UserResponse userResponse = authenticationControllerMapper.toDto(createdUser);
-    	return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
-    }
+	private final UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> userLogin(@Valid @RequestBody AuthenticationRequest authRequest)  {
+	@PostMapping("/register")
+	public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequest userRequest) {
+		User user = authenticationControllerMapper.createUserRequestToUser(userRequest);
+		User createdUser = userService.createUser(user);
+		UserResponse userResponse = authenticationControllerMapper.toDto(createdUser);
+		return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+	}
 
+	@PostMapping("/login")
+	public ResponseEntity<AuthenticationResponse> userLogin(@Valid @RequestBody AuthenticationRequest authRequest) {
 
-        String jwt = authService.singIn(authRequest.getEmail(), authRequest.getPassword());
+		String jwt = authService.singIn(authRequest.getEmail(), authRequest.getPassword());
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 
+	}
 
-    }
-
-    @GetMapping("/me")
-    @ResponseStatus(HttpStatus.OK)
-    public UserResponse meData(@AuthenticationPrincipal User user) {
-        return authenticationControllerMapper.toDto(user);
-    }
-
+	@GetMapping("/me")
+	@ResponseStatus(HttpStatus.OK)
+	public UserResponse meData(@AuthenticationPrincipal User user) {
+		return authenticationControllerMapper.toDto(user);
+	}
 
 }
-
-
