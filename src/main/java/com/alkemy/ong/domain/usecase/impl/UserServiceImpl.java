@@ -40,7 +40,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
                     Optional.ofNullable(user.getFirstName()).ifPresent(userJpa::setFirstName);
                     Optional.ofNullable(user.getLastName()).ifPresent(userJpa::setLastName);
                     Optional.ofNullable(user.getPhoto()).ifPresent(userJpa::setPhoto);
-                    Optional.ofNullable(user.getPassword()).ifPresent(userJpa::setPassword);
+                    if(user.getPassword()!=null){
+                        Optional.ofNullable(passwordEncoder.encode(user.getPassword())).ifPresent(userJpa::setPassword);
+                    }
                     Optional.ofNullable(user.getRole()).ifPresent(userJpa::setRole);
 
                     return userJpaRepository.save(userJpa);
