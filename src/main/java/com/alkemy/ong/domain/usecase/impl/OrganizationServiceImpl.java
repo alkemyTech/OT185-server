@@ -36,4 +36,27 @@ public class OrganizationServiceImpl implements OrganizationService {
                 }).orElseThrow(() -> new NotFoundException(id));
     }
 
+    @Override
+    @Transactional
+    public void updateEntity(Long id, Organization organization) {
+
+        organizationJpaRepository.findById(id)
+                .map(organizationJpa -> {
+                    organizationJpa.setName(organization.getName());
+                    organizationJpa.setImage(organization.getImage());
+                    organizationJpa.setPhone(organization.getPhone());
+                    organizationJpa.setEmail(organization.getEmail());
+                    organizationJpa.setWelcomeText(organization.getWelcomeText());
+                    organizationJpa.setAboutUsText(organization.getAboutUsText());
+                    organizationJpa.setAddress(organization.getAddress());
+                    organizationJpa.setFacebookUrl(organization.getFacebookUrl());
+                    organizationJpa.setLinkedinUrl(organization.getLinkedinUrl());
+                    organizationJpa.setInstagramUrl(organization.getInstagramUrl());
+
+                    return organizationJpaRepository.save(organizationJpa);
+                }).orElseGet(() -> organizationJpaRepository.save(organization));
+
+
+    }
+
 }

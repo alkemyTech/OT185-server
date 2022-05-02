@@ -3,6 +3,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.domain.model.Organization;
 import com.alkemy.ong.domain.usecase.OrganizationService;
 import com.alkemy.ong.ports.input.rs.mapper.OrganizationControllerMapper;
+import com.alkemy.ong.ports.input.rs.request.OrganizationRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateOrganizationRequest;
 import com.alkemy.ong.ports.input.rs.response.OrganizationResponse;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,11 @@ public class OrganizationController {
     public void updateOrganization(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateOrganizationRequest updateOrganizationRequest) {
         Organization organization = mapper.updateOrganizationRequestToOrganization(updateOrganizationRequest);
         service.updateEntityIfExists(id, organization);
+    }
+
+    @PutMapping("/public/{id}")
+    public void updateOrganization(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody OrganizationRequest organizationRequest) {
+        Organization organization = mapper.organizationRequestToOrganization(organizationRequest);
+        service.updateEntity(id, organization);
     }
 }
