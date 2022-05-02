@@ -30,7 +30,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
 
-
+    @Override
+    @Transactional
+    public void deleteUserById(Long id) {
+        userJpaRepository.findById(id).ifPresent(userJpaRepository::delete);
+    }
 
 }
 
