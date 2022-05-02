@@ -17,11 +17,11 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class MemberController {
 
-	private final MemberService memberService;
+    private final MemberService memberService;
 
-	@DeleteMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteMember(@Valid @NotNull @PathVariable Long id) {
-		memberService.deleteById(id);
-	}
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMember(@Valid @NotNull @PathVariable Long id) {
+        memberService.deleteById(id);
+    }
 }

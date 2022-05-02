@@ -30,7 +30,8 @@ public enum ApplicationErrorCode {
     TYPE_MISMATCH("A type mismatch occurred trying to set a property."),
     PARAMS_REQUIRED("The request body may be missing mandatory parameters."),
     ROLE_INVALID("The server can not return a response due to an invalid role"),
-    UNAUTHORIZED("Wrong credentials.");
+    UNAUTHORIZED("Wrong credentials."),
+	RESOURCE_ALREADY_EXISTS("This resource already exists.");
 
     private final String defaultMessage;
 
