@@ -34,7 +34,7 @@ public class AuthenticationController {
     private final UserService userService;
     
     @PostMapping("/register")
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest userRequest) {
+    public ResponseEntity<Void> createUser(@Valid @RequestBody CreateUserRequest userRequest) {
     	User user = authenticationControllerMapper.createUserRequestToUser(userRequest);
     	final long id = userService.createUser(user);
     	URI location = ServletUriComponentsBuilder.fromCurrentRequest()

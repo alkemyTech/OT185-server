@@ -27,7 +27,7 @@ public class CreateUserRequest {
 	private String email;
 
 	@NotNull
-	@JsonProperty("email")
+	@JsonProperty("password")
 	@Size(min = 8, max = 12)
 	private String password;
 }

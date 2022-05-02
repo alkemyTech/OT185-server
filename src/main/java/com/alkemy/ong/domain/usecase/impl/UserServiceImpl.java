@@ -1,8 +1,10 @@
 package com.alkemy.ong.domain.usecase.impl;
 
 
+import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Role;
 import com.alkemy.ong.domain.model.User;
+import com.alkemy.ong.domain.repository.RoleRepository;
 import com.alkemy.ong.domain.repository.UserRepository;
 import com.alkemy.ong.domain.usecase.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 
     private final UserRepository userJpaRepository;
+    
+    private final RoleRepository roleJpaRepository;
 
 
     @Override
@@ -43,8 +47,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	@Override
 	@Transactional
 	public Long createUser(User user) {
-		// Role role = roleService.getRoleById(Long id);
-		// user.setRole(role);
+		
+		Role role = roleJpaRepository.findById((long) 2).orElseThrow(() -> new NotFoundException(1));
+		user.setRole(role);
 		String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
 		user.setPassword(encryptedPassword);
 		return userJpaRepository.save(user).getId();
