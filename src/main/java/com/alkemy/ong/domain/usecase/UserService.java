@@ -6,6 +6,7 @@ public interface UserService {
 
     void deleteUserById(Long id);
 
-    Long createUser(User user);
+    User createUser(User user);
 
+    boolean existsByEmail(String email);
 }

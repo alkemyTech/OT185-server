@@ -1,19 +1,22 @@
 package com.alkemy.ong.domain.usecase.impl;
 
 
-import com.alkemy.ong.common.exception.NotFoundException;
-import com.alkemy.ong.domain.model.Role;
-import com.alkemy.ong.domain.model.User;
-import com.alkemy.ong.domain.repository.RoleRepository;
-import com.alkemy.ong.domain.repository.UserRepository;
-import com.alkemy.ong.domain.usecase.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.alkemy.ong.common.exception.BadRequestException;
+import com.alkemy.ong.common.exception.NotFoundException;
+import com.alkemy.ong.domain.model.Role;
+import com.alkemy.ong.domain.model.User;
+import com.alkemy.ong.domain.repository.RoleRepository;
+import com.alkemy.ong.domain.repository.UserRepository;
+import com.alkemy.ong.domain.usecase.UserService;
+
+import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
@@ -46,13 +49,21 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 	@Override
 	@Transactional
-	public Long createUser(User user) {
-		
-		Role role = roleJpaRepository.findById((long) 2).orElseThrow(() -> new NotFoundException(1));
+	public User createUser(User user) {
+		if(existsByEmail(user.getEmail())) {
+			throw new BadRequestException("The %s email address already exists".formatted(user.getEmail()));
+		}
+		Role role = roleJpaRepository.findById((long) 2).orElseThrow(() -> new NotFoundException(2));
 		user.setRole(role);
 		String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
 		user.setPassword(encryptedPassword);
-		return userJpaRepository.save(user).getId();
+		return userJpaRepository.save(user);
+	}
+
+
+	@Override
+	public boolean existsByEmail(String email) {
+		return userJpaRepository.findUserByEmail(email).isPresent();
 	}
 
 }

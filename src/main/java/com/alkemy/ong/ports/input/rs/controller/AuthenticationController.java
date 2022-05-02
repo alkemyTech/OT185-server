@@ -34,13 +34,11 @@ public class AuthenticationController {
     private final UserService userService;
     
     @PostMapping("/register")
-    public ResponseEntity<Void> createUser(@Valid @RequestBody CreateUserRequest userRequest) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequest userRequest) {
     	User user = authenticationControllerMapper.createUserRequestToUser(userRequest);
-    	final long id = userService.createUser(user);
-    	URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(id)
-                .toUri();
-    	return ResponseEntity.created(location).build();
+    	User createdUser = userService.createUser(user);
+    	UserResponse userResponse = authenticationControllerMapper.toDto(createdUser);
+    	return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")

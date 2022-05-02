@@ -1,5 +1,6 @@
 package com.alkemy.ong.common.exception.handler;
 
+import com.alkemy.ong.common.exception.BadRequestException;
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.common.exception.error.ApplicationErrorCode;
 import com.alkemy.ong.common.exception.error.ErrorDetails;
@@ -18,6 +19,18 @@ public final class GlobalExceptionHandler extends AbstractExceptionHandler {
         ErrorDetails error = ErrorDetails.builder()
                 .code(ApplicationErrorCode.RESOURCE_NOT_FOUND)
                 .detail("The resource with id %s is not found".formatted(ex.getResourceId()))
+                .location(ErrorLocation.PATH)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+    
+    @ExceptionHandler(BadRequestException.class)
+    private ResponseEntity<ErrorDetails> handleBadRequest(BadRequestException ex) {
+
+        ErrorDetails error = ErrorDetails.builder()
+                .code(ApplicationErrorCode.BAD_REQUEST)
+                .detail("Error: %s".formatted(ex.getMsg()))
                 .location(ErrorLocation.PATH)
                 .build();
 
