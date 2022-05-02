@@ -23,10 +23,6 @@ import javax.validation.constraints.NotNull;
 @SecurityRequirement(name = "bearerAuth")
 public interface ActivityApi {
 
-
-    @RequestMapping(method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
     @Operation(summary = "create a new resource", responses = {
             @ApiResponse(responseCode = "200", description = "resource created", content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid request",
