@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 
-
 @RestController
 @RequestMapping("/s3")
 @RequiredArgsConstructor
