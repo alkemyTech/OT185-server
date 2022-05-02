@@ -10,6 +10,7 @@ import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
@@ -54,7 +55,7 @@ public class User implements Auditable, UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "photo", nullable = false)
+    @Column(name = "photo", nullable = true, updatable = true)
     private String photo;
 
     @ManyToOne
