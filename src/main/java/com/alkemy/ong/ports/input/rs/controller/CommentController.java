@@ -35,7 +35,7 @@ public class CommentController {
         final long id = service.createComment(comment);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand()
+                .path("/{id}").buildAndExpand(id)
                 .toUri();
 
         return ResponseEntity.created(location).build();

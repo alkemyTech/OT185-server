@@ -19,9 +19,11 @@ public class CreateCommentRequest {
     @JsonProperty("comment_body")
     private String commentBody;
 
+    @NotBlank
     @JsonProperty("user")
     private User user;
 
+    @NotBlank
     @JsonProperty("news")
     private News news;
 
