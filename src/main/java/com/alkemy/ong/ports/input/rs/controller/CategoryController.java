@@ -4,6 +4,7 @@ import com.alkemy.ong.domain.model.Category;
 import com.alkemy.ong.domain.usecase.CategoryService;
 import com.alkemy.ong.ports.input.rs.mapper.CategoryControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CategoryRequest;
+import com.alkemy.ong.ports.input.rs.response.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,13 @@ public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryControllerMapper mapper;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoryResponse> getCategory(@Valid @NotNull @PathVariable Long id){
+        Category category = categoryService.getByIdIfExists(id);
+        CategoryResponse response = mapper.categoryToCategoryResponse(category);
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping
     public ResponseEntity<Void> createCategory(@Valid @RequestBody CategoryRequest categoryRequest){
 
@@ -43,4 +51,5 @@ public class CategoryController {
     public void deleteCategory(@Valid @NotNull @PathVariable Long id) {
         categoryService.deleteById(id);
     }
+
 }
