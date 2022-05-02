@@ -15,6 +15,7 @@ public class AuthenticationRequest {
     @NotBlank(message ="The email must not be empty")
     private String email;
 
+
     @Size(min = 4, max = 20, message = "The password must not be empty" )
     private String password;
 }

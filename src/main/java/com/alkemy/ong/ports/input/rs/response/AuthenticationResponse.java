@@ -1,12 +1,12 @@
 package com.alkemy.ong.ports.input.rs.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthenticationResponse {
+
     private String jwt;
 }
