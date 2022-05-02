@@ -8,6 +8,7 @@ import com.alkemy.ong.ports.input.rs.mapper.AuthenticationControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.AuthenticationRequest;
 import com.alkemy.ong.ports.input.rs.request.CreateUserRequest;
 import com.alkemy.ong.ports.input.rs.response.AuthenticationResponse;
+import com.alkemy.ong.ports.input.rs.response.RegisterResponse;
 import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,8 @@ public class AuthenticationController {
 		User user = authenticationControllerMapper.createUserRequestToUser(userRequest);
 		User createdUser = userService.createUser(user);
 		UserResponse userResponse = authenticationControllerMapper.userToUserResponse(createdUser);
-		return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+		String jwt = authService.singIn(userRequest.getEmail(), userRequest.getPassword());
+		return new ResponseEntity<>(new RegisterResponse(userResponse, new AuthenticationResponse(jwt)), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/login")
