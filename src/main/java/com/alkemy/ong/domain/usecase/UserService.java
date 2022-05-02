@@ -4,9 +4,12 @@ import com.alkemy.ong.domain.model.User;
 
 public interface UserService {
 
-    void deleteUserById(Long id);
+	void updateEntityIfExists(Long id, User user);
 
-    User createUser(User user);
+	void deleteUserById(Long id);
 
-    boolean existsByEmail(String email);
+	User createUser(User user);
+
+	boolean existsByEmail(String email);
+
 }

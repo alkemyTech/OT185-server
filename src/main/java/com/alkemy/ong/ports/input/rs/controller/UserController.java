@@ -1,7 +1,14 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 
+import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.usecase.UserService;
+import com.alkemy.ong.ports.input.rs.mapper.UserControllerMapper;
+import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;
+
+
+import com.alkemy.ong.domain.usecase.UserService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +25,22 @@ public class UserController {
 
     private final UserService userService;
 
+
+    private final UserControllerMapper userControllerMapper;
+
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateUser(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateUserRequest) {
+
+        User user = userControllerMapper.updateUserRequestToUser(updateUserRequest);
+
+        userService.updateEntityIfExists(id, user);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUserById(@Valid @NotNull @PathVariable Long id) {
         userService.deleteUserById(id);
+
     }
 }

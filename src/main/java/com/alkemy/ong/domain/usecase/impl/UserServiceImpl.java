@@ -1,9 +1,12 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+import java.util.Optional;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.alkemy.ong.common.exception.BadRequestException;
@@ -24,18 +27,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 	private final RoleRepository roleJpaRepository;
 
+	private final PasswordEncoder passwordEncoder;
+
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
 		return userJpaRepository.findUserByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("User name: %s not found".formatted(email)));
-	}
-
-	@Override
-	@Transactional
-	public void deleteUserById(Long id) {
-		userJpaRepository.findById(id).ifPresent(userJpaRepository::delete);
 	}
 
 	@Override
@@ -54,6 +53,30 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	@Override
 	public boolean existsByEmail(String email) {
 		return userJpaRepository.findUserByEmail(email).isPresent();
+	}
+
+	@Override
+	@Transactional
+	public void updateEntityIfExists(Long id, User user) {
+		userJpaRepository.findById(id).map(userJpa -> {
+			Optional.ofNullable(user.getFirstName()).ifPresent(userJpa::setFirstName);
+			Optional.ofNullable(user.getLastName()).ifPresent(userJpa::setLastName);
+			Optional.ofNullable(user.getPhoto()).ifPresent(userJpa::setPhoto);
+			Optional.ofNullable(user.getRole()).ifPresent(userJpa::setRole);
+
+			if (user.getPassword() != null) {
+				String encoded = passwordEncoder.encode(user.getPassword());
+				userJpa.setPassword(encoded);
+			}
+
+			return userJpaRepository.save(userJpa);
+		}).orElseThrow(() -> new NotFoundException(id));
+	}
+
+	@Override
+	@Transactional
+	public void deleteUserById(Long id) {
+		userJpaRepository.findById(id).ifPresent(userJpaRepository::delete);
 	}
 
 }
