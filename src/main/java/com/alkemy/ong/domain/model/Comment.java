@@ -32,6 +32,11 @@ public class Comment implements Auditable {
     @Column(name="comment_body")
     private String commentBody;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @ToString.Exclude
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @JoinColumn(name = "news_id")
