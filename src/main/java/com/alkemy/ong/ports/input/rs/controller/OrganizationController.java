@@ -10,9 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.net.URI;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.ORGANIZATIONS_URI;
 
@@ -39,8 +41,17 @@ public class OrganizationController {
     }
 
     @PutMapping("/public/{id}")
-    public void updateOrganization(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody OrganizationRequest organizationRequest) {
+    public ResponseEntity<Void> updateOrganization(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody OrganizationRequest organizationRequest) {
         Organization organization = mapper.organizationRequestToOrganization(organizationRequest);
-        service.updateEntity(id, organization);
+        if (!service.getById(id)) {
+            final long idOrganizationCreated = service.updateEntity(id, organization);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{idOrganizationCreated}").buildAndExpand(idOrganizationCreated)
+                    .toUri();
+            return ResponseEntity.created(location).build();
+        } else {
+            service.updateEntity(id, organization);
+            return ResponseEntity.noContent().build();
+        }
     }
 }

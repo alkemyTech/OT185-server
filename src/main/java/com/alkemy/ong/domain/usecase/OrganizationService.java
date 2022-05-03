@@ -7,5 +7,7 @@ public interface OrganizationService {
 
     void updateEntityIfExists(Long id, Organization entity);
 
-    void updateEntity(Long id, Organization organization);
+    Long updateEntity(Long id, Organization organization);
+
+    boolean getById(Long id);
 }

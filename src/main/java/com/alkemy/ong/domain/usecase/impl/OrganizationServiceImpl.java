@@ -22,6 +22,12 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizationJpaRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public boolean getById(Long id) {
+        return organizationJpaRepository.findById(id).isPresent();
+    }
+
 
     @Override
     @Transactional
@@ -38,9 +44,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public void updateEntity(Long id, Organization organization) {
+    public Long updateEntity(Long id, Organization organization) {
 
-        organizationJpaRepository.findById(id)
+        Long idOrganization = organizationJpaRepository.findById(id)
                 .map(organizationJpa -> {
                     organizationJpa.setName(organization.getName());
                     organizationJpa.setImage(organization.getImage());
@@ -53,10 +59,10 @@ public class OrganizationServiceImpl implements OrganizationService {
                     organizationJpa.setLinkedinUrl(organization.getLinkedinUrl());
                     organizationJpa.setInstagramUrl(organization.getInstagramUrl());
 
-                    return organizationJpaRepository.save(organizationJpa);
-                }).orElseGet(() -> organizationJpaRepository.save(organization));
+                    return organizationJpaRepository.save(organizationJpa).getId();
+                }).orElseGet(() -> organizationJpaRepository.save(organization).getId());
 
-
+        return idOrganization;
     }
 
 }
