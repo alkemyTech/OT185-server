@@ -27,10 +27,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	private final RoleRepository roleJpaRepository;
 
 	private final PasswordEncoder passwordEncoder;
-	
+
 	private static final Long ROLE_ADMIN_ID = (long) 1;
 	private static final Long ROLE_USER_ID = (long) 2;
-	
 
 	@Override
 	@Transactional(readOnly = true)
@@ -52,8 +51,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		user.setPassword(encryptedPassword);
 		return userJpaRepository.save(user);
 	}
-
-
 
 	@Override
 	@Transactional
@@ -78,7 +75,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	public void deleteUserById(Long id) {
 		userJpaRepository.findById(id).ifPresent(userJpaRepository::delete);
 	}
-	
+
 	private boolean existsByEmail(String email) {
 		return userJpaRepository.findUserByEmail(email).isPresent();
 	}
