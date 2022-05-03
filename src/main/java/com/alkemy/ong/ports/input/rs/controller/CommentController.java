@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 import java.net.URI;
+import java.nio.file.AccessDeniedException;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.COMMENT_URI;
 
@@ -51,7 +52,7 @@ public class CommentController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteComment(@Valid @NotNull @PathVariable Long id, @AuthenticationPrincipal User user) {
+    public void deleteComment(@Valid @NotNull @PathVariable Long id, @AuthenticationPrincipal User user) throws AccessDeniedException {
         service.deleteById(id, user);
     }
 
