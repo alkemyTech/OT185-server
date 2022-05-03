@@ -2,7 +2,7 @@ drop table if exists comment;
 
 create table comment
 (
-    comment_id bigint not null,
+    comment_id bigint not null auto_increment,
     comment_body varchar(255) not null,
     is_active  bit          not null,
     created_at datetime(6)  not null,
