@@ -43,7 +43,7 @@ public class OrganizationController {
     @PutMapping("/public/{id}")
     public ResponseEntity<Void> updateOrganization(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody OrganizationRequest organizationRequest) {
         Organization organization = mapper.organizationRequestToOrganization(organizationRequest);
-        if (!service.getById(id)) {
+        if (!service.existById(id)) {
             final long idOrganizationCreated = service.updateEntity(id, organization);
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{idOrganizationCreated}").buildAndExpand(idOrganizationCreated)

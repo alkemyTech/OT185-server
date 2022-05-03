@@ -24,7 +24,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional(readOnly = true)
-    public boolean getById(Long id) {
+    public boolean existById(Long id) {
         return organizationJpaRepository.findById(id).isPresent();
     }
 

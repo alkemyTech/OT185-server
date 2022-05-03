@@ -9,5 +9,5 @@ public interface OrganizationService {
 
     Long updateEntity(Long id, Organization organization);
 
-    boolean getById(Long id);
+    boolean existById(Long id);
 }
