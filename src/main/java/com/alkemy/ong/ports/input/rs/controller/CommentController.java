@@ -2,18 +2,19 @@ package com.alkemy.ong.ports.input.rs.controller;
 
 
 import com.alkemy.ong.domain.model.Comment;
+import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.usecase.CommentService;
 import com.alkemy.ong.ports.input.rs.mapper.CommentControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateCommentRequest;
+import com.alkemy.ong.ports.input.rs.request.UpdateCommentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import java.net.URI;
 
@@ -39,5 +40,28 @@ public class CommentController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @PutMapping("/{id}")
+    public void updateComment(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateCommentRequest updateCommentRequest, @AuthenticationPrincipal User user){
+        Comment comment = mapper.updateCommentRequestToComment(updateCommentRequest);
+        service.updateCommentIfExists(id, comment, user);
     }
 }

@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
@@ -30,4 +32,35 @@ public class CommentServiceImpl implements CommentService {
         comment.setNews(news);
         return commentJpaRepository.save(comment).getId();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public void updateCommentIfExists(Long id, Comment commentUpdate, User user) {
+        commentJpaRepository.findById(id).map(commentJPA -> {
+
+            Comment comment = commentJpaRepository.findById(id).orElseThrow(()->new NotFoundException(id));
+
+            if (user.getRole().getAuthority() == "ADMIN"){
+                Optional.ofNullable(commentUpdate.getCommentBody()).ifPresent(commentJPA::setCommentBody);
+            }else{
+                if (user.getId() == comment.getUser().getId()) {
+                    Optional.ofNullable(commentUpdate.getCommentBody()).ifPresent(commentJPA::setCommentBody);
+                }
+            }
+            return commentJpaRepository.save(commentJPA);
+        }).orElseThrow(() -> new NotFoundException(id));
+    }
+
+
 }
