@@ -12,19 +12,24 @@ import static com.alkemy.ong.ports.output.email.EmailTemplateValues.ORGANIZATION
 import static com.alkemy.ong.ports.output.email.EmailTemplateValues.SUBJECT;
 import static com.alkemy.ong.ports.output.email.EmailTemplateValues.WELCOME_SUBJECT;
 import static com.alkemy.ong.ports.output.email.EmailTemplateValues.WELCOME_TEXT;
+
 import java.io.IOException;
+
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+
 import com.alkemy.ong.domain.model.Organization;
-import com.alkemy.ong.domain.usecase.OrganizationService;
+import com.alkemy.ong.domain.model.User;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,10 +39,6 @@ import lombok.extern.slf4j.Slf4j;
 public class SendGridEmailService implements EmailService {
 
 	private final SendGrid client;
-
-	private final OrganizationService organizationService;
-
-	private static final Long ORGANIZATION_ID = (long) 1;
 
 	@Value("${email.from}")
 	private String from;
@@ -54,27 +55,25 @@ public class SendGridEmailService implements EmailService {
 
 	@Async
 	@Override
-	public void sendWelcomeEmail(String to, String firstName) {
+	public void sendWelcomeEmail(User toUser, Organization organization) {
 
-		Organization org = organizationService.getByIdIfExists(ORGANIZATION_ID);
-
-		Email emailTo = new Email(to);
+		Email emailTo = new Email(toUser.getEmail());
 
 		Mail mail = new Mail();
 		mail.setFrom(fromEmail);
 		mail.setTemplateId(templateId);
 
 		Personalization personalization = new Personalization();
-		personalization.addDynamicTemplateData(FIRST_NAME, firstName);
-		personalization.addDynamicTemplateData(ORGANIZATION_NAME, org.getName());
-		personalization.addDynamicTemplateData(WELCOME_TEXT, org.getWelcomeText());
-		personalization.addDynamicTemplateData(ORGANIZATION_ADDRESS, org.getAddress());
-		personalization.addDynamicTemplateData(ORGANIZATION_IMAGE, org.getImage());
-		personalization.addDynamicTemplateData(ORGANIZATION_PHONE, org.getPhone());
-		personalization.addDynamicTemplateData(ORGANIZATION_EMAIL, org.getEmail());
-		personalization.addDynamicTemplateData(ORGANIZATION_INSTAGRAM, org.getInstagramUrl());
-		personalization.addDynamicTemplateData(ORGANIZATION_LINKEDIN, org.getLinkedinUrl());
-		personalization.addDynamicTemplateData(ORGANIZATION_FACEBOOK, org.getFacebookUrl());
+		personalization.addDynamicTemplateData(FIRST_NAME, toUser.getFirstName());
+		personalization.addDynamicTemplateData(ORGANIZATION_NAME, organization.getName());
+		personalization.addDynamicTemplateData(WELCOME_TEXT, organization.getWelcomeText());
+		personalization.addDynamicTemplateData(ORGANIZATION_ADDRESS, organization.getAddress());
+		personalization.addDynamicTemplateData(ORGANIZATION_IMAGE, organization.getImage());
+		personalization.addDynamicTemplateData(ORGANIZATION_PHONE, organization.getPhone());
+		personalization.addDynamicTemplateData(ORGANIZATION_EMAIL, organization.getEmail());
+		personalization.addDynamicTemplateData(ORGANIZATION_INSTAGRAM, organization.getInstagramUrl());
+		personalization.addDynamicTemplateData(ORGANIZATION_LINKEDIN, organization.getLinkedinUrl());
+		personalization.addDynamicTemplateData(ORGANIZATION_FACEBOOK, organization.getFacebookUrl());
 		personalization.addDynamicTemplateData(SUBJECT, WELCOME_SUBJECT);
 		personalization.addTo(emailTo);
 

@@ -1,10 +1,5 @@
 package com.alkemy.ong.ports.output.email;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
 public class EmailTemplateValues {
 
 	public static final String FIRST_NAME = "first_name";
