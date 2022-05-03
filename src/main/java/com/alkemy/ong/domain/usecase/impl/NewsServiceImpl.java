@@ -1,5 +1,8 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+import com.alkemy.ong.domain.model.Category;
+import com.alkemy.ong.domain.model.News;
+import com.alkemy.ong.domain.repository.CategoryRepository;
 import com.alkemy.ong.domain.repository.NewsRepository;
 import com.alkemy.ong.domain.usecase.NewsService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +14,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class NewsServiceImpl implements NewsService {
 
     private final NewsRepository newsJpaRepository;
+    private final CategoryRepository categoryJpaRepository;
+
+
+    @Override
+    @Transactional
+    public Long createEntity(News news, Long CategoryId){
+
+         Category foundCategory = categoryJpaRepository.findById(CategoryId).orElseThrow();
+
+         news.setCategory(foundCategory);
+
+        return newsJpaRepository.save(news).getId();
+    }
 
     @Override
     @Transactional
