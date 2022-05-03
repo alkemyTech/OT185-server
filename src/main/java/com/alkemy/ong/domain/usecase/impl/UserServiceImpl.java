@@ -29,8 +29,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 	private final PasswordEncoder passwordEncoder;
 
-	//private final SendGridEmailService emailService;
-
 	private static final Long ROLE_ADMIN_ID = (long) 1;
 	private static final Long ROLE_USER_ID = (long) 2;
 
@@ -52,7 +50,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		user.setRole(role);
 		String encryptedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
-		//emailService.sendWelcomeEmail(user.getEmail(), user.getFirstName());
 		return userJpaRepository.save(user);
 	}
 
