@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.alkemy.ong.common.exception.ConflictException;
 import com.alkemy.ong.common.exception.NotFoundException;
+import com.alkemy.ong.domain.model.Organization;
 import com.alkemy.ong.domain.model.Role;
 import com.alkemy.ong.domain.model.User;
+import com.alkemy.ong.domain.repository.OrganizationRepository;
 import com.alkemy.ong.domain.repository.RoleRepository;
 import com.alkemy.ong.domain.repository.UserRepository;
 import com.alkemy.ong.domain.usecase.UserService;
+import com.alkemy.ong.ports.output.email.SendGridEmailService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,9 +31,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 	private final PasswordEncoder passwordEncoder;
 	
+	private final SendGridEmailService emailService;
+	
+	private final OrganizationRepository organizationJpaRepository;
+	
 	private static final Long ROLE_ADMIN_ID = (long) 1;
 	private static final Long ROLE_USER_ID = (long) 2;
-	
+	private static final Long ORGANIZATION_ID = (long) 1;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -50,10 +57,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		user.setRole(role);
 		String encryptedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
+		Optional<Organization> organization = organizationJpaRepository.findById(ORGANIZATION_ID);
+		if(organization.isPresent()) {
+			emailService.sendWelcomeEmail(user, organization.get());
+		}
 		return userJpaRepository.save(user);
 	}
-
-
 
 	@Override
 	@Transactional
@@ -78,7 +87,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	public void deleteUserById(Long id) {
 		userJpaRepository.findById(id).ifPresent(userJpaRepository::delete);
 	}
-	
+
 	private boolean existsByEmail(String email) {
 		return userJpaRepository.findUserByEmail(email).isPresent();
 	}
