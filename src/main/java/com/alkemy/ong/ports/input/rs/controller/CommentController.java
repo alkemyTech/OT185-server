@@ -52,7 +52,7 @@ public class CommentController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteComment(@Valid @NotNull @PathVariable Long id, @AuthenticationPrincipal User user) throws AccessDeniedException {
+    public void deleteComment(@Valid @NotNull @PathVariable Long id, @AuthenticationPrincipal User user) {
         service.deleteById(id, user);
     }
 

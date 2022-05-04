@@ -8,7 +8,7 @@ import java.nio.file.AccessDeniedException;
 
 public interface CommentService {
 
-    void deleteById(Long id, User user) throws AccessDeniedException;
+    void deleteById(Long id, User user);
 
     Long createComment(Comment request);
 

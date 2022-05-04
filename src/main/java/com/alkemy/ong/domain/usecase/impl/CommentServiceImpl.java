@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.file.AccessDeniedException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -39,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public void deleteById(Long id, User user) throws AccessDeniedException {
+    public void deleteById(Long id, User user) {
 
         Optional<Comment> op = commentJpaRepository.findById(id);
 
@@ -51,7 +50,7 @@ public class CommentServiceImpl implements CommentService {
             if(canDelete){
                 commentJpaRepository.delete(comment);
             }else {
-                throw new AccessDeniedException("User not authorized to delete this comment");
+                //throw new AccessDeniedException("User not authorized to delete this comment");
             }
         }
     }
