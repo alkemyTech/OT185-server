@@ -13,6 +13,7 @@ import com.alkemy.ong.domain.usecase.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -50,7 +51,7 @@ public class CommentServiceImpl implements CommentService {
             if(canDelete){
                 commentJpaRepository.delete(comment);
             }else {
-                //throw new AccessDeniedException("User not authorized to delete this comment");
+                throw new AccessDeniedException("User not authorized to delete this comment");
             }
         }
     }
