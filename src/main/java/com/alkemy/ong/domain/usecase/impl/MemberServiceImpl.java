@@ -21,6 +21,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	@Transactional
 	public Long createMember(Member member) {
 		return memberJpaRepository.save(member).getId();
 	}
