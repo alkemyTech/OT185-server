@@ -46,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
         if(op.isPresent()){
             Comment comment = op.get();
 
-            boolean canDelete = Objects.equals(user.getRole().getAuthority(), "ADMIN")
+            boolean canDelete = Objects.equals(user.getRole().getAuthority(), "ROLE_ADMIN")
                                 || Objects.equals(user.getId(), comment.getUser().getId());
             if(canDelete){
                 commentJpaRepository.delete(comment);
