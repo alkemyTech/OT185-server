@@ -6,9 +6,8 @@ import com.alkemy.ong.ports.input.rs.request.UpdateMemberRequest;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface MemberControllerMapper {
-    Member memberRequestToMember (MemberRequest request);
+public interface MemberControllerMapper extends CommonMapper {
+    Member memberRequestToMember(MemberRequest request);
 
     Member updateMemberRequestToMember(UpdateMemberRequest request);
-
 }
