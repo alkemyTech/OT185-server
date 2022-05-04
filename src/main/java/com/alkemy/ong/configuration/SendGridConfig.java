@@ -1,10 +1,13 @@
 package com.alkemy.ong.configuration;
-import com.sendgrid.SendGrid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
+
+import com.sendgrid.SendGrid;
 
 @Configuration
+@EnableAsync(proxyTargetClass = true)
 public class SendGridConfig {
 
     @Value("${email.sendgrid.apikey}")
