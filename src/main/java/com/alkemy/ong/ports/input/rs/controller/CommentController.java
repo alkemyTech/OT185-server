@@ -60,7 +60,7 @@ public class CommentController {
 
 
     @PutMapping("/{id}")
-    public void updateComment(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateCommentRequest updateCommentRequest, @AuthenticationPrincipal User user){
+    public void updateComment(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateCommentRequest updateCommentRequest, @AuthenticationPrincipal User user) {
         Comment comment = mapper.updateCommentRequestToComment(updateCommentRequest);
         service.updateCommentIfExists(id, comment, user);
     }

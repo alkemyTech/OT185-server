@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -45,22 +46,38 @@ public class CommentServiceImpl implements CommentService {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
-    public void updateCommentIfExists(Long id, Comment commentUpdate, User user) {
-        commentJpaRepository.findById(id).map(commentJPA -> {
+    @Transactional
+    public Comment updateCommentIfExists(Long id, Comment commentUpdate, User user) {
 
-            Comment comment = commentJpaRepository.findById(id).orElseThrow(()->new NotFoundException(id));
+        Optional<Comment> op = commentJpaRepository.findById(id);
 
-            if (user.getRole().getAuthority() == "ADMIN"){
-                Optional.ofNullable(commentUpdate.getCommentBody()).ifPresent(commentJPA::setCommentBody);
-            }else{
-                if (user.getId() == comment.getUser().getId()) {
-                    Optional.ofNullable(commentUpdate.getCommentBody()).ifPresent(commentJPA::setCommentBody);
+        if(op.isPresent()) {
+
+            Comment comment = op.get();
+
+            boolean canUpdate = Objects.equals(user.getRole().getAuthority(), "ADMIN") ||
+                                Objects.equals(user.getId(), comment.getUser().getId());
+            if (canUpdate){
+                comment.setCommentBody(commentUpdate.getCommentBody());
+            }else {
+                //throw new AccessDeniedException("User not authorized to update this comment");
                 }
-            }
-            return commentJpaRepository.save(commentJPA);
-        }).orElseThrow(() -> new NotFoundException(id));
+            return commentJpaRepository.save(comment);
+        }else{
+            throw new NotFoundException(id);
+        }
     }
-
-
 }
