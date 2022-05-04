@@ -1,5 +1,7 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+
+
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Comment;
 import com.alkemy.ong.domain.model.News;
@@ -11,6 +13,10 @@ import com.alkemy.ong.domain.usecase.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.access.AccessDeniedException;
+
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,5 +35,24 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new NotFoundException(comment.getNews().getId()));
         comment.setNews(news);
         return commentJpaRepository.save(comment).getId();
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id, User user) {
+
+        Optional<Comment> op = commentJpaRepository.findById(id);
+
+        if(op.isPresent()){
+            Comment comment = op.get();
+
+            boolean canDelete = Objects.equals(user.getRole().getAuthority(), "ROLE_ADMIN")
+                                || Objects.equals(user.getId(), comment.getUser().getId());
+            if(canDelete){
+                commentJpaRepository.delete(comment);
+            }else {
+                throw new AccessDeniedException("User not authorized to delete this comment");
+            }
+        }
     }
 }
