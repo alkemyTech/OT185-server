@@ -1,5 +1,7 @@
 package com.alkemy.ong.configuration;
 
+import com.alkemy.ong.common.exception.handler.AuthenticationEntryPointHandler;
+import com.alkemy.ong.common.exception.handler.CustomAccessDeniedHandler;
 import com.alkemy.ong.common.security.filter.JwtRequestFilter;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT).hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET).authenticated()
                 .and().exceptionHandling()
+                .authenticationEntryPoint(new AuthenticationEntryPointHandler())
+                .accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
