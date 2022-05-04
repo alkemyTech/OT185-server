@@ -3,6 +3,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.domain.model.Member;
 import com.alkemy.ong.ports.input.rs.mapper.MemberControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.MemberRequest;
+import com.alkemy.ong.ports.input.rs.request.UpdateMemberRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,4 +44,14 @@ public class MemberController {
 
         return ResponseEntity.created(location).build();
     }
+
+    @PutMapping("/{id}")
+    public void updateMember(@Valid @NotNull @PathVariable Long id,
+                             @RequestBody UpdateMemberRequest upMember) {
+
+        Member member = mapper.updateMemberRequestToMember(upMember);
+        memberService.updateMember(id, member);
+    }
+
+
 }

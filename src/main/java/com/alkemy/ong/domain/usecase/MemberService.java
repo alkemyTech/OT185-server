@@ -6,4 +6,6 @@ public interface MemberService {
 	void deleteById(Long id);
 
 	Long createMember(Member member);
+
+	void updateMember(Long id, Member upMember);
 }
