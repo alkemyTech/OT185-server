@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+import com.alkemy.ong.domain.model.Member;
 import com.alkemy.ong.domain.usecase.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,11 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public void deleteById(Long id) {
 		memberJpaRepository.findById(id).ifPresent(memberJpaRepository::delete);
+	}
+
+	@Override
+	public Long createMember(Member member) {
+		return memberJpaRepository.save(member).getId();
 	}
 
 }
