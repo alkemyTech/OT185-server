@@ -1,5 +1,7 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+
+
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Comment;
 import com.alkemy.ong.domain.model.News;
@@ -35,50 +37,45 @@ public class CommentServiceImpl implements CommentService {
         return commentJpaRepository.save(comment).getId();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     @Transactional
     public void updateCommentIfExists(Long id, Comment commentUpdate, User user) {
 
         Optional<Comment> op = commentJpaRepository.findById(id);
 
-        if(op.isPresent()) {
+        if (op.isPresent()) {
 
             Comment comment = op.get();
 
             boolean canUpdate = Objects.equals(user.getRole().getAuthority(), "ROLE_ADMIN") ||
-                                Objects.equals(user.getId(), comment.getUser().getId());
-            if (canUpdate){
+                    Objects.equals(user.getId(), comment.getUser().getId());
+            if (canUpdate) {
                 comment.setCommentBody(commentUpdate.getCommentBody());
-            }else {
+            } else {
                 throw new AccessDeniedException("User not authorized to update this comment");
-                }
+            }
             commentJpaRepository.save(comment);
-        }else{
+        } else {
             throw new NotFoundException(id);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id, User user) {
+
+        Optional<Comment> op = commentJpaRepository.findById(id);
+
+        if(op.isPresent()){
+            Comment comment = op.get();
+
+            boolean canDelete = Objects.equals(user.getRole().getAuthority(), "ROLE_ADMIN")
+                                || Objects.equals(user.getId(), comment.getUser().getId());
+            if(canDelete){
+                commentJpaRepository.delete(comment);
+            }else {
+                throw new AccessDeniedException("User not authorized to delete this comment");
+            }
         }
     }
 }
