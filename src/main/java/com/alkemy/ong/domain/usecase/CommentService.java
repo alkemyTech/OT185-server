@@ -10,6 +10,6 @@ public interface CommentService {
 
 
 
-    public Comment updateCommentIfExists(Long id, Comment commentUpdate, User user);
+    void updateCommentIfExists(Long id, Comment commentUpdate, User user);
 
 }

@@ -61,7 +61,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public Comment updateCommentIfExists(Long id, Comment commentUpdate, User user) {
+    public void updateCommentIfExists(Long id, Comment commentUpdate, User user) {
 
         Optional<Comment> op = commentJpaRepository.findById(id);
 
@@ -76,7 +76,7 @@ public class CommentServiceImpl implements CommentService {
             }else {
                 throw new AccessDeniedException("User not authorized to update this comment");
                 }
-            return commentJpaRepository.save(comment);
+            commentJpaRepository.save(comment);
         }else{
             throw new NotFoundException(id);
         }
