@@ -21,11 +21,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public Long createCategory(Category request) {
         return categoryJpaRepository.save(request).getId();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Category getByIdIfExists(Long id) {
         return categoryJpaRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }

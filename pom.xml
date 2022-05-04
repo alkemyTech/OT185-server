@@ -48,6 +48,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- security -->
@@ -197,7 +198,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
 
             <!-- Failsafe for integration tests -->
             <plugin>

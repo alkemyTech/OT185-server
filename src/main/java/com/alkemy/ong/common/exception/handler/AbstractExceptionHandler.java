@@ -1,6 +1,6 @@
 package com.alkemy.ong.common.exception.handler;
 
-import com.alkemy.ong.common.exception.error.ApplicationErrorCode;
+import com.alkemy.ong.common.exception.error.ErrorCode;
 import com.alkemy.ong.common.exception.error.ErrorDetails;
 import com.alkemy.ong.common.exception.error.ErrorLocation;
 import lombok.extern.slf4j.Slf4j;
@@ -138,8 +138,8 @@ public abstract sealed class AbstractExceptionHandler permits GlobalExceptionHan
             headers.setAllow(supportedMethods);
         }
 
-        final String message = ApplicationErrorCode.METHOD_NOT_CURRENTLY_ALLOWED.getDefaultMessage() + ". Unable to find method [" + ex.getMethod() + "], supported methods [" + ex.getSupportedHttpMethods() + "].";
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.METHOD_NOT_CURRENTLY_ALLOWED, message);
+        final String message = ErrorCode.METHOD_NOT_CURRENTLY_ALLOWED.getDefaultMessage() + ". Unable to find method [" + ex.getMethod() + "], supported methods [" + ex.getSupportedHttpMethods() + "].";
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.METHOD_NOT_CURRENTLY_ALLOWED, message);
     }
 
     protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -155,118 +155,118 @@ public abstract sealed class AbstractExceptionHandler permits GlobalExceptionHan
             }
         }
 
-        final String message = ApplicationErrorCode.MEDIA_TYPE_NOT_SUPPORTED.getDefaultMessage() + " Supported media-types [" + ex.getSupportedMediaTypes() + "].";
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.MEDIA_TYPE_NOT_SUPPORTED, message);
+        final String message = ErrorCode.MEDIA_TYPE_NOT_SUPPORTED.getDefaultMessage() + " Supported media-types [" + ex.getSupportedMediaTypes() + "].";
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.MEDIA_TYPE_NOT_SUPPORTED, message);
     }
 
     protected ResponseEntity<Object> handleHttpMediaTypeNotAcceptable(HttpMediaTypeNotAcceptableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling HttpMediaTypeNotAcceptable with status={}", status);
 
-        final String message = ApplicationErrorCode.MEDIA_TYPE_NOT_CURRENTLY_ALLOWED.getDefaultMessage() + " Allowed media-types [" + ex.getSupportedMediaTypes() + "].";
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.MEDIA_TYPE_NOT_CURRENTLY_ALLOWED, message);
+        final String message = ErrorCode.MEDIA_TYPE_NOT_CURRENTLY_ALLOWED.getDefaultMessage() + " Allowed media-types [" + ex.getSupportedMediaTypes() + "].";
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.MEDIA_TYPE_NOT_CURRENTLY_ALLOWED, message);
     }
 
     protected ResponseEntity<Object> handleMissingPathVariable(MissingPathVariableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling eMissingPathVariable with status={}", status);
 
-        final String message = ApplicationErrorCode.MISSING_PATH_VARIABLE.getDefaultMessage() + " Missing variable [" + ex.getVariableName() + "].";
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.MISSING_PATH_VARIABLE, message);
+        final String message = ErrorCode.MISSING_PATH_VARIABLE.getDefaultMessage() + " Missing variable [" + ex.getVariableName() + "].";
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.MISSING_PATH_VARIABLE, message);
     }
 
     protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling MissingServletRequestParameter with status={}", status);
 
-        final String message = ApplicationErrorCode.MISSING_REQUEST_PARAMETERS.getDefaultMessage() + " Missing parameter [" + ex.getParameterName() + "] with expected type [" + ex.getParameterType() + "].";
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.MISSING_REQUEST_PARAMETERS, message);
+        final String message = ErrorCode.MISSING_REQUEST_PARAMETERS.getDefaultMessage() + " Missing parameter [" + ex.getParameterName() + "] with expected type [" + ex.getParameterType() + "].";
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.MISSING_REQUEST_PARAMETERS, message);
     }
 
     protected ResponseEntity<Object> handleServletRequestBindingException(ServletRequestBindingException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling ServletRequestBinding with status={}", status);
 
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.REQUEST_BINDING, null);
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.REQUEST_BINDING, null);
     }
 
     protected ResponseEntity<Object> handleConversionNotSupported(ConversionNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling ConversionNotSupported with status={}", status);
 
-        final String message = ApplicationErrorCode.CONVERTION_NOT_SUPPORTED.getDefaultMessage() + " The offending value [" + ex.getValue() + "] couldn't be converted.";
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.CONVERTION_NOT_SUPPORTED, message);
+        final String message = ErrorCode.CONVERTION_NOT_SUPPORTED.getDefaultMessage() + " The offending value [" + ex.getValue() + "] couldn't be converted.";
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.CONVERTION_NOT_SUPPORTED, message);
     }
 
     protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling handleTypeMismatch with status={}", status);
 
-        final String message = ApplicationErrorCode.TYPE_MISMATCH.getDefaultMessage() + " The offending value [" + ex.getValue() + "] couldn't be converted.";
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.TYPE_MISMATCH, message);
+        final String message = ErrorCode.TYPE_MISMATCH.getDefaultMessage() + " The offending value [" + ex.getValue() + "] couldn't be converted.";
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.TYPE_MISMATCH, message);
     }
 
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling HttpMessageNotReadable with status={}", status);
 
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.MESSAGE_NOT_READABLE, null);
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.MESSAGE_NOT_READABLE, null);
     }
 
     protected ResponseEntity<Object> handleHttpMessageNotWritable(HttpMessageNotWritableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling HttpMessageNotWritable with status={}", status);
 
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.MESSAGE_NOT_WRITABLE, null);
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.MESSAGE_NOT_WRITABLE, null);
     }
 
     protected ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling IllegalArgument with status={}", status);
 
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.ILLEGAL_ARGUMENT, null);
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.ILLEGAL_ARGUMENT, null);
     }
 
     protected ResponseEntity<Object> handleHttpClientErrorException(HttpClientErrorException ex, HttpHeaders headers, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling HttpClientError with status={}", ex.getStatusCode());
 
-        final String message = ApplicationErrorCode.HTTP_CLIENT_ERROR.getDefaultMessage() + " Retrieved status [" + ex.getStatusText() + "] with response [" + ex.getResponseBodyAsString() + "].";
-        return this.handleExceptionInternal(ex, headers, ex.getStatusCode(), request, ApplicationErrorCode.HTTP_CLIENT_ERROR, message);
+        final String message = ErrorCode.HTTP_CLIENT_ERROR.getDefaultMessage() + " Retrieved status [" + ex.getStatusText() + "] with response [" + ex.getResponseBodyAsString() + "].";
+        return this.handleExceptionInternal(ex, headers, ex.getStatusCode(), request, ErrorCode.HTTP_CLIENT_ERROR, message);
     }
 
     protected ResponseEntity<Object> handleMissingServletRequestPart(MissingServletRequestPartException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling MissingServletRequestPart with status={}", status);
 
-        final String message = ApplicationErrorCode.HTTP_CLIENT_ERROR.getDefaultMessage() + " The part [" + ex.getRequestPartName() + "] of the multipart is missing.";
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.MISSING_REQUEST_PART, message);
+        final String message = ErrorCode.HTTP_CLIENT_ERROR.getDefaultMessage() + " The part [" + ex.getRequestPartName() + "] of the multipart is missing.";
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.MISSING_REQUEST_PART, message);
     }
 
     protected ResponseEntity<Object> handleInternalAuthenticationServiceException(InternalAuthenticationServiceException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling InternalAuthenticationService with status={}", status);
 
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.BAD_CREDENTIALS, null);
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.BAD_CREDENTIALS, null);
     }
 
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling NoHandlerFound with status={}", status);
 
-        final String message = ApplicationErrorCode.NOT_HANDLER_FOUND.getDefaultMessage() + " Unable to handle [" + ex.getHttpMethod() + " " + ex.getRequestURL() + "].";
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.NOT_HANDLER_FOUND, message);
+        final String message = ErrorCode.NOT_HANDLER_FOUND.getDefaultMessage() + " Unable to handle [" + ex.getHttpMethod() + " " + ex.getRequestURL() + "].";
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.NOT_HANDLER_FOUND, message);
     }
 
     protected ResponseEntity<Object> handleServiceUnavailableException(Exception ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (log.isDebugEnabled())
             log.debug("handling ServiceUnavailable with status={}", status);
 
-        return this.handleExceptionInternal(ex, headers, status, request, ApplicationErrorCode.SERVICE_UNAVAILABLE, null);
+        return this.handleExceptionInternal(ex, headers, status, request, ErrorCode.SERVICE_UNAVAILABLE, null);
     }
 
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, HttpHeaders headers, HttpStatus status, WebRequest request,
-                                                             ApplicationErrorCode code, @Nullable String customMessage) {
+                                                             ErrorCode code, @Nullable String customMessage) {
 
         if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
             request.setAttribute("javax.servlet.error.exception", ex, 0);
@@ -282,7 +282,7 @@ public abstract sealed class AbstractExceptionHandler permits GlobalExceptionHan
     protected ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, HttpHeaders headers) {
         List<ErrorDetails> errors = ex.getConstraintViolations().stream()
                 .map(constraintViolation -> ErrorDetails.builder()
-                        .code(ApplicationErrorCode.INVALID_FIELD_VALUE)
+                        .code(ErrorCode.INVALID_FIELD_VALUE)
                         .detail(constraintViolation.getMessage())
                         .field(constraintViolation.getPropertyPath().toString())
                         .location(ErrorLocation.BODY)
@@ -295,7 +295,7 @@ public abstract sealed class AbstractExceptionHandler permits GlobalExceptionHan
     protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers) {
         List<ErrorDetails> errors = ex.getBindingResult().getFieldErrors().stream()
                 .map(fieldError -> ErrorDetails.builder()
-                        .code(ApplicationErrorCode.INVALID_FIELD_VALUE)
+                        .code(ErrorCode.INVALID_FIELD_VALUE)
                         .detail(fieldError.getDefaultMessage())
                         .field(fieldError.getField())
                         .location(ErrorLocation.BODY)
