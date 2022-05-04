@@ -11,6 +11,7 @@ import com.alkemy.ong.domain.usecase.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -68,12 +69,12 @@ public class CommentServiceImpl implements CommentService {
 
             Comment comment = op.get();
 
-            boolean canUpdate = Objects.equals(user.getRole().getAuthority(), "ADMIN") ||
+            boolean canUpdate = Objects.equals(user.getRole().getAuthority(), "ROLE_ADMIN") ||
                                 Objects.equals(user.getId(), comment.getUser().getId());
             if (canUpdate){
                 comment.setCommentBody(commentUpdate.getCommentBody());
             }else {
-                //throw new AccessDeniedException("User not authorized to update this comment");
+                throw new AccessDeniedException("User not authorized to update this comment");
                 }
             return commentJpaRepository.save(comment);
         }else{
