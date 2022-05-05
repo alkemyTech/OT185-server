@@ -45,8 +45,7 @@ public class OrganizationController {
         Organization organization = mapper.organizationRequestToOrganization(organizationRequest);
         if (!service.existById(id)) {
             final long idOrganizationCreated = service.updateEntity(id, organization);
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/{idOrganizationCreated}").buildAndExpand(idOrganizationCreated)
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().build()
                     .toUri();
             return ResponseEntity.created(location).build();
         } else {
