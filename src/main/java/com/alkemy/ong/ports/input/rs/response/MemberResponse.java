@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemberResponse {
 
-}
     @JsonProperty("name")
     private String name;
 
