@@ -46,6 +46,7 @@ public class MemberController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateMember(@Valid @NotNull @PathVariable Long id,
                              @RequestBody UpdateMemberRequest upMember) {
 
