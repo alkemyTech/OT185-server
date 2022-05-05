@@ -16,11 +16,11 @@ import java.util.Objects;
 public class Slide {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "slide_id")
     private Long id;
 
-    @Column(name = "imageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
     @Column(name = "text")
     private String text;
