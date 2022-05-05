@@ -1,6 +1,5 @@
 package com.alkemy.ong.ports.output.s3;
 
-import com.alkemy.ong.configuration.S3Config;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -21,7 +20,6 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class AmazonS3Client {
 
-    private final S3Config amazonConfig;
     private final AmazonS3 amazonS3;
 
     @Value("${s3.bucket}")

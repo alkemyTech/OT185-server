@@ -2,7 +2,7 @@ package com.alkemy.ong.common.exception.handler;
 
 import com.alkemy.ong.common.exception.ConflictException;
 import com.alkemy.ong.common.exception.NotFoundException;
-import com.alkemy.ong.common.exception.error.ApplicationErrorCode;
+import com.alkemy.ong.common.exception.error.ErrorCode;
 import com.alkemy.ong.common.exception.error.ErrorDetails;
 import com.alkemy.ong.common.exception.error.ErrorLocation;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public final class GlobalExceptionHandler extends AbstractExceptionHandler {
     private ResponseEntity<ErrorDetails> handleNotFound(NotFoundException ex) {
 
         ErrorDetails error = ErrorDetails.builder()
-                .code(ApplicationErrorCode.RESOURCE_NOT_FOUND)
+                .code(ErrorCode.RESOURCE_NOT_FOUND)
                 .detail("The resource with id %s is not found".formatted(ex.getResourceId()))
                 .location(ErrorLocation.PATH)
                 .build();
@@ -29,7 +29,7 @@ public final class GlobalExceptionHandler extends AbstractExceptionHandler {
     private ResponseEntity<ErrorDetails> handleConflict(ConflictException ex) {
 
         ErrorDetails error = ErrorDetails.builder()
-                .code(ApplicationErrorCode.RESOURCE_ALREADY_EXISTS)
+                .code(ErrorCode.RESOURCE_ALREADY_EXISTS)
                 .detail("%s".formatted(ex.getMsg()))
                 .location(ErrorLocation.PATH)
                 .build();

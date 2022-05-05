@@ -5,13 +5,13 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ApplicationErrorCode {
+public enum ErrorCode {
     INVALID_FIELD_VALUE("The provided field is not valid."),
     RESOURCE_NOT_FOUND("The requested resource was not found."),
-    BAD_REQUEST("The server can’t return a response due to an error on the client’s end."),
+    BAD_REQUEST("The server cannot return a response due to an error on the client's end."),
     ILLEGAL_ARGUMENT("Has been passed an illegal or inappropriate argument."),
     HTTP_CLIENT_ERROR("The request failed because a 4xx error was received."),
-    BAD_CREDENTIALS("The server can’t return a response due to invalid credentials."),
+    BAD_CREDENTIALS("The server cannot return a response due to invalid credentials."),
     TOKEN_INVALID_OR_EXPIRED("The server can not return a response due to an invalid token or token expired."),
     INTERNAL_ERROR("There was an error on the server and the request could not be completed."),
     SERVICE_NOT_IMPLEMENTED("The requested service is not implemented in this api version."),
@@ -29,7 +29,7 @@ public enum ApplicationErrorCode {
     NOT_HANDLER_FOUND("The server could not found a handler for the request."),
     TYPE_MISMATCH("A type mismatch occurred trying to set a property."),
     PARAMS_REQUIRED("The request body may be missing mandatory parameters."),
-    ROLE_INVALID("The server can not return a response due to an invalid role"),
+    ROLE_INVALID("The user does not have access to the current resource"),
     UNAUTHORIZED("Wrong credentials."),
 	RESOURCE_ALREADY_EXISTS("This resource already exists.");
 
