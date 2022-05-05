@@ -28,7 +28,6 @@ public class NewsController {
 
     private final NewsControllerMapper newsControllerMapper;
     @PatchMapping("/{id}")
-
     public ResponseEntity<NewsResponse> updateNews(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateNewsRequest updateNewsRequest) {
 
         News news = newsControllerMapper.updateNewsRequestToNews(updateNewsRequest);
