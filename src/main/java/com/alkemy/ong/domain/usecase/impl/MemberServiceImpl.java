@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alkemy.ong.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
@@ -42,6 +44,12 @@ public class MemberServiceImpl implements MemberService {
 
 					return memberJpaRepository.save(memberJpa);
 				}).orElseThrow(() -> new NotFoundException(id));
+	}
+
+	@Override
+	@Transactional
+	public List<Member> getAll() {
+		return (List<Member>) memberJpaRepository.findAll();
 	}
 
 }
