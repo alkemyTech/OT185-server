@@ -26,7 +26,7 @@ public class CreateNewsRequest {
     @JsonProperty("image")
     private String image;
 
-    @NotNull
-    @JsonProperty("category_id")
+
+    @JsonProperty("categoryId")
     private Long categoryId;
 }
