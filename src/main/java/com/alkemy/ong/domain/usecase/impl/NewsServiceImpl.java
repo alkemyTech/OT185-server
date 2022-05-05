@@ -18,6 +18,7 @@ public class NewsServiceImpl implements NewsService {
     private final CategoryRepository categoryJpaRepository;
 
 
+
     @Override
     @Transactional
     public Long createEntity(News news, Long CategoryId){
