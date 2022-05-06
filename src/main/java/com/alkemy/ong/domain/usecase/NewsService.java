@@ -2,7 +2,7 @@ package com.alkemy.ong.domain.usecase;
 
 
 import com.alkemy.ong.domain.model.News;
-import org.springframework.http.ResponseEntity;
+
 
 public interface NewsService {
 
