@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+import com.alkemy.ong.domain.model.Testimonial;
 import com.alkemy.ong.domain.repository.TestimonialRepository;
 import com.alkemy.ong.domain.usecase.TestimonialService;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,12 @@ public class TestimonialServiceImpl implements TestimonialService {
     public void deleteById(Long id){
         testimonialRepository.findById(id).ifPresent(testimonialRepository::delete);
     }
+
+    @Override
+    @Transactional
+    public Long createEntity(Testimonial testimonial) {
+        return testimonialRepository.save(testimonial).getId();
+    }
+
 
 }
