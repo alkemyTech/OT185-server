@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Member> getAll() {
 		return (List<Member>) memberJpaRepository.findAll();
 	}
