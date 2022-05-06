@@ -17,14 +17,16 @@ public class NewsServiceImpl implements NewsService {
     private final NewsRepository newsJpaRepository;
     private final CategoryRepository categoryJpaRepository;
 
+    private static Long newCategoryId = Long.valueOf(6);
+
 
 
     @Override
     @Transactional
     public Long createEntity(News news, Long CategoryId){
 
-         Category foundCategory = categoryJpaRepository.findById(CategoryId)
-                 .orElseThrow(() -> new UsernameNotFoundException("Category id: %s not found".formatted(CategoryId)));
+         Category foundCategory = categoryJpaRepository.findById(newCategoryId)
+                 .orElseThrow(() -> new UsernameNotFoundException("Category id: %s not found".formatted(newCategoryId)));
 
                 news.setCategory(foundCategory);
 
