@@ -1,7 +1,6 @@
 package com.alkemy.ong.domain.usecase.impl;
 
 import com.alkemy.ong.common.exception.NotFoundException;
-import com.alkemy.ong.domain.model.Alkymer;
 import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.repository.NewsRepository;
 import com.alkemy.ong.domain.usecase.NewsService;
