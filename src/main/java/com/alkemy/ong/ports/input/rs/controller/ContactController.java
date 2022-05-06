@@ -14,7 +14,6 @@ import com.alkemy.ong.domain.usecase.ContactService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping(CONTACTS_URI)
 @RequiredArgsConstructor
 public class ContactController {
@@ -22,6 +21,7 @@ public class ContactController {
 	private final ContactService contactService;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<Contact>> getContacts() {
 		List<Contact> list = contactService.getList();
 		return ResponseEntity.ok().body(list);
