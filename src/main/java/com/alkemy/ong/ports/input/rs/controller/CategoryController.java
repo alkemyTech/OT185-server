@@ -4,6 +4,7 @@ import com.alkemy.ong.domain.model.Category;
 import com.alkemy.ong.domain.usecase.CategoryService;
 import com.alkemy.ong.ports.input.rs.mapper.CategoryControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CategoryRequest;
+import com.alkemy.ong.ports.input.rs.response.CategoryNameResponseList;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import java.net.URI;
+import java.util.List;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.CATEGORIES_URI;
 
@@ -30,6 +32,14 @@ public class CategoryController {
         Category category = categoryService.getByIdIfExists(id);
         CategoryResponse response = mapper.categoryToCategoryResponse(category);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoryNameResponseList>> getCategories(){
+        List<Category> categories = categoryService.getAll();
+        List<CategoryNameResponseList> responses = mapper.categoryListToCategoryResponse(categories);
+
+        return ResponseEntity.ok().body(responses);
     }
 
     @PostMapping
