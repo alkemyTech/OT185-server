@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<User> getAll() {
 		return (List<User>)userJpaRepository.findAll();
 	}
