@@ -1,9 +1,12 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
+import com.alkemy.ong.domain.model.Activity;
 import com.alkemy.ong.domain.model.Category;
 import com.alkemy.ong.domain.usecase.CategoryService;
 import com.alkemy.ong.ports.input.rs.mapper.CategoryControllerMapper;
+import com.alkemy.ong.ports.input.rs.request.ActivityRequest;
 import com.alkemy.ong.ports.input.rs.request.CategoryRequest;
+import com.alkemy.ong.ports.input.rs.response.ActivityResponse;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -44,6 +47,14 @@ public class CategoryController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponse> updateCategory(@Valid @NotNull @PathVariable Long id,
+                                                           @Valid @RequestBody CategoryRequest categoryRequest) {
+        Category category = mapper.categoryRequestToCategory(categoryRequest);
+        CategoryResponse response = mapper.categoryToCategoryResponse(categoryService.updateCategory(id, category));
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
