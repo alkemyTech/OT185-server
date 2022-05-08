@@ -1,7 +1,6 @@
 package com.alkemy.ong.domain.usecase.impl;
 
 import com.alkemy.ong.common.exception.NotFoundException;
-import com.alkemy.ong.domain.model.Activity;
 import com.alkemy.ong.domain.model.Category;
 import com.alkemy.ong.domain.repository.CategoryRepository;
 import com.alkemy.ong.domain.usecase.CategoryService;
