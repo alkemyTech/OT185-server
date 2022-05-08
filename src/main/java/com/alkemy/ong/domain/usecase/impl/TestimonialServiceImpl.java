@@ -30,7 +30,7 @@ public class TestimonialServiceImpl implements TestimonialService {
 
     @Override
     @Transactional
-    public Optional<Testimonial> updateEntityIfExists(Long id, Testimonial testimonial){
+    public Testimonial updateEntityIfExists(Long id, Testimonial testimonial){
         testimonialRepository.findById(id)
                 .map(testimonialJpa -> {
                     Optional.ofNullable(testimonial.getName()).ifPresent(testimonialJpa::setName);
@@ -39,8 +39,7 @@ public class TestimonialServiceImpl implements TestimonialService {
 
                     return testimonialRepository.save(testimonialJpa);
                 }).orElseThrow(() -> new NotFoundException(id));
-        return testimonialRepository.findById(id);
-    }
+        return testimonialRepository.findById(id).orElseThrow(() -> new NotFoundException(id));    }
 
 
 }

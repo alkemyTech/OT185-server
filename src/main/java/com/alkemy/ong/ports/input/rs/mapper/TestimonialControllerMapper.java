@@ -14,5 +14,6 @@ public interface TestimonialControllerMapper extends CommonMapper{
 
     Testimonial createTestimonialRequestToTestimonial(CreateTestimonialRequest createTestimonialRequest);
     Testimonial updateTestimonialResquestToTestimonial(UpdateTestimonialRequest updateTestimonialRequest);
-    TestimonialResponse optionalTestimonialToTestimonialresponse(Optional<Testimonial> testimonial);
+    //TestimonialResponse optionalTestimonialToTestimonialresponse(Optional<Testimonial> testimonial);
+    TestimonialResponse testimonialToTestimonialResponse(Testimonial testimonial);
 }

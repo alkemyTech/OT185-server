@@ -53,9 +53,9 @@ public class TestimonialController {
 
         Testimonial testimonial = mapper.updateTestimonialResquestToTestimonial(updateTestimonialRequest);
 
-        TestimonialResponse response = mapper.optionalTestimonialToTestimonialresponse(
+        TestimonialResponse response = mapper.testimonialToTestimonialResponse(
                 testimonialService.updateEntityIfExists(id, testimonial));
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok().body(response);
     }
 }
