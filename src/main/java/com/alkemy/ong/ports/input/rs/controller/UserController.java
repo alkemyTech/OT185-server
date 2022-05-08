@@ -9,12 +9,16 @@ import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;
 
 import com.alkemy.ong.domain.usecase.UserService;
 
+import com.alkemy.ong.ports.input.rs.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import java.util.List;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.USER_URI;
 
@@ -43,4 +47,13 @@ public class UserController {
         userService.deleteUserById(id);
 
     }
+
+    @GetMapping
+    public ResponseEntity<List<UserResponse>> getUsers(){
+        List<User> users = userService.getAll();
+        List<UserResponse> responses = userControllerMapper.userListToUserResponse(users);
+
+        return ResponseEntity.ok().body(responses);
+    }
+
 }
