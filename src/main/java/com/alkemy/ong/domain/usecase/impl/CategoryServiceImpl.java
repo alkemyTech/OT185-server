@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
@@ -30,6 +32,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(readOnly = true)
     public Category getByIdIfExists(Long id) {
         return categoryJpaRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Category> getAll() {
+        return (List<Category>)categoryJpaRepository.findAll();
     }
 
 }
