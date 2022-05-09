@@ -16,6 +16,9 @@ public class TestimonialResponse {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("image")
+    private String image;
+
     @JsonProperty("content")
     private String content;
 
