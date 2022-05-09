@@ -13,9 +13,16 @@ public class EmailTemplateValues {
 	public static final String ORGANIZATION_LINKEDIN = "organization_linkedin_url";
 	public static final String ORGANIZATION_FACEBOOK = "organization_facebook_url";
 	public static final String SUBJECT = "subject";
+	public static final String CONTACT_TEXT = "contact_text";
+
 
 	/* SUBJECTS */
 
 	public static final String WELCOME_SUBJECT = "Bienvenido a Somos Más ONG";
+	public static final String CONTACT_SUBJECT = "Hemos recibido tu solicitud - Somos Más ONG";
+	
+	/* TEXTS */
+	
+	public static final String CONTACT_TEXT_CONTENT = "¡Gracias por contactarnos! Hemos recibido tu solicitud. Te estaremos escribiendo en breve.";
 
 }

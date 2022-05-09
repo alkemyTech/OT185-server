@@ -20,7 +20,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-
 import com.alkemy.ong.domain.model.Organization;
 import com.alkemy.ong.domain.model.User;
 import com.sendgrid.Method;
@@ -29,9 +28,9 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import static com.alkemy.ong.ports.output.email.EmailTemplateValues.*;
 
 @Slf4j
 @Component
@@ -45,6 +44,9 @@ public class SendGridEmailService implements EmailService {
 
 	@Value("${email.template}")
 	private String templateId;
+	
+	@Value("${email.contact-template}")
+	private String contactTemplate;
 
 	private Email fromEmail;
 
@@ -58,27 +60,35 @@ public class SendGridEmailService implements EmailService {
 	public void sendWelcomeEmail(User toUser, Organization organization) {
 
 		Email emailTo = new Email(toUser.getEmail());
-
 		Mail mail = new Mail();
 		mail.setFrom(fromEmail);
 		mail.setTemplateId(templateId);
-
-		Personalization personalization = new Personalization();
+		Personalization personalization = addPersonalization(organization);
 		personalization.addDynamicTemplateData(FIRST_NAME, toUser.getFirstName());
-		personalization.addDynamicTemplateData(ORGANIZATION_NAME, organization.getName());
-		personalization.addDynamicTemplateData(WELCOME_TEXT, organization.getWelcomeText());
-		personalization.addDynamicTemplateData(ORGANIZATION_ADDRESS, organization.getAddress());
-		personalization.addDynamicTemplateData(ORGANIZATION_IMAGE, organization.getImage());
-		personalization.addDynamicTemplateData(ORGANIZATION_PHONE, organization.getPhone());
-		personalization.addDynamicTemplateData(ORGANIZATION_EMAIL, organization.getEmail());
-		personalization.addDynamicTemplateData(ORGANIZATION_INSTAGRAM, organization.getInstagramUrl());
-		personalization.addDynamicTemplateData(ORGANIZATION_LINKEDIN, organization.getLinkedinUrl());
-		personalization.addDynamicTemplateData(ORGANIZATION_FACEBOOK, organization.getFacebookUrl());
 		personalization.addDynamicTemplateData(SUBJECT, WELCOME_SUBJECT);
+		personalization.addDynamicTemplateData(WELCOME_TEXT, organization.getWelcomeText());
 		personalization.addTo(emailTo);
-
 		mail.addPersonalization(personalization);
+		sendMail(mail);
+	}
 
+	@Override
+	public void sendContactedSuccessfully(String name, String email, Organization organization) {
+		Email emailTo = new Email(email);
+		Mail mail = new Mail();
+		mail.setFrom(fromEmail);
+		mail.setTemplateId(contactTemplate);
+		Personalization personalization = addPersonalization(organization);
+		personalization.addDynamicTemplateData(FIRST_NAME, name);
+		personalization.addDynamicTemplateData(CONTACT_TEXT, CONTACT_TEXT_CONTENT);
+		personalization.addDynamicTemplateData(SUBJECT, CONTACT_SUBJECT);
+		personalization.addTo(emailTo);
+		mail.addPersonalization(personalization);
+		sendMail(mail);
+	}
+	
+	@Override
+	public void sendMail(Mail mail) {
 		try {
 			Request request = new Request();
 			request.setMethod(Method.POST);
@@ -89,6 +99,21 @@ public class SendGridEmailService implements EmailService {
 			log.error("Error sending email", ex);
 			throw new RuntimeException("Error sending email due " + ex);
 		}
-
+		
 	}
+
+	private Personalization addPersonalization(Organization organization) {
+		Personalization personalization = new Personalization();
+		personalization.addDynamicTemplateData(ORGANIZATION_NAME, organization.getName());
+		personalization.addDynamicTemplateData(ORGANIZATION_ADDRESS, organization.getAddress());
+		personalization.addDynamicTemplateData(ORGANIZATION_IMAGE, organization.getImage());
+		personalization.addDynamicTemplateData(ORGANIZATION_PHONE, organization.getPhone());
+		personalization.addDynamicTemplateData(ORGANIZATION_EMAIL, organization.getEmail());
+		personalization.addDynamicTemplateData(ORGANIZATION_INSTAGRAM, organization.getInstagramUrl());
+		personalization.addDynamicTemplateData(ORGANIZATION_LINKEDIN, organization.getLinkedinUrl());
+		personalization.addDynamicTemplateData(ORGANIZATION_FACEBOOK, organization.getFacebookUrl());
+		return personalization;
+	}
+
+	
 }
