@@ -21,7 +21,7 @@ public class ContactController {
 	private final ContactService contactService;
 
 	@GetMapping
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<Contact>> getContacts() {
 		List<Contact> list = contactService.getList();
 		return ResponseEntity.ok().body(list);
