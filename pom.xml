@@ -73,7 +73,12 @@
             <version>${jjwt.version}</version>
             <scope>runtime</scope>
         </dependency>
-
+        <!-- commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
         <!-- code gen -->
         <dependency>
             <groupId>org.projectlombok</groupId>
