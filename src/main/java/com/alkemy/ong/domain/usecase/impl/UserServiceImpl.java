@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -62,6 +63,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 			emailService.sendWelcomeEmail(user, organization.get());
 		}
 		return userJpaRepository.save(user);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<User> getAll() {
+		return (List<User>)userJpaRepository.findAll();
 	}
 
 	@Override

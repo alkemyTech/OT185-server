@@ -8,4 +8,7 @@ public interface CategoryService {
     Long createCategory(Category request);
 
     Category getByIdIfExists(Long id);
+
+    Category updateCategory(Long id, Category category);
 }
+
