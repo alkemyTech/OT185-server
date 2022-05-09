@@ -6,4 +6,6 @@ public interface SlideService {
     void deleteById(Long id);
 
     Slide getById(Long id);
+
+    Long create(Slide slide);
 }
