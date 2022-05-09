@@ -15,6 +15,7 @@ public interface CommentService {
 
     void updateCommentIfExists(Long id, Comment commentUpdate, User user);
 
+    List<Comment> getCommentsByNewsId(Long id);
 
     List<Comment> getAll();
 
