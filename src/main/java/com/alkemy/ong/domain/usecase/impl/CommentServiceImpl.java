@@ -11,10 +11,13 @@ import com.alkemy.ong.domain.repository.NewsRepository;
 import com.alkemy.ong.domain.repository.UserRepository;
 import com.alkemy.ong.domain.usecase.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.access.AccessDeniedException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -77,5 +80,11 @@ public class CommentServiceImpl implements CommentService {
                 throw new AccessDeniedException("User not authorized to delete this comment");
             }
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Comment> getCommentsByNewsId(Long id) {
+      return null;
     }
 }

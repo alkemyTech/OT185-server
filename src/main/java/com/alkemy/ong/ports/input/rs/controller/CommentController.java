@@ -5,6 +5,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.domain.model.Comment;
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.usecase.CommentService;
+import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 import java.net.URI;
+import java.util.List;
+
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.COMMENT_URI;
 
 
@@ -58,6 +61,14 @@ public class CommentController {
     public void updateComment(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateCommentRequest updateCommentRequest, @AuthenticationPrincipal User user) {
         Comment comment = mapper.updateCommentRequestToComment(updateCommentRequest);
         service.updateCommentIfExists(id, comment, user);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<CommentResponse>> getCommentsbyNewsId(@Valid @NotNull @PathVariable Long id) {
+        List<Comment> comments = service.getCommentsByNewsId(id);
+        List<CommentResponse> responseList = mapper.commentListToCommentResponseList(comments);
+
+        return ResponseEntity.ok().body(responseList);
     }
 }
 
