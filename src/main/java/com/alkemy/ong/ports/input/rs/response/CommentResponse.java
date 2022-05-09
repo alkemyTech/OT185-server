@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,3 +17,4 @@ public class CommentResponse {
     private String commentBody;
 
 }
+

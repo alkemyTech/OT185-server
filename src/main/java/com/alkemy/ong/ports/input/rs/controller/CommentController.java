@@ -64,10 +64,11 @@ public class CommentController {
         service.updateCommentIfExists(id, comment, user);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<CommentResponse>> getCommentsbyNewsId(@Valid @NotNull @PathVariable Long id) {
-        List<Comment> comments = service.getCommentsByNewsId(id);
-        List<CommentResponse> responseList = mapper.commentListToCommentResponseList(comments);
+
+    @GetMapping
+    public ResponseEntity<List<CommentResponse>> getComments(){
+        List<Comment> commentList = service.getAll();
+        List<CommentResponse> responseList = mapper.commentListToCommentResponseList(commentList);
 
         return ResponseEntity.ok().body(responseList);
     }

@@ -3,9 +3,7 @@ package com.alkemy.ong.domain.usecase.impl;
 
 
 import com.alkemy.ong.common.exception.NotFoundException;
-import com.alkemy.ong.domain.model.Comment;
-import com.alkemy.ong.domain.model.News;
-import com.alkemy.ong.domain.model.User;
+import com.alkemy.ong.domain.model.*;
 import com.alkemy.ong.domain.repository.CommentRepository;
 import com.alkemy.ong.domain.repository.NewsRepository;
 import com.alkemy.ong.domain.repository.UserRepository;
@@ -16,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.access.AccessDeniedException;
 
+
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -84,16 +84,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Comment> getCommentsByNewsId(Long id) {
-      List<Comment> commentList = (List<Comment>) commentJpaRepository.findAll();
-      List<Comment> resultList = new ArrayList<>();
-
-      for (Comment comment : commentList) {
-            if (comment.getNews().getId() == id){
-                resultList.add(comment);
-            }
-        };
-
-      return resultList;
+    public List<Comment> getAll() {
+        return (List<Comment>) commentJpaRepository.findAll(Sort.by("audit.createdAt"));
     }
 }
