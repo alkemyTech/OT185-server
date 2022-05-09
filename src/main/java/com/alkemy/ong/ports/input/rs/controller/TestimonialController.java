@@ -4,6 +4,8 @@ import com.alkemy.ong.domain.model.Testimonial;
 import com.alkemy.ong.domain.usecase.TestimonialService;
 import com.alkemy.ong.ports.input.rs.mapper.TestimonialControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateTestimonialRequest;
+import com.alkemy.ong.ports.input.rs.request.UpdateTestimonialRequest;
+import com.alkemy.ong.ports.input.rs.response.TestimonialResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +45,17 @@ public class TestimonialController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<TestimonialResponse> updateTestimonial(@Valid @NotNull @PathVariable Long id,
+                                                                 @Valid @RequestBody UpdateTestimonialRequest updateTestimonialRequest) {
+
+        Testimonial testimonial = mapper.updateTestimonialResquestToTestimonial(updateTestimonialRequest);
+
+        TestimonialResponse response = mapper.testimonialToTestimonialResponse(
+                testimonialService.updateEntityIfExists(id, testimonial));
+
+        return ResponseEntity.ok().body(response);
     }
 }
