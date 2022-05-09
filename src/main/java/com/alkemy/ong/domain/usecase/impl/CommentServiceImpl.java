@@ -83,8 +83,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Comment> getCommentsByNewsId(Long id) {
-      return null;
+      List<Comment> commentList = (List<Comment>) commentJpaRepository.findAll();
+      List<Comment> resultList = new ArrayList<>();
+
+      for (Comment comment : commentList) {
+            if (comment.getNews().getId() == id){
+                resultList.add(comment);
+            }
+        };
+
+      return resultList;
     }
 }
