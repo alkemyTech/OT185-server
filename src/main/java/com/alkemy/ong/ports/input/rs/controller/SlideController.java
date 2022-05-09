@@ -40,8 +40,9 @@ public class SlideController {
 
     @PostMapping
     public ResponseEntity<Void> createSlide(@RequestBody SlideRequest slideRequest) {
+        String ImageBase64 = slideRequest.getImageBase64();
         Slide slide = mapper.createSlideRequestToSlide(slideRequest);
-        final long id = slideService.create(slide);
+        final long id = slideService.create(slide, ImageBase64);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(id)
                 .toUri();

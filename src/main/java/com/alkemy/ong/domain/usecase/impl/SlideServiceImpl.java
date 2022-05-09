@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+import com.alkemy.ong.common.exception.ConflictException;
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Slide;
 import com.alkemy.ong.domain.repository.SlideRepository;
@@ -46,46 +47,49 @@ public class SlideServiceImpl implements SlideService {
 
     @Override
     @Transactional
-    public Long create(Slide slide) {
+    public Long create(Slide slide, String imageBase64) {
 
         slide.setOrder(checkAndSetOrder(slide.getOrder()));
-
-        slide.setImageUrl(decodeBase64ToMultipart(slide));
+        slide.setImageUrl(getUrlAmazonS3(imageBase64));
         return slideJpaRepository.save(slide).getId();
     }
 
+    private String getUrlAmazonS3(String imageBase64) {
+        MultipartFile image = decodeBase64ToMultipart(imageBase64);
+        return amazonS3Client.uploadFile(image);
+    }
+
     private Integer checkAndSetOrder(Integer order) {
-        List<Slide> slides = findAll();
         if (order == null) {
-            Integer lastOrder = slides.get(slides.size() - 1).getOrder();
-            if (lastOrder != null) {
-                order = lastOrder + 1;
-            } else {
+            List<Slide> slides = findAll();
+            if (slides.size() == 0) {
                 order = 1;
+            } else {
+                Integer lastOrder = slides.get(slides.size() - 1).getOrder();
+                order = lastOrder + 1;
             }
         }
-        for (Slide slide : slides) {
-            if (slide.getOrder() == order) {
-                throw new NotFoundException("The number indicated already exists.");
-            }
+        if (!slideJpaRepository.findByOrder(order).isEmpty()) {
+            throw new ConflictException("The number indicated already exists.");
         }
         return order;
     }
 
-    private String decodeBase64ToMultipart(Slide slide) {
+    private MultipartFile decodeBase64ToMultipart(String imageBase64) {
+
         String dataType;
         String fileName = "slide";
-        if (slide.getImageUrl().indexOf("data:image/png;") != -1) {
+        if (imageBase64.indexOf("data:image/png;") != -1) {
             dataType = "image/png";
-            slide.setImageUrl(slide.getImageUrl().replace("data:image/png;base64,", ""));
+            imageBase64 = imageBase64.replace("data:image/png;base64,", "");
             fileName += ".png";
         } else {
             dataType = "image/jpeg";
-            slide.setImageUrl(slide.getImageUrl().replace("data:image/jpeg;base64,", ""));
+            imageBase64 = imageBase64.replace("data:image/jpeg;base64,", "");
             fileName += ".jpeg";
         }
         try {
-            byte[] imageByte = Base64.getDecoder().decode(slide.getImageUrl());
+            byte[] imageByte = Base64.getDecoder().decode(imageBase64);
             FileItem fileItem = new DiskFileItem(new String(imageByte), dataType, true, fileName, DiskFileItemFactory.DEFAULT_SIZE_THRESHOLD, new java.io.File(System.getProperty("java.io.tmpdir")));
             InputStream input = new ByteArrayInputStream(imageByte);
             OutputStream os = fileItem.getOutputStream();
@@ -95,14 +99,16 @@ public class SlideServiceImpl implements SlideService {
                 ret = input.read();
             }
             os.flush();
-            MultipartFile image = new CommonsMultipartFile(fileItem);
-            return amazonS3Client.uploadFile(image);
+            MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+            return multipartFile;
+
         } catch (IOException e) {
             log.error("error converting file", e);
             throw new RuntimeException(e);
         }
     }
 
+    @Override
     public List<Slide> findAll() {
         List<Slide> slides = (List<Slide>) slideJpaRepository.findAll(Sort.by(Sort.Direction.ASC, "order"));
         return slides;

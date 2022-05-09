@@ -14,8 +14,8 @@ import javax.validation.constraints.NotNull;
 public class SlideRequest {
 
     @NotBlank
-    @JsonProperty("image_url")
-    private String imageUrl;
+    @JsonProperty("image_base64")
+    private String imageBase64;
 
     @NotBlank
     @JsonProperty("text")
