@@ -80,7 +80,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Comment> getAll() {
         return (List<Comment>) commentJpaRepository.findAll(Sort.by("audit.createdAt"));
     }
