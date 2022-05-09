@@ -1,20 +1,23 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.domain.model.Member;
+import com.alkemy.ong.domain.usecase.MemberService;
 import com.alkemy.ong.ports.input.rs.mapper.MemberControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.MemberRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateMemberRequest;
+import com.alkemy.ong.ports.input.rs.response.MemberResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.alkemy.ong.domain.usecase.MemberService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import static com.alkemy.ong.ports.input.rs.api.ApiConstants.MEMBERS_URI;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.net.URI;
+import java.util.List;
+
+import static com.alkemy.ong.ports.input.rs.api.ApiConstants.MEMBERS_URI;
 
 @RestController
 @RequestMapping(MEMBERS_URI)
@@ -29,7 +32,6 @@ public class MemberController {
     public void deleteMember(@Valid @NotNull @PathVariable Long id) {
         memberService.deleteById(id);
     }
-
 
 
     @PostMapping
@@ -52,6 +54,15 @@ public class MemberController {
 
         Member member = mapper.updateMemberRequestToMember(upMember);
         memberService.updateMember(id, member);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MemberResponse>> getMembers() {
+
+        List<Member> listMember = memberService.getAll();
+        List<MemberResponse> listResponse = mapper.memberListToMemberResponseList(listMember);
+
+        return ResponseEntity.ok().body(listResponse);
     }
 
 
