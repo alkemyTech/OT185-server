@@ -2,10 +2,13 @@ package com.alkemy.ong.ports.input.rs.controller;
 
 
 import com.alkemy.ong.domain.model.Category;
+import com.alkemy.ong.domain.model.Comment;
 import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.usecase.NewsService;
+import com.alkemy.ong.ports.input.rs.mapper.CommentControllerMapper;
 import com.alkemy.ong.ports.input.rs.mapper.NewsControllerMapper;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponse;
+import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import com.alkemy.ong.ports.input.rs.response.NewsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import java.util.List;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.NEWS_URI;
 
@@ -27,6 +32,8 @@ public class NewsController {
 
     private final NewsControllerMapper newsControllerMapper;
 
+    private final CommentControllerMapper commentControllerMapper;
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -39,5 +46,13 @@ public class NewsController {
         News news = service.getByIdIfExists(id);
         NewsResponse response = newsControllerMapper.newsToNewsResponse(news);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("{id}/comments")
+    public ResponseEntity<List<CommentResponse>> getCommentsByNewsId(@Valid @NotNull @PathVariable Long id){
+        List<Comment> comments = service.getCommentsByNewsId(id);
+        List<CommentResponse> responseList = commentControllerMapper.commentListToCommentResponseList(comments);
+
+        return ResponseEntity.ok().body(responseList);
     }
 }
