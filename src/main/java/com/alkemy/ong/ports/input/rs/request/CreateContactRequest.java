@@ -13,9 +13,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class CreateContactRequest {
 
-    @NotNull
-    @JsonProperty("user_id")
-    private Long userId;
 
     @NotBlank
     @JsonProperty("name")
