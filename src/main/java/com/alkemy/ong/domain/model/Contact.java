@@ -22,7 +22,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @SQLDelete(sql = "UPDATE contact SET is_active = true WHERE contact_id=?")
-@Where(clause = "is_active = false")
+@Where(clause = "is_active = true")
 @EntityListeners(AuditListener.class)
 public class Contact implements Auditable {
 
