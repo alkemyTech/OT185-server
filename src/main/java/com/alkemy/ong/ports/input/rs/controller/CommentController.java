@@ -73,13 +73,6 @@ public class CommentController {
         return ResponseEntity.ok().body(responseList);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<CommentResponse>> getCommentsbyNewsId(@Valid @NotNull @PathVariable Long id) {
-        List<Comment> comments = service.getCommentsByNewsId(id);
-        List<CommentResponse> responseList = mapper.commentListToCommentResponseList(comments);
-
-        return ResponseEntity.ok().body(responseList);
-    }
 }
 
 

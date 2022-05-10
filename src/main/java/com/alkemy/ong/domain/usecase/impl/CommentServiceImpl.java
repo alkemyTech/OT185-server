@@ -88,18 +88,4 @@ public class CommentServiceImpl implements CommentService {
         return (List<Comment>) commentJpaRepository.findAll(Sort.by("audit.createdAt"));
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Comment> getCommentsByNewsId(Long id) {
-        List<Comment> commentList = (List<Comment>) commentJpaRepository.findAll();
-        List<Comment> resultList = new ArrayList<>();
-
-        for (Comment comment : commentList) {
-            if (comment.getNews().getId() == id) {
-                resultList.add(comment);
-            }
-        }
-
-        return resultList;
-    }
 }
