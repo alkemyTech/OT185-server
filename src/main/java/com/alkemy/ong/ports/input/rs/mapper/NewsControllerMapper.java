@@ -9,5 +9,5 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface NewsControllerMapper {
 
-    News newsRequestToNews(CreateNewsRequest createNewsRequest);
+    News createNewsRequestToNews(CreateNewsRequest createNewsRequest);
 }

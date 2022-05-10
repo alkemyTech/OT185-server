@@ -6,9 +6,10 @@ import com.alkemy.ong.domain.repository.CategoryRepository;
 import com.alkemy.ong.domain.repository.NewsRepository;
 import com.alkemy.ong.domain.usecase.NewsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,10 +26,9 @@ public class NewsServiceImpl implements NewsService {
     @Transactional
     public Long createEntity(News news, Long CategoryId){
 
-         Category foundCategory = categoryJpaRepository.findById(newCategoryId)
-                 .orElseThrow(() -> new UsernameNotFoundException("Category id: %s not found".formatted(newCategoryId)));
+         Optional<Category> foundCategory = categoryJpaRepository.findById(newCategoryId);
 
-                news.setCategory(foundCategory);
+                news.setCategory(foundCategory.get());
 
                 return newsJpaRepository.save(news).getId();
     }

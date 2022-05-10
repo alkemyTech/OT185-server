@@ -1,11 +1,9 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 
-import com.alkemy.ong.domain.model.Alkymer;
 import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.usecase.NewsService;
 import com.alkemy.ong.ports.input.rs.mapper.NewsControllerMapper;
-import com.alkemy.ong.ports.input.rs.request.CreateAlkymerRequest;
 import com.alkemy.ong.ports.input.rs.request.CreateNewsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,7 +32,7 @@ public class NewsController {
     @PostMapping
     public ResponseEntity<Void> createNews(@Valid @RequestBody CreateNewsRequest createNewsRequest) {
 
-        News news = newsControllerMapper.newsRequestToNews(createNewsRequest);
+        News news = newsControllerMapper.createNewsRequestToNews(createNewsRequest);
         Long CategoryId = createNewsRequest.getCategoryId();
 
         final long id = service.createEntity(news,CategoryId);
