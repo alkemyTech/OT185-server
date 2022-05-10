@@ -1,15 +1,20 @@
 package com.alkemy.ong.ports.input.rs.mapper;
 
 import com.alkemy.ong.domain.model.News;
+import com.alkemy.ong.ports.input.rs.request.CreateNewsRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateNewsRequest;
 import com.alkemy.ong.ports.input.rs.response.NewsResponse;
 import org.mapstruct.Mapper;
 
-@Mapper( uses = {CategoryControllerMapper.class})
+
+
+@Mapper
 public interface NewsControllerMapper {
 
-   News updateNewsRequestToNews(UpdateNewsRequest newsRequest);
+    News createNewsRequestToNews(CreateNewsRequest createNewsRequest);
 
-   NewsResponse newsToNewsResponse(News newsResponse);
+    News updateNewsRequestToNews(UpdateNewsRequest newsRequest);
+    NewsResponse newsToNewsResponse(News newsResponse);
+
 }
 
