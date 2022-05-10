@@ -28,7 +28,7 @@ public class ContactController {
 	private final ContactMapper mapper;
 
 	@PostMapping
-	public ResponseEntity<Void> createTestimonial(@Valid @RequestBody CreateContactRequest createContactRequest) {
+	public ResponseEntity<Void> createContact(@Valid @RequestBody CreateContactRequest createContactRequest) {
 
 		Contact contact = mapper.createContactRequestToContact(createContactRequest);
 
