@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -18,14 +19,17 @@ public class CreateContactRequest {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty
+    @NotBlank
+    @JsonProperty("phone")
     private String phone;
 
+    @Email
     @NotBlank
-    @JsonProperty
+    @JsonProperty("email")
     private String email;
 
-    @JsonProperty
+    @NotBlank
+    @JsonProperty("message")
     private String message;
 
 
