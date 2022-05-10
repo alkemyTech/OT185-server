@@ -20,4 +20,10 @@ public class ContactServiceImpl implements ContactService {
 		return (List<Contact>) contactJpaRepository.findAll();
 	}
 
+	@Override
+	@Transactional
+	public Long createEntity(Contact contact){
+		return contactJpaRepository.save(contact).getId();
+	}
+
 }
