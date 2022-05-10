@@ -20,7 +20,7 @@ public class NewsServiceImpl implements NewsService {
     private final NewsRepository newsJpaRepository;
     private final CategoryRepository categoryJpaRepository;
 
-    private static Long newCategoryId = Long.valueOf(6);
+    private static Long GENERAL_NEW_ID = Long.valueOf(6);
 
 
 
@@ -28,9 +28,10 @@ public class NewsServiceImpl implements NewsService {
     @Transactional
     public Long createEntity(News news, Long CategoryId){
 
-         Optional<Category> foundCategory = categoryJpaRepository.findById(newCategoryId);
+        Category category  = categoryJpaRepository.findById(CategoryId)
+                .orElseGet(() -> categoryJpaRepository.findById(GENERAL_NEW_ID).get());
 
-                news.setCategory(foundCategory.get());
+        news.setCategory(category);
 
                 return newsJpaRepository.save(news).getId();
     }
