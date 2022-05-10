@@ -21,7 +21,6 @@ public class CreateContactRequest {
     @JsonProperty("name")
     private String name;
 
-    @NotNull
     @JsonProperty
     private String phone;
 
@@ -29,7 +28,6 @@ public class CreateContactRequest {
     @JsonProperty
     private String email;
 
-    @NotBlank
     @JsonProperty
     private String message;
 
