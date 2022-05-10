@@ -24,8 +24,6 @@ public class ContactController {
     private final ContactService contactService;
 
 
-
-
 	@GetMapping
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<Contact>> getContacts() {
