@@ -26,7 +26,7 @@ public class OrganizationController {
     private final OrganizationService service;
     private final OrganizationControllerMapper mapper;
 
-    @GetMapping("/public/{id}")
+    @GetMapping("/public/{id}/slides")
     public ResponseEntity<OrganizationResponse> getOrganization(@Valid @NotNull @PathVariable Long id) {
         Organization organization = service.getByIdIfExists(id);
         OrganizationResponse response = mapper.organizationToOrganizationResponse(organization);

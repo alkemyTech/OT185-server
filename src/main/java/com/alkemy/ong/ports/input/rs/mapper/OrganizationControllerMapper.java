@@ -17,6 +17,4 @@ public interface OrganizationControllerMapper extends CommonMapper {
     Organization updateOrganizationRequestToOrganization(UpdateOrganizationRequest update);
 
     Organization organizationRequestToOrganization(OrganizationRequest request);
-
-
 }

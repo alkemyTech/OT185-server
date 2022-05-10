@@ -66,6 +66,7 @@ public class Organization implements Auditable {
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
+    @OrderBy("slide_order")
     private Set<Slide> slide = new HashSet<>();
 
     @Embedded
