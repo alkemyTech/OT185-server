@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,6 +36,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<Category> getAll() {
+        return (List<Category>)categoryJpaRepository.findAll();
+    }
+
     @Transactional
     public Category updateCategory(Long id, Category request) {
 
@@ -47,7 +53,6 @@ public class CategoryServiceImpl implements CategoryService {
             return categoryJpaRepository.save(category);
         }
         return categoryJpaRepository.save(request);
-
     }
 
 }
