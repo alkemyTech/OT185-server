@@ -1,9 +1,9 @@
 package com.alkemy.ong.ports.input.rs.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-        import lombok.AllArgsConstructor;
-        import lombok.Data;
-        import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -21,5 +21,8 @@ public class NewsResponse {
 
     @JsonProperty("image")
     private String image;
+
+    @JsonProperty("category")
+    private CategoryResponse category;
 
 }
