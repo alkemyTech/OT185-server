@@ -1,7 +1,5 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
-
-
 import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.usecase.NewsService;
 import com.alkemy.ong.ports.input.rs.mapper.NewsControllerMapper;
@@ -31,6 +29,21 @@ public class NewsController {
     private final NewsControllerMapper newsControllerMapper;
 
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteNews(@Valid @NotNull @PathVariable Long id) {
+        service.deleteById(id);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<NewsResponse> getNew(@Valid @NotNull @PathVariable Long id){
+        News news = service.getByIdIfExists(id);
+        NewsResponse response = newsControllerMapper.newsToNewsResponse(news);
+        return ResponseEntity.ok(response);
+    }
+
+
+
 
     @PostMapping
     public ResponseEntity<Void> createNews(@Valid @RequestBody CreateNewsRequest createNewsRequest) {
@@ -48,11 +61,7 @@ public class NewsController {
 
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteNews(@Valid @NotNull @PathVariable Long id) {
-        service.deleteById(id);
-    }
+
 
 
 }
