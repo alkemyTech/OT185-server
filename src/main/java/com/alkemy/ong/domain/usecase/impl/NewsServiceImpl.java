@@ -1,5 +1,7 @@
 package com.alkemy.ong.domain.usecase.impl;
 
+
+import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Category;
 import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.repository.CategoryRepository;
@@ -37,5 +39,11 @@ public class NewsServiceImpl implements NewsService {
     @Transactional
     public void deleteById(Long id) {
         newsJpaRepository.findById(id).ifPresent(newsJpaRepository::delete);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public News getByIdIfExists(Long id) {
+        return newsJpaRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 }

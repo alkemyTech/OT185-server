@@ -1,10 +1,12 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 
+
 import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.usecase.NewsService;
 import com.alkemy.ong.ports.input.rs.mapper.NewsControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateNewsRequest;
+import com.alkemy.ong.ports.input.rs.response.NewsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,7 @@ public class NewsController {
     private final NewsControllerMapper newsControllerMapper;
 
 
+
     @PostMapping
     public ResponseEntity<Void> createNews(@Valid @RequestBody CreateNewsRequest createNewsRequest) {
 
@@ -50,4 +53,6 @@ public class NewsController {
     public void deleteNews(@Valid @NotNull @PathVariable Long id) {
         service.deleteById(id);
     }
+
+
 }
