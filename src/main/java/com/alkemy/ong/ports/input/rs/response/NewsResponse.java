@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,5 +22,8 @@ public class NewsResponse {
 
     @JsonProperty("image")
     private String image;
+
+    @JsonProperty("category")
+    private CategoryResponse category;
 
 }

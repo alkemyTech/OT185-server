@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +20,10 @@ public class NewsServiceImpl implements NewsService {
 
         News news = newsJpaRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 
-        Optional.ofNullable(request.getName()).ifPresent(news::setName);
-        Optional.ofNullable(request.getContent()).ifPresent(news::setContent);
-        Optional.of(request.getImage()).ifPresent(news::setImage);
+        news.setName(request.getName());
+        news.setContent(request.getContent());
+        news.setImage(request.getImage());
+        news.setCategory(request.getCategory());
 
         return newsJpaRepository.save(news);
 

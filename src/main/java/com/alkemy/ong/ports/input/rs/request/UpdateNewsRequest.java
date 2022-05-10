@@ -6,10 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.JoinColumn;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateNewsRequest {
+
+
 
     @JsonProperty("name")
     private String name;
@@ -19,4 +23,7 @@ public class UpdateNewsRequest {
 
     @JsonProperty("image")
     private String image;
+
+    @JoinColumn(name = "category_id")
+    private String categoryId;
 }

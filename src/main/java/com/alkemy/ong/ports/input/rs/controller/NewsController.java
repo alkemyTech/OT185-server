@@ -2,11 +2,9 @@ package com.alkemy.ong.ports.input.rs.controller;
 
 
 import com.alkemy.ong.domain.model.News;
-import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.usecase.NewsService;
 import com.alkemy.ong.ports.input.rs.mapper.NewsControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.UpdateNewsRequest;
-import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;
 import com.alkemy.ong.ports.input.rs.response.NewsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +25,7 @@ public class NewsController {
     private final NewsService service;
 
     private final NewsControllerMapper newsControllerMapper;
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<NewsResponse> updateNews(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateNewsRequest updateNewsRequest) {
 
         News news = newsControllerMapper.updateNewsRequestToNews(updateNewsRequest);
