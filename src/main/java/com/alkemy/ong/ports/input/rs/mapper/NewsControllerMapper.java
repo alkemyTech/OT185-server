@@ -12,3 +12,4 @@ public interface NewsControllerMapper {
 
    NewsResponse newsToNewsResponse(News newsResponse);
 }
+

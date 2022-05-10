@@ -35,4 +35,10 @@ public class NewsServiceImpl implements NewsService {
     public void deleteById(Long id) {
         newsJpaRepository.findById(id).ifPresent(newsJpaRepository::delete);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public News getByIdIfExists(Long id) {
+        return newsJpaRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
 }
