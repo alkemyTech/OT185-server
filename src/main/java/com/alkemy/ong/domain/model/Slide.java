@@ -24,8 +24,8 @@ public class Slide {
     private String imageUrl;
     @Column(name = "text")
     private String text;
-    @Column(name = "number")
-    private Integer number;
+    @Column(name = "slide_order")
+    private Integer order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id")

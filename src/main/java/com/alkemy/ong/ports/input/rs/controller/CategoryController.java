@@ -56,6 +56,14 @@ public class CategoryController {
         return ResponseEntity.created(location).build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponse> updateCategory(@Valid @NotNull @PathVariable Long id,
+                                                           @Valid @RequestBody CategoryRequest categoryRequest) {
+        Category category = mapper.categoryRequestToCategory(categoryRequest);
+        CategoryResponse response = mapper.categoryToCategoryResponse(categoryService.updateCategory(id, category));
+        return ResponseEntity.ok(response);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@Valid @NotNull @PathVariable Long id) {

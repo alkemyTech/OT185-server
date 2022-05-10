@@ -12,4 +12,7 @@ public interface CategoryService {
     Category getByIdIfExists(Long id);
 
     List<Category> getAll();
+
+    Category updateCategory(Long id, Category category);
 }
+
