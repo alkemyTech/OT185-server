@@ -32,18 +32,18 @@ public class News implements Auditable {
     @Column(name="news_id")
     private Long id;
 
-    @Column(name = "name", nullable = false, updatable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name="content", nullable = false, updatable = false)
+    @Column(name="content", nullable = false)
     private String content;
 
-    @Column(name = "image", nullable = false, updatable = false)
+    @Column(name = "image", nullable = false)
     private String image;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
-    @JoinColumn(name = "category_id", nullable = false, updatable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "news")
