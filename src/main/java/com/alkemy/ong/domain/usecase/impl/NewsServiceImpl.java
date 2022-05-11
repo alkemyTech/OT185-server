@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +34,24 @@ public class NewsServiceImpl implements NewsService {
 
                 return newsJpaRepository.save(news).getId();
     }
+
+    @Override
+    @Transactional
+    public News updateEntityIfExists(Long id, News request){
+
+        News news = newsJpaRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        Category category = categoryJpaRepository.findById(request.getCategory().getId()).orElseThrow(()
+                -> new NotFoundException(request.getCategory().getId()));
+
+        news.setName(request.getName());
+        news.setContent(request.getContent());
+        news.setImage(request.getImage());
+        news.setCategory(category);
+
+        return newsJpaRepository.save(news);
+
+    }
+
 
     @Override
     @Transactional

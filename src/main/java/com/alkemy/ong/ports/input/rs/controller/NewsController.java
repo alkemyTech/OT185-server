@@ -4,6 +4,7 @@ import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.usecase.NewsService;
 import com.alkemy.ong.ports.input.rs.mapper.NewsControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateNewsRequest;
+import com.alkemy.ong.ports.input.rs.request.UpdateNewsRequest;
 import com.alkemy.ong.ports.input.rs.response.NewsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,15 @@ public class NewsController {
     private final NewsService service;
 
     private final NewsControllerMapper newsControllerMapper;
+
+    @PutMapping("/{id}")
+    public ResponseEntity<NewsResponse> updateNews(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateNewsRequest updateNewsRequest) {
+
+        News news = newsControllerMapper.updateNewsRequestToNews(updateNewsRequest);
+        NewsResponse response = newsControllerMapper.newsToNewsResponse(service.updateEntityIfExists(id, news));
+
+        return ResponseEntity.ok(response);
+    }
 
 
     @DeleteMapping("/{id}")
