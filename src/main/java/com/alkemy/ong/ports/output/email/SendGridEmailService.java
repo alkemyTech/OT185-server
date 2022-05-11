@@ -44,8 +44,8 @@ public class SendGridEmailService implements EmailService {
 	@Value("${email.from}")
 	private String from;
 
-	@Value("${email.template}")
-	private String templateId;
+	@Value("${email.welcome-template}")
+	private String welcomeTemplate;
 	
 	@Value("${email.contact-template}")
 	private String contactTemplate;
@@ -64,7 +64,7 @@ public class SendGridEmailService implements EmailService {
 		Email emailTo = new Email(toUser.getEmail());
 		Mail mail = new Mail();
 		mail.setFrom(fromEmail);
-		mail.setTemplateId(templateId);
+		mail.setTemplateId(welcomeTemplate);
 		Personalization personalization = addPersonalization(organization);
 		personalization.addDynamicTemplateData(FIRST_NAME, toUser.getFirstName());
 		personalization.addDynamicTemplateData(SUBJECT, WELCOME_SUBJECT);
