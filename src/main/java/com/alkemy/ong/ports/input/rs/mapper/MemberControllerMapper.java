@@ -4,6 +4,8 @@ import com.alkemy.ong.domain.model.Member;
 import com.alkemy.ong.ports.input.rs.request.MemberRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateMemberRequest;
 import com.alkemy.ong.ports.input.rs.response.MemberResponse;
+import com.alkemy.ong.ports.input.rs.response.MemberResponseList;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -14,5 +16,6 @@ public interface MemberControllerMapper extends CommonMapper {
 
     Member updateMemberRequestToMember(UpdateMemberRequest request);
 
-    List<MemberResponse> memberListToMemberResponseList(List<Member> member);
+    @IterableMapping(qualifiedByName = "memberToMemberResponse")
+    List<MemberResponse> memberListToMemberResponseList(List<Member> list);
 }
