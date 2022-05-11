@@ -20,6 +20,8 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+
+import com.alkemy.ong.domain.model.Contact;
 import com.alkemy.ong.domain.model.Organization;
 import com.alkemy.ong.domain.model.User;
 import com.sendgrid.Method;
@@ -73,13 +75,13 @@ public class SendGridEmailService implements EmailService {
 	}
 
 	@Override
-	public void sendContactedSuccessfully(String name, String email, Organization organization) {
-		Email emailTo = new Email(email);
+	public void sendContactedSuccessfully(Contact contact, Organization organization) {
+		Email emailTo = new Email(contact.getEmail());
 		Mail mail = new Mail();
 		mail.setFrom(fromEmail);
 		mail.setTemplateId(contactTemplate);
 		Personalization personalization = addPersonalization(organization);
-		personalization.addDynamicTemplateData(FIRST_NAME, name);
+		personalization.addDynamicTemplateData(FIRST_NAME, contact.getName());
 		personalization.addDynamicTemplateData(CONTACT_TEXT, CONTACT_TEXT_CONTENT);
 		personalization.addDynamicTemplateData(SUBJECT, CONTACT_SUBJECT);
 		personalization.addTo(emailTo);

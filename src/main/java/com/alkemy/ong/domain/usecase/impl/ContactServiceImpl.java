@@ -2,10 +2,8 @@ package com.alkemy.ong.domain.usecase.impl;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.alkemy.ong.domain.model.Contact;
 import com.alkemy.ong.domain.model.Organization;
 import com.alkemy.ong.domain.repository.ContactRepository;
@@ -38,7 +36,7 @@ public class ContactServiceImpl implements ContactService {
 	public Long createEntity(Contact contact) {
 		Optional<Organization> organization = organizationJpaRepository.findById(ORGANIZATION_ID);
 		if(organization.isPresent()) {
-			emailService.sendContactedSuccessfully(contact.getName(), contact.getEmail(), organization.get());
+			emailService.sendContactedSuccessfully(contact, organization.get());
 		}
 		return contactJpaRepository.save(contact).getId();
 	}
