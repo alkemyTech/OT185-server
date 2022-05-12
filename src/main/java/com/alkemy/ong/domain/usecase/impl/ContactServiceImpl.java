@@ -34,10 +34,8 @@ public class ContactServiceImpl implements ContactService {
 	@Override
 	@Transactional
 	public Long createEntity(Contact contact) {
-		Optional<Organization> organization = organizationJpaRepository.findById(ORGANIZATION_ID);
-		if(organization.isPresent()) {
-			emailService.sendContactedSuccessfully(contact, organization.get());
-		}
+		Optional<Organization> op = organizationJpaRepository.findById(ORGANIZATION_ID);
+		op.ifPresent(organization -> emailService.sendContactedSuccessfully(contact, organization));
 		return contactJpaRepository.save(contact).getId();
 	}
 

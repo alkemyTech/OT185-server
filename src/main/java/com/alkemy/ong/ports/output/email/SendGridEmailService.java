@@ -74,6 +74,7 @@ public class SendGridEmailService implements EmailService {
 		sendMail(mail);
 	}
 
+	@Async
 	@Override
 	public void sendContactedSuccessfully(Contact contact, Organization organization) {
 		Email emailTo = new Email(contact.getEmail());
@@ -89,6 +90,7 @@ public class SendGridEmailService implements EmailService {
 		sendMail(mail);
 	}
 	
+	@Async
 	@Override
 	public void sendMail(Mail mail) {
 		try {
