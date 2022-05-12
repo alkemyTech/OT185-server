@@ -23,4 +23,7 @@ public class SlideResponse {
     @JsonProperty("slide_order")
     private String order;
 
+    @JsonProperty("organization_id")
+    private OrganizationResponse organization;
+
 }

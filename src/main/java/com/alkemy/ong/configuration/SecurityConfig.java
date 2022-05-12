@@ -19,8 +19,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.alkemy.ong.ports.input.rs.api.ApiConstants.ORGANIZATIONS_URI;
-
 @RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration
@@ -51,11 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/docs/**").permitAll()
                 .antMatchers("/api/swagger-ui/**").permitAll()
                 .antMatchers("/v3/api-docs/**").permitAll()
-                .antMatchers(HttpMethod.GET, ORGANIZATIONS_URI + "/public/**").permitAll()
+                .antMatchers(HttpMethod.POST, ApiConstants.CONTACTS_URI).permitAll()
                 .antMatchers(HttpMethod.POST, ApiConstants.COMMENT_URI).authenticated()
                 .antMatchers(HttpMethod.PUT, ApiConstants.COMMENT_URI + "/{id}").authenticated()
                 .antMatchers(HttpMethod.DELETE, ApiConstants.COMMENT_URI + "/{id}").authenticated()
+                .antMatchers(HttpMethod.GET, ApiConstants.CATEGORIES_URI).hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, ApiConstants.USER_URI).hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, ApiConstants.ORGANIZATIONS_URI + "/public/**").permitAll()
                 .antMatchers(HttpMethod.POST).hasRole("ADMIN")
                 .antMatchers(HttpMethod.PATCH).hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")

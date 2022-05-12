@@ -12,4 +12,7 @@ public interface SlideService {
     Long create(Slide slide, String imageBase64);
 
     List<Slide> findAll();
+
+    List<Slide> getListByOrganizationId(Long id);
+
 }
