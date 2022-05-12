@@ -12,6 +12,8 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -43,6 +45,10 @@ public class News implements Auditable {
     @ToString.Exclude
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "news")
+    @ToString.Exclude
+    private List<Comment> comments = new ArrayList<>();
 
     @Embedded
     private Audit audit;
