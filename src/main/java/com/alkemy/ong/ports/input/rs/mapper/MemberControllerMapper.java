@@ -14,5 +14,5 @@ public interface MemberControllerMapper extends CommonMapper {
 
     Member updateMemberRequestToMember(UpdateMemberRequest request);
 
-    List<MemberResponse> memberListToMemberResponseList(List<Member> member);
+    List<MemberResponse> memberListToMemberResponseList(List<Member> list);
 }
