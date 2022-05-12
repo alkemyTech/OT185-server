@@ -2,7 +2,7 @@ package com.alkemy.ong.ports.input.rs.mapper;
 
 import com.alkemy.ong.domain.model.Category;
 import com.alkemy.ong.ports.input.rs.request.CategoryRequest;
-import com.alkemy.ong.ports.input.rs.response.CategoryNameResponseList;
+import com.alkemy.ong.ports.input.rs.response.CategoryNameResponse;
 import com.alkemy.ong.ports.input.rs.response.CategoryResponse;
 import org.mapstruct.Mapper;
 
@@ -15,7 +15,7 @@ public interface CategoryControllerMapper extends CommonMapper {
 
     CategoryResponse categoryToCategoryResponse(Category category);
 
-    CategoryNameResponseList categoryToCategoryNameResponse(Category category);
+    CategoryNameResponse categoryToCategoryNameResponse(Category category);
 
-    List<CategoryNameResponseList> categoryListToCategoryResponse(List<Category> categories);
+    List<CategoryNameResponse> categoryListToCategoryNameResponse(List<Category> categories);
 }
