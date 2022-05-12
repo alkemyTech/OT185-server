@@ -56,6 +56,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public MemberList getAll(PageRequest pageRequest) {
 		Page<Member> page = memberJpaRepository.findAll(pageRequest);
 		return  new MemberList(page.getContent(), pageRequest, page.getTotalElements());
