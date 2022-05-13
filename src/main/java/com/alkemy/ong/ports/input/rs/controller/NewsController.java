@@ -4,11 +4,8 @@ import com.alkemy.ong.domain.model.Comment;
 import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.model.NewsList;
 import com.alkemy.ong.domain.usecase.NewsService;
-<<<<<<< Updated upstream
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
-=======
 import com.alkemy.ong.ports.input.rs.api.NewsApi;
->>>>>>> Stashed changes
 import com.alkemy.ong.ports.input.rs.mapper.CommentControllerMapper;
 import com.alkemy.ong.ports.input.rs.mapper.NewsControllerMapper;
 import com.alkemy.ong.ports.input.rs.response.*;
