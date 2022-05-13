@@ -17,5 +17,5 @@ public interface CategoryControllerMapper extends CommonMapper {
 
     CategoryNameResponse categoryToCategoryNameResponse(Category category);
 
-    List<CategoryNameResponse> categoryListToCategoryNameResponse(List<Category> categories);
+    List<CategoryNameResponse> categoryListToCategoryNameResponseList(List<Category> categories);
 }
