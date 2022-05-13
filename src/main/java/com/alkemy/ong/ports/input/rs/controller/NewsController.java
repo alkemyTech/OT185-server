@@ -1,31 +1,26 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
-
 import com.alkemy.ong.domain.model.Comment;
-
 import com.alkemy.ong.domain.model.News;
+import com.alkemy.ong.domain.model.NewsList;
 import com.alkemy.ong.domain.usecase.NewsService;
+import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.mapper.CommentControllerMapper;
 import com.alkemy.ong.ports.input.rs.mapper.NewsControllerMapper;
-import com.alkemy.ong.ports.input.rs.response.CommentResponse;
-
+import com.alkemy.ong.ports.input.rs.response.*;
 import com.alkemy.ong.ports.input.rs.request.CreateNewsRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateNewsRequest;
-
-import com.alkemy.ong.ports.input.rs.response.NewsResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-
 import java.util.List;
-
 import java.net.URI;
+import java.util.Optional;
 
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.NEWS_URI;
@@ -42,6 +37,39 @@ public class NewsController {
 
 
     private final CommentControllerMapper commentControllerMapper;
+
+
+    @GetMapping
+    public ResponseEntity<NewsResponseList> getNews(@RequestParam Optional<Integer> page,
+                                                    @RequestParam Optional<Integer> size) {
+
+        final int pageNumber = page.filter(p -> p > 0).orElse(ApiConstants.DEFAULT_PAGE);
+        final int pageSize = size.filter(s -> s > 0).orElse(ApiConstants.DEFAULT_PAGE_SIZE);
+
+        NewsList list = service.getList(PageRequest.of(pageNumber, pageSize));
+
+        NewsResponseList response;
+        {
+            response = new NewsResponseList();
+
+            List<NewsResponse> content = newsControllerMapper.newsListToNewsResponseList(list.getContent());
+            response.setContent(content);
+
+            final int nextPage = list.getPageable().next().getPageNumber();
+            response.setNextUri(ApiConstants.uriByPageAsString.apply(nextPage));
+
+            final int previousPage = list.getPageable().previousOrFirst().getPageNumber();
+            response.setPreviousUri(ApiConstants.uriByPageAsString.apply(previousPage));
+
+            response.setTotalPages(list.getTotalPages());
+            response.setTotalElements(list.getTotalElements());
+        }
+        return ResponseEntity.ok().body(response);
+    }
+
+
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<NewsResponse> updateNews(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateNewsRequest updateNewsRequest) {
