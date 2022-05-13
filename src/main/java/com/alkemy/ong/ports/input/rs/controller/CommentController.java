@@ -64,6 +64,7 @@ public class CommentController {
         service.updateCommentIfExists(id, comment, user);
     }
 
+
     @GetMapping
     public ResponseEntity<List<CommentResponse>> getComments(){
         List<Comment> commentList = service.getAll();
@@ -71,6 +72,7 @@ public class CommentController {
 
         return ResponseEntity.ok().body(responseList);
     }
+
 }
 
 

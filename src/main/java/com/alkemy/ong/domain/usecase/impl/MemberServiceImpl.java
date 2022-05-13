@@ -2,7 +2,10 @@ package com.alkemy.ong.domain.usecase.impl;
 
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Member;
+import com.alkemy.ong.domain.model.MemberList;
 import com.alkemy.ong.domain.usecase.MemberService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +53,13 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional(readOnly = true)
 	public List<Member> getAll() {
 		return (List<Member>) memberJpaRepository.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public MemberList getAll(PageRequest pageRequest) {
+		Page<Member> page = memberJpaRepository.findAll(pageRequest);
+		return  new MemberList(page.getContent(), pageRequest, page.getTotalElements());
 	}
 
 }
