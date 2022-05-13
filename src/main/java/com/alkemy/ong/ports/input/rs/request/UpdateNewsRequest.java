@@ -26,6 +26,6 @@ public class UpdateNewsRequest {
     @NotBlank(message = "The image must not be empty")
     private String image;
 
-    @JoinColumn(name = "category_id")
-    private String categoryId;
+    @JsonProperty("category_id")
+    private Long categoryId;
 }

@@ -47,7 +47,8 @@ public class NewsController {
     public ResponseEntity<NewsResponse> updateNews(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateNewsRequest updateNewsRequest) {
 
         News news = newsControllerMapper.updateNewsRequestToNews(updateNewsRequest);
-        NewsResponse response = newsControllerMapper.newsToNewsResponse(service.updateEntityIfExists(id, news));
+        Long categoryId = updateNewsRequest.getCategoryId();
+        NewsResponse response = newsControllerMapper.newsToNewsResponse(service.updateEntityIfExists(id, news, categoryId));
 
         return ResponseEntity.ok(response);
     }
