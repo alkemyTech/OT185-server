@@ -13,6 +13,4 @@ public interface SlideService {
 
     List<Slide> findAll();
 
-    List<Slide> getListByOrganizationId(Long id);
-
 }

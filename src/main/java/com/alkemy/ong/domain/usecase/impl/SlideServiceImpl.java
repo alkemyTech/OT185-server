@@ -113,10 +113,4 @@ public class SlideServiceImpl implements SlideService {
         List<Slide> slides = (List<Slide>) slideJpaRepository.findAll(Sort.by(Sort.Direction.ASC, "order"));
         return slides;
     }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Slide> getListByOrganizationId(Long id) {
-        return slideJpaRepository.getListByOrganizationId(id);
-    }
 }
