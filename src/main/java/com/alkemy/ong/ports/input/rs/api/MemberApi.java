@@ -59,7 +59,7 @@ public interface MemberApi {
             @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
     })
     void updateMember(@Valid @NotNull @PathVariable Long id,
-                      @Valid @RequestBody UpdateMemberRequest upMember);
+                      @RequestBody UpdateMemberRequest upMember);
 
 
     @Operation(summary = "delete  Member", description = "delete a Member ", responses = {
@@ -73,7 +73,6 @@ public interface MemberApi {
             @ApiResponse(responseCode = "403", description = "Invalid Role",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
     })
     void deleteMember(@Valid @NotNull @PathVariable Long id);
