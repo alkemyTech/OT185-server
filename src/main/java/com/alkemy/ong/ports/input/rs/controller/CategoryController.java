@@ -50,7 +50,7 @@ public class CategoryController {
         CategoryNameResponseList response;
         {
             response = new CategoryNameResponseList();
-            List<CategoryNameResponse> content = mapper.categoryListToCategoryNameResponse(categories.getContent());
+            List<CategoryNameResponse> content = mapper.categoryListToCategoryNameResponseList(categories.getContent());
             response.setContent(content);
 
             final int nextPage = categories.getPageable().next().getPageNumber();
