@@ -20,10 +20,7 @@ public class SlideResponse {
     @JsonProperty("text")
     private String text;
 
-    @JsonProperty("number")
-    private String number;
-
-    @JsonProperty("organization_id")
-    private OrganizationResponse organization;
+    @JsonProperty("slide_order")
+    private String order;
 
 }

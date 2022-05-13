@@ -3,6 +3,7 @@ package com.alkemy.ong.domain.usecase.impl;
 import com.alkemy.ong.common.exception.ConflictException;
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Slide;
+import com.alkemy.ong.domain.model.SlideList;
 import com.alkemy.ong.domain.repository.SlideRepository;
 import com.alkemy.ong.domain.usecase.SlideService;
 import com.alkemy.ong.ports.output.s3.AmazonS3Client;
@@ -11,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -112,5 +115,12 @@ public class SlideServiceImpl implements SlideService {
     public List<Slide> findAll() {
         List<Slide> slides = (List<Slide>) slideJpaRepository.findAll(Sort.by(Sort.Direction.ASC, "order"));
         return slides;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public SlideList getList(PageRequest pageRequest) {
+        Page<Slide> page = slideJpaRepository.findAll(pageRequest);
+        return new SlideList(page.getContent(), pageRequest, page.getTotalElements());
     }
 }
