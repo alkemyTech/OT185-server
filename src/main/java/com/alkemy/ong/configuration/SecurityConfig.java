@@ -51,11 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v3/api-docs/**").permitAll()
                 .antMatchers(HttpMethod.POST, ApiConstants.CONTACTS_URI).permitAll()
                 .antMatchers(HttpMethod.POST, ApiConstants.COMMENT_URI).authenticated()
-
-                //NEWS
-                .antMatchers(HttpMethod.POST,ApiConstants.NEWS_URI).authenticated()
-                .antMatchers(HttpMethod.PUT,ApiConstants.NEWS_URI+"/{id}").authenticated()
-
                 .antMatchers(HttpMethod.PUT, ApiConstants.COMMENT_URI + "/{id}").authenticated()
                 .antMatchers(HttpMethod.DELETE, ApiConstants.COMMENT_URI + "/{id}").authenticated()
                 .antMatchers(HttpMethod.GET, ApiConstants.CATEGORIES_URI ).hasRole("ADMIN")
