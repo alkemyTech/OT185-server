@@ -18,9 +18,6 @@ public class CreateCommentRequest {
     @JsonProperty("comment_body")
     private String commentBody;
 
-    @JsonProperty("user_id")
-    private Long userId;
-
     @JsonProperty("news_id")
     private Long newsId;
 

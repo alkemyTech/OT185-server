@@ -37,10 +37,10 @@ public class CommentController {
     private final CommentControllerMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Void> createComment(@Valid @RequestBody CreateCommentRequest createCommentRequest){
+    public ResponseEntity<Void> createComment(@Valid @RequestBody CreateCommentRequest createCommentRequest, @AuthenticationPrincipal User user){
         Comment comment = mapper.createCommentRequestToComment(createCommentRequest);
 
-        final long id = service.createComment(comment);
+        final long id = service.createComment(comment, user);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(id)

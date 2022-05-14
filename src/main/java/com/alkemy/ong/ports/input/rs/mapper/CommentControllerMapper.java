@@ -15,9 +15,7 @@ import java.util.List;
 
 public interface CommentControllerMapper extends CommonMapper{
 
-    @Mapping(source = "userId", target = "user.id")
     @Mapping(source = "newsId", target = "news.id")
-
     Comment createCommentRequestToComment(CreateCommentRequest request);
 
     Comment updateCommentRequestToComment(UpdateCommentRequest updateCommentRequest);

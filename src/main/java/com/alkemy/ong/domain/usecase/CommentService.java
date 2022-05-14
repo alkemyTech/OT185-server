@@ -11,7 +11,7 @@ public interface CommentService {
 
     void deleteById(Long id, User user);
 
-    Long createComment(Comment request);
+    Long createComment(Comment request, User user);
 
     void updateCommentIfExists(Long id, Comment commentUpdate, User user);
 
