@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,4 +34,5 @@ public class OrganizationResponse {
 
     @JsonProperty("instagram_url")
     private String instagramUrl;
+
 }
