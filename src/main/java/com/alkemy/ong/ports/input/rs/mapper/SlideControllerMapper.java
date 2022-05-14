@@ -15,7 +15,7 @@ import java.util.List;
 public interface SlideControllerMapper extends CommonMapper {
 
     @IterableMapping(qualifiedByName = "slideToSlideResponse")
-    List<SlideResponse> slideListToSlideResponseList(List<Slide> slide);
+    List<SlideResponse> slideListToSlideResponseList(List<Slide> slides);
 
     @Named("slideToSlideResponse")
     SlideResponse slideToSlideResponse(Slide slide);

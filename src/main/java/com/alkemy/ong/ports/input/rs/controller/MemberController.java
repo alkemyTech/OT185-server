@@ -1,12 +1,18 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
 import com.alkemy.ong.domain.model.Member;
+import com.alkemy.ong.domain.model.MemberList;
 import com.alkemy.ong.domain.usecase.MemberService;
+import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.mapper.MemberControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.MemberRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateMemberRequest;
+import com.alkemy.ong.ports.input.rs.response.AlkymerResponse;
+import com.alkemy.ong.ports.input.rs.response.AlkymerResponseList;
 import com.alkemy.ong.ports.input.rs.response.MemberResponse;
+import com.alkemy.ong.ports.input.rs.response.MemberResponseList;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +22,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import static com.alkemy.ong.ports.input.rs.api.ApiConstants.MEMBERS_URI;
 
@@ -57,12 +64,33 @@ public class MemberController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MemberResponse>> getMembers() {
+    public ResponseEntity<MemberResponseList> getMembers(@RequestParam Optional<Integer> page,
+                                                           @RequestParam Optional<Integer> size) {
 
-        List<Member> listMember = memberService.getAll();
-        List<MemberResponse> listResponse = mapper.memberListToMemberResponseList(listMember);
+        final int pageNumber = page.filter(p -> p > 0).orElse(ApiConstants.DEFAULT_PAGE);
+        final int pageSize = size.filter(s -> s > 0).orElse(ApiConstants.DEFAULT_PAGE_SIZE);
 
-        return ResponseEntity.ok().body(listResponse);
+        MemberList list = memberService.getAll(PageRequest.of(pageNumber, pageSize));
+
+        MemberResponseList response;
+        {
+            response = new MemberResponseList();
+
+            List<MemberResponse> content = mapper.memberListToMemberResponseList(list.getContent());
+            response.setContent(content);
+
+            final int nextPage = list.getPageable().next().getPageNumber();
+            response.setNextUri(ApiConstants.uriByPageAsString.apply(nextPage));
+
+            final int previousPage = list.getPageable().previousOrFirst().getPageNumber();
+            response.setPreviousUri(ApiConstants.uriByPageAsString.apply(previousPage));
+
+            response.setTotalPages(list.getTotalPages());
+            response.setTotalElements(list.getTotalElements());
+
+        }
+
+        return ResponseEntity.ok().body(response);
     }
 
 
