@@ -12,11 +12,11 @@ import java.util.List;
 
 public interface NewsService {
 
-    News updateEntityIfExists(Long id, News news);
+    News updateEntityIfExists(Long id, News news, Long categoryId);
 
     void deleteById(Long id);
 
-    Long createEntity(News news, Long CategoryId);
+    Long createEntity(News news, Long categoryId);
 
     News getByIdIfExists(Long id);
 

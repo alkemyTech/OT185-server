@@ -1,6 +1,5 @@
 package com.alkemy.ong.ports.input.rs.mapper;
 
-
 import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.ports.input.rs.request.CreateNewsRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateNewsRequest;
@@ -11,7 +10,6 @@ import org.mapstruct.Named;
 
 import java.util.List;
 
-
 @Mapper
 public interface NewsControllerMapper {
 
@@ -21,7 +19,7 @@ public interface NewsControllerMapper {
     News createNewsRequestToNews(CreateNewsRequest createNewsRequest);
 
     News updateNewsRequestToNews(UpdateNewsRequest newsRequest);
+
+    @Named("newsToNewsResponse")
     NewsResponse newsToNewsResponse(News newsResponse);
-
 }
-

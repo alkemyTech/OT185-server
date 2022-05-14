@@ -35,7 +35,6 @@ public class NewsController {
 
     private final NewsControllerMapper newsControllerMapper;
 
-
     private final CommentControllerMapper commentControllerMapper;
 
 
@@ -75,11 +74,11 @@ public class NewsController {
     public ResponseEntity<NewsResponse> updateNews(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateNewsRequest updateNewsRequest) {
 
         News news = newsControllerMapper.updateNewsRequestToNews(updateNewsRequest);
-        NewsResponse response = newsControllerMapper.newsToNewsResponse(service.updateEntityIfExists(id, news));
+        Long categoryId = updateNewsRequest.getCategoryId();
+        NewsResponse response = newsControllerMapper.newsToNewsResponse(service.updateEntityIfExists(id, news, categoryId));
 
         return ResponseEntity.ok(response);
     }
-
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -102,23 +101,19 @@ public class NewsController {
         return ResponseEntity.ok().body(responseList);
     }
 
-
-
     @PostMapping
     public ResponseEntity<Void> createNews(@Valid @RequestBody CreateNewsRequest createNewsRequest) {
 
         News news = newsControllerMapper.createNewsRequestToNews(createNewsRequest);
-        Long CategoryId = createNewsRequest.getCategoryId();
+        Long categoryId = createNewsRequest.getCategoryId();
 
-        final long id = service.createEntity(news,CategoryId);
+        final long id = service.createEntity(news, categoryId);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/id").buildAndExpand(id)
                 .toUri();
 
         return ResponseEntity.created(location).build();
-
     }
-
 
 }
