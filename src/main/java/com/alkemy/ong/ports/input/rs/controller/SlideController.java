@@ -45,8 +45,8 @@ public class SlideController {
     }
 
     @GetMapping
-    public ResponseEntity<SlideResponseList> getAlkymers(@RequestParam Optional<Integer> page,
-                                                         @RequestParam Optional<Integer> size) {
+    public ResponseEntity<SlideResponseList> getList(@RequestParam Optional<Integer> page,
+                                                     @RequestParam Optional<Integer> size) {
 
         final int pageNumber = page.filter(p -> p > 0).orElse(ApiConstants.DEFAULT_PAGE);
         final int pageSize = size.filter(s -> s > 0).orElse(ApiConstants.DEFAULT_PAGE_SIZE);

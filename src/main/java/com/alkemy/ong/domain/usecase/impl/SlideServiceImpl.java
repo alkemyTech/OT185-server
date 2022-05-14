@@ -72,7 +72,7 @@ public class SlideServiceImpl implements SlideService {
                 order = lastOrder + 1;
             }
         }
-        if (!slideJpaRepository.findByOrder(order).isEmpty()) {
+        if (slideJpaRepository.findByOrder(order).isPresent()) {
             throw new ConflictException("The number indicated already exists.");
         }
         return order;
@@ -112,9 +112,9 @@ public class SlideServiceImpl implements SlideService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Slide> findAll() {
-        List<Slide> slides = (List<Slide>) slideJpaRepository.findAll(Sort.by(Sort.Direction.ASC, "order"));
-        return slides;
+        return (List<Slide>) slideJpaRepository.findAll(Sort.by(Sort.Direction.ASC, "order"));
     }
 
     @Override
