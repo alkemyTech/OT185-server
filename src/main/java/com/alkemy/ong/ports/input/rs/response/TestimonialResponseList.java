@@ -25,5 +25,5 @@ public class TestimonialResponseList {
     private Integer totalPages;
 
     @JsonProperty("totalElements")
-    private Integer totalElements;
+    private long totalElements;
 }
