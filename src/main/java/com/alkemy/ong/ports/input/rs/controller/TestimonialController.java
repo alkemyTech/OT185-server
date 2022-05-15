@@ -66,13 +66,11 @@ public class TestimonialController {
     }
 
     @GetMapping
-    public ResponseEntity<TestimonialResponseList> getTestimonials(@RequestParam Optional<Integer> page,
-                                                                   @RequestParam Optional<Integer> size) {
+    public ResponseEntity<TestimonialResponseList> getTestimonials(@RequestParam Optional<Integer> page) {
 
         final int pageNumber = page.filter(p -> p > 0).orElse(ApiConstants.DEFAULT_PAGE);
-        final int pageSize = page.filter(s -> s > 0).orElse(ApiConstants.DEFAULT_PAGE_SIZE);
 
-        TestimonialList testimonials = testimonialService.getList(PageRequest.of(pageNumber,pageSize));
+        TestimonialList testimonials = testimonialService.getList(PageRequest.of(pageNumber,ApiConstants.DEFAULT_PAGE_SIZE));
 
         TestimonialResponseList responseList;
         {
