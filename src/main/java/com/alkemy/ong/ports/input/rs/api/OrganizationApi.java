@@ -21,7 +21,6 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Validated
-@SecurityRequirement(name = "bearerAuth")
 public interface OrganizationApi {
 
     @Operation(summary = "Get Organization by id", responses = {
@@ -49,7 +48,7 @@ public interface OrganizationApi {
             @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
     })
     ResponseEntity<List<SlideResponse>> getSlideList(@Valid @NotNull @PathVariable Long id);
-
+    @SecurityRequirement(name = "bearerAuth")
     @Operation(summary = "update organization partially", responses = {
             @ApiResponse(responseCode = "204", description = "Partial update", content = @Content),
             @ApiResponse(responseCode = "404", description = "Not found",
@@ -62,7 +61,7 @@ public interface OrganizationApi {
 
     })
     void updateOrganization(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateOrganizationRequest updateOrganizationRequest);
-
+    @SecurityRequirement(name = "bearerAuth")
     @Operation(summary = "update organization completely or created new organization", responses = {
             @ApiResponse(responseCode = "204", description = "Completely update", content = @Content),
             @ApiResponse(responseCode = "201", description = "Created a new Organization", content = @Content),
