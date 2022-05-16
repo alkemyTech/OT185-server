@@ -9,8 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.Optional;
 
 @Service
@@ -46,7 +47,7 @@ public class TestimonialServiceImpl implements TestimonialService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public TestimonialList getList(PageRequest pageRequest){
         Page<Testimonial> page = testimonialRepository.findAll(pageRequest);
         return new TestimonialList(page.getContent(), pageRequest, page.getTotalElements());
