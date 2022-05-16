@@ -1,8 +1,8 @@
 package com.alkemy.ong.domain.usecase.impl;
 
-import java.util.List;
 import java.util.Optional;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +14,7 @@ import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Organization;
 import com.alkemy.ong.domain.model.Role;
 import com.alkemy.ong.domain.model.User;
+import com.alkemy.ong.domain.model.UserList;
 import com.alkemy.ong.domain.repository.OrganizationRepository;
 import com.alkemy.ong.domain.repository.RoleRepository;
 import com.alkemy.ong.domain.repository.UserRepository;
@@ -66,12 +67,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public List<User> getAll() {
-		return (List<User>)userJpaRepository.findAll();
-	}
-
-	@Override
 	@Transactional
 	public void updateEntityIfExists(Long id, User user) {
 		userJpaRepository.findById(id).map(userJpa -> {
@@ -97,6 +92,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 	private boolean existsByEmail(String email) {
 		return userJpaRepository.findUserByEmail(email).isPresent();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public UserList getList(PageRequest pageRequest) {
+		Page<User> page = userJpaRepository.findAll(pageRequest);
+		return new UserList(page.getContent(), pageRequest, page.getTotalElements());
 	}
 
 }

@@ -1,8 +1,9 @@
 package com.alkemy.ong.domain.usecase;
 
-import com.alkemy.ong.domain.model.User;
+import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
+import com.alkemy.ong.domain.model.User;
+import com.alkemy.ong.domain.model.UserList;
 
 public interface UserService {
 
@@ -12,5 +13,5 @@ public interface UserService {
 
 	User createUser(User user);
 
-	List<User> getAll();
+	UserList getList(PageRequest pageRequest);
 }
