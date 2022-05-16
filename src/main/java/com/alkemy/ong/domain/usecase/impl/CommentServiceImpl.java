@@ -82,7 +82,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional(readOnly = true)
     public CommentList getAll(PageRequest pageRequest) {
-        Page<Comment> page = commentJpaRepository.findAll(pageRequest);
+        Page<Comment> page = commentJpaRepository.findAll(pageRequest.withSort(Sort.by("audit.createdAt")));
         return new CommentList(page.getContent(), pageRequest, page.getTotalElements());
     }
 
