@@ -2,12 +2,16 @@ package com.alkemy.ong.domain.usecase.impl;
 
 import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.Testimonial;
+import com.alkemy.ong.domain.model.TestimonialList;
 import com.alkemy.ong.domain.repository.TestimonialRepository;
 import com.alkemy.ong.domain.usecase.TestimonialService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.Optional;
 
 @Service
@@ -39,7 +43,15 @@ public class TestimonialServiceImpl implements TestimonialService {
 
                     return testimonialRepository.save(testimonialJpa);
                 }).orElseThrow(() -> new NotFoundException(id));
-        return testimonialRepository.findById(id).orElseThrow(() -> new NotFoundException(id));    }
+        return testimonialRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public TestimonialList getList(PageRequest pageRequest){
+        Page<Testimonial> page = testimonialRepository.findAll(pageRequest);
+        return new TestimonialList(page.getContent(), pageRequest, page.getTotalElements());
+    }
 
 
 }
