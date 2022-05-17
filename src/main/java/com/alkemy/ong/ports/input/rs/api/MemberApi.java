@@ -6,10 +6,12 @@ import com.alkemy.ong.ports.input.rs.request.UpdateMemberRequest;
 import com.alkemy.ong.ports.input.rs.response.MemberResponse;
 import com.alkemy.ong.ports.input.rs.response.MemberResponseList;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,7 +54,9 @@ public interface MemberApi {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "404", description = "Not found"),
-            @ApiResponse(responseCode = "500", description = "Internal error")
+            @ApiResponse(responseCode = "500", description = "Internal error",
+            content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    array = @ArraySchema (schema = @Schema (implementation = ErrorDetails.class)))})
     })
     void updateMember(@Valid @NotNull @PathVariable Long id,
                       @RequestBody UpdateMemberRequest upMember);
