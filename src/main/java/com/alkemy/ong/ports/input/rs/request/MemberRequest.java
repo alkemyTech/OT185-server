@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -14,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class MemberRequest {
 
+    @NotEmpty
     @NotBlank
     @JsonProperty("name")
     private String name;
@@ -27,9 +30,13 @@ public class MemberRequest {
     @JsonProperty("linkedin_url")
     private String linkedinUrl;
 
+    @NotEmpty
+    @NotBlank
     @JsonProperty("image")
     private String image;
 
+    @NotEmpty
+    @NotBlank
     @JsonProperty("description")
     private String description;
 }

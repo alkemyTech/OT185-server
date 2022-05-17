@@ -20,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @SpringBootTest
@@ -61,6 +61,45 @@ class MemberControllerIT {
 
         Assertions.assertThat(actualLocation).isEqualTo("http://localhost/v1/members/1");
 
+    }
+
+
+    @Test
+    @Order(2)
+    @WithUserDetails("admin@somosmas.org")
+    void createMembers_shouldReturn400_name_null() throws Exception {
+        MemberRequest request = MemberRequest.builder()
+                .facebookUrl("facebook")
+                .instagramUrl("instagram")
+                .linkedinUrl("linkedin")
+                .image("image")
+                .description("some description")
+                .build();
+
+        mockMvc.perform(post(ApiConstants.MEMBERS_URI)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtils.objectToJson(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
+
+    @Test
+    @Order(3)
+    @WithUserDetails("admin@somosmas.org")
+    void createMembers_shouldReturn400_image_null() throws Exception {
+        MemberRequest request = MemberRequest.builder()
+                .name("member")
+                .facebookUrl("facebook")
+                .instagramUrl("instagram")
+                .linkedinUrl("linkedin")
+                .description("some description")
+                .build();
+
+        mockMvc.perform(post(ApiConstants.MEMBERS_URI)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtils.objectToJson(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(print());
     }
 
 

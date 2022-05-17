@@ -81,6 +81,7 @@ class MemberControllerTest {
         assertThat(actualLocation).isEqualTo("http://localhost/v1/members/99");
     }
 
+
     @Test
     void updateMember_shouldReturn200() throws Exception {
 
@@ -101,8 +102,6 @@ class MemberControllerTest {
                         .content(JsonUtils.objectToJson(request)))
                 .andExpect(status().isNoContent())
                 .andDo(print());
-
     }
-
 
 }
