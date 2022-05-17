@@ -4,15 +4,16 @@ import com.alkemy.ong.common.exception.error.ErrorDetails;
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.ports.input.rs.request.CreateCommentRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateCommentRequest;
-import com.alkemy.ong.ports.input.rs.response.ActivityResponse;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import com.alkemy.ong.ports.input.rs.response.CommentResponseList;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
@@ -77,8 +78,8 @@ public interface CommentApi {
 
     @Operation(summary = "get comments", description = "get all comments sorted by creation date", responses = {
             @ApiResponse(responseCode = "200", description = "get comments ",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CommentResponse.class))}),
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(schema = @Schema(implementation = CommentResponse.class)))}),
             @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
                     content = {@Content(mediaType = "application/json",
