@@ -31,7 +31,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional
-    public Long createEntity(News news, Long categoryId){
+    public Long createEntity(News news){
 
         Category category  = categoryJpaRepository.findById(categoryId)
                 .orElseGet(() -> categoryJpaRepository.findById(GENERAL_NEW_ID).get());

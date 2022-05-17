@@ -107,7 +107,7 @@ public class NewsController {
         News news = newsControllerMapper.createNewsRequestToNews(createNewsRequest);
         Long categoryId = createNewsRequest.getCategoryId();
 
-        final long id = service.createEntity(news, categoryId);
+        final long id = service.createEntity(news);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/id").buildAndExpand(id)
