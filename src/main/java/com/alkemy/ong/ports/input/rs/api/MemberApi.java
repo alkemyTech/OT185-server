@@ -29,15 +29,17 @@ public interface MemberApi {
     @Operation(summary = "create a new Member", responses = {
             @ApiResponse(responseCode = "201", description = "Member created"),
             @ApiResponse(responseCode = "400", description = "Invalid request",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "403", description = "Invalid Role",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class))})
     })
     ResponseEntity<Void> createMember(@Valid @RequestBody MemberRequest request);
 
@@ -45,18 +47,18 @@ public interface MemberApi {
     @Operation(summary = "update  Member", description = "update a Member completely", responses = {
             @ApiResponse(responseCode = "204", description = "update Member "),
             @ApiResponse(responseCode = "400", description = "Invalid request",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "403", description = "Invalid Role",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal error",
-            content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    array = @ArraySchema (schema = @Schema (implementation = ErrorDetails.class)))})
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class))})
     })
     void updateMember(@Valid @NotNull @PathVariable Long id,
                       @RequestBody UpdateMemberRequest upMember);
@@ -65,30 +67,34 @@ public interface MemberApi {
     @Operation(summary = "delete  Member", description = "delete a Member ", responses = {
             @ApiResponse(responseCode = "204", description = "delete Member "),
             @ApiResponse(responseCode = "400", description = "Invalid request",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "403", description = "Invalid Role",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal error")
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class))})
     })
     void deleteMember(@Valid @NotNull @PathVariable Long id);
 
 
     @Operation(summary = "get all  Members", description = "get  Members ", responses = {
             @ApiResponse(responseCode = "200", description = "get Members ",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = MemberResponseList.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid request",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal error")
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = {@Content (mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class))})
     })
     ResponseEntity<MemberResponseList> getMembers(@RequestParam Optional<Integer> page,
                                                   @RequestParam Optional<Integer> size);
