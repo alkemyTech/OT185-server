@@ -1,5 +1,6 @@
 package com.alkemy.ong.ports.input.rs.controller;
 
+import com.alkemy.ong.H2Config;
 import com.alkemy.ong.common.util.JsonUtils;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.request.MemberRequest;
@@ -22,12 +23,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@SpringJUnitConfig(classes = H2AuthConfig.class)
+@SpringJUnitConfig(classes = H2Config.class) //H2AutoConfig
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
 class MemberControllerIT {
 
     @Autowired
