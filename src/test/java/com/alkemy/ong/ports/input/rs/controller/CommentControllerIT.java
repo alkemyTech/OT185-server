@@ -43,9 +43,6 @@ class CommentControllerIT {
     @WithUserDetails("admin@somosmas.org")
     void createComment_shouldReturn201() throws Exception {
 
-        News news = new News();
-        news.setName("Some news");
-
         CreateCommentRequest request = CreateCommentRequest.builder()
                 .commentBody("example comment")
                 .newsId(1L)
