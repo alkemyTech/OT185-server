@@ -25,9 +25,7 @@ import java.util.Optional;
 public interface MemberApi {
 
     @Operation(summary = "create a new Member", responses = {
-            @ApiResponse(responseCode = "201", description = "Member created",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MemberResponse.class))}),
+            @ApiResponse(responseCode = "201", description = "Member created"),
             @ApiResponse(responseCode = "400", description = "Invalid request",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
@@ -43,9 +41,7 @@ public interface MemberApi {
 
 
     @Operation(summary = "update  Member", description = "update a Member completely", responses = {
-            @ApiResponse(responseCode = "200", description = "update Member ",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MemberResponse.class))}),
+            @ApiResponse(responseCode = "204", description = "update Member "),
             @ApiResponse(responseCode = "400", description = "Invalid request",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
@@ -55,15 +51,15 @@ public interface MemberApi {
             @ApiResponse(responseCode = "403", description = "Invalid Role",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal error")
     })
     void updateMember(@Valid @NotNull @PathVariable Long id,
                       @RequestBody UpdateMemberRequest upMember);
 
 
     @Operation(summary = "delete  Member", description = "delete a Member ", responses = {
-            @ApiResponse(responseCode = "204", description = "delete Member ", content = @Content),
+            @ApiResponse(responseCode = "204", description = "delete Member "),
             @ApiResponse(responseCode = "400", description = "Invalid request",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
@@ -73,7 +69,7 @@ public interface MemberApi {
             @ApiResponse(responseCode = "403", description = "Invalid Role",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Internal error")
     })
     void deleteMember(@Valid @NotNull @PathVariable Long id);
 
@@ -88,7 +84,7 @@ public interface MemberApi {
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Internal error")
     })
     ResponseEntity<MemberResponseList> getMembers(@RequestParam Optional<Integer> page,
                                                   @RequestParam Optional<Integer> size);

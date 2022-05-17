@@ -25,15 +25,15 @@ public class NewsServiceImpl implements NewsService {
     private final NewsRepository newsJpaRepository;
     private final CategoryRepository categoryJpaRepository;
 
-    private static final Long GENERAL_NEW_ID = Long.valueOf(6);
+    private static Long GENERAL_NEW_ID = Long.valueOf(6);
 
 
 
     @Override
     @Transactional
-    public Long createEntity(News news, Long categoryId){
+    public Long createEntity(News news, Long CategoryId){
 
-        Category category  = categoryJpaRepository.findById(categoryId)
+        Category category  = categoryJpaRepository.findById(CategoryId)
                 .orElseGet(() -> categoryJpaRepository.findById(GENERAL_NEW_ID).get());
 
         news.setCategory(category);
@@ -43,10 +43,10 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional
-    public News updateEntityIfExists(Long id, News request, Long categoryId){
+    public News updateEntityIfExists(Long id, News request){
 
         News news = newsJpaRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
-        Category category = categoryJpaRepository.findById(categoryId).orElseThrow(()
+        Category category = categoryJpaRepository.findById(request.getCategory().getId()).orElseThrow(()
                 -> new NotFoundException(request.getCategory().getId()));
 
         news.setName(request.getName());

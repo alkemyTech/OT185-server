@@ -1,8 +1,6 @@
 package com.alkemy.ong.domain.usecase;
 
 import com.alkemy.ong.domain.model.Category;
-import com.alkemy.ong.domain.model.CategoryList;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ public interface CategoryService {
 
     Category getByIdIfExists(Long id);
 
-    CategoryList getList(PageRequest pageRequest);
+    List<Category> getAll();
 
     Category updateCategory(Long id, Category category);
 }

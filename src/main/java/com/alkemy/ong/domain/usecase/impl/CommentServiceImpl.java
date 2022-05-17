@@ -6,6 +6,7 @@ import com.alkemy.ong.common.exception.NotFoundException;
 import com.alkemy.ong.domain.model.*;
 import com.alkemy.ong.domain.repository.CommentRepository;
 import com.alkemy.ong.domain.repository.NewsRepository;
+import com.alkemy.ong.domain.repository.UserRepository;
 import com.alkemy.ong.domain.usecase.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.access.AccessDeniedException;
 
 
+import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,11 +25,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentJpaRepository;
+    private final UserRepository userJpaRepository;
     private final NewsRepository newsJpaRepository;
 
     @Override
     @Transactional
-    public Long createComment(Comment comment, User user) {
+    public Long createComment(Comment comment) {
+        User user = userJpaRepository.findById(comment.getUser().getId())
+                .orElseThrow(() -> new NotFoundException(comment.getUser().getId()));
         comment.setUser(user);
         News news = newsJpaRepository.findById(comment.getNews().getId())
                 .orElseThrow(() -> new NotFoundException(comment.getNews().getId()));
