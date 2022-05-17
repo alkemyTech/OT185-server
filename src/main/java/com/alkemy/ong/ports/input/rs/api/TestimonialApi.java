@@ -39,7 +39,9 @@ public interface TestimonialApi {
             @ApiResponse(responseCode = "403", description = "Invalid Role",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal error")
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDetails.class)))
     })
     ResponseEntity<Void> createTestimonial(@Valid @RequestBody CreateTestimonialRequest createTestimonialRequest);
 
@@ -56,7 +58,9 @@ public interface TestimonialApi {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "404", description = "Not found"),
-            @ApiResponse(responseCode = "500", description = "Internal error")
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDetails.class)))
     })
     void deleteTestimonial(@Valid @NotNull @PathVariable Long id);
 
@@ -75,7 +79,9 @@ public interface TestimonialApi {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "404", description = "Not found"),
-            @ApiResponse(responseCode = "500", description = "Internal error")
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDetails.class)))
     })
     ResponseEntity<TestimonialResponse> updateTestimonial(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateTestimonialRequest updateTestimonialRequest);
 
@@ -90,7 +96,9 @@ public interface TestimonialApi {
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal error")
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDetails.class)))
     })
     ResponseEntity<TestimonialResponseList> getTestimonials(@RequestParam Optional<Integer> page);
 }
