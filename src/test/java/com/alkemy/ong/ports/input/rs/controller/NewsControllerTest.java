@@ -3,7 +3,6 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.common.exception.handler.GlobalExceptionHandler;
 import com.alkemy.ong.common.util.JsonUtils;
 import com.alkemy.ong.domain.model.Category;
-import com.alkemy.ong.domain.model.Comment;
 import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.usecase.NewsService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
@@ -105,7 +104,7 @@ class NewsControllerTest {
         assertThat(response.getName()).isEqualTo("foo");
         assertThat(response.getContent()).isEqualTo("foo");
         assertThat(response.getImage()).isEqualTo("foo");
-        //assertThat(response.getCategory()).isNotEmpty();
+        assertThat(response.getCategory()).isNotNull();
 
     }
 
@@ -138,14 +137,6 @@ class NewsControllerTest {
                 .getContentAsString();
     }
 
-
-    @Test
-    void getCommentsByNewsId_shouldReturn200() {
-
-        Comment comment = new Comment();
-
-
-    }
 
 
 }
