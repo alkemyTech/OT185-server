@@ -58,7 +58,7 @@ class NewsControllerTest {
                 .categoryId(4L)
                 .build();
 
-        given(service.createEntity(any(News.class))).willReturn(99L);
+        given(service.createEntity(any(News.class), any(Long.class))).willReturn(99L);
 
         final String actualLocation = mockMvc.perform(post(ApiConstants.NEWS_URI)
                         .contentType(MediaType.APPLICATION_JSON)

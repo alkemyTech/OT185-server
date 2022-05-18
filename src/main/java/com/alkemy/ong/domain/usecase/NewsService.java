@@ -16,7 +16,7 @@ public interface NewsService {
 
     void deleteById(Long id);
 
-    Long createEntity(News news);
+    Long createEntity(News news, Long categoryId);
 
     News getByIdIfExists(Long id);
 
