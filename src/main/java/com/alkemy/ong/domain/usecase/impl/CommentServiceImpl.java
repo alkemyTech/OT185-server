@@ -8,6 +8,8 @@ import com.alkemy.ong.domain.repository.CommentRepository;
 import com.alkemy.ong.domain.repository.NewsRepository;
 import com.alkemy.ong.domain.usecase.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,8 +81,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Comment> getAll() {
-        return (List<Comment>) commentJpaRepository.findAll(Sort.by("audit.createdAt"));
+    public CommentList getAll(PageRequest pageRequest) {
+        Page<Comment> page = commentJpaRepository.findAll(pageRequest.withSort(Sort.by("audit.createdAt")));
+        return new CommentList(page.getContent(), pageRequest, page.getTotalElements());
     }
 
 }
