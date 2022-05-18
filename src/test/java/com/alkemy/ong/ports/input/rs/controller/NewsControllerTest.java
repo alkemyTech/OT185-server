@@ -3,12 +3,13 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.common.exception.handler.GlobalExceptionHandler;
 import com.alkemy.ong.common.util.JsonUtils;
 import com.alkemy.ong.domain.model.Category;
+import com.alkemy.ong.domain.model.Comment;
 import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.usecase.NewsService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.mapper.NewsControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateNewsRequest;
-import com.alkemy.ong.ports.input.rs.response.AlkymerResponse;
+import com.alkemy.ong.ports.input.rs.request.UpdateNewsRequest;
 import com.alkemy.ong.ports.input.rs.response.NewsResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +23,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,13 +38,10 @@ class NewsControllerTest {
 
     private MockMvc mockMvc;
 
-    @InjectMocks
-    NewsController controller;
+    @InjectMocks NewsController controller;
 
-    @Mock
-    NewsService service;
-    @Spy
-    NewsControllerMapper mapper = Mappers.getMapper(NewsControllerMapper.class);
+    @Mock NewsService service;
+    @Spy NewsControllerMapper mapper = Mappers.getMapper(NewsControllerMapper.class);
 
     @BeforeEach
     void setUp() {
@@ -59,6 +56,7 @@ class NewsControllerTest {
                 .name("foo")
                 .image("foo")
                 .content("foo")
+                .categoryId(4L)
                 .build();
 
         given(service.createEntity(any(News.class))).willReturn(99L);
@@ -76,7 +74,7 @@ class NewsControllerTest {
     }
 
     @Test
-    void getNews() throws Exception {
+    void getNews_shouldReturn200() throws Exception {
         Category category = new Category();
         category.setName("Java");
         category.setImage("foo");
@@ -105,24 +103,48 @@ class NewsControllerTest {
         assertThat(content).isNotBlank();
         assertThat(response.getId()).isEqualTo(99);
         assertThat(response.getName()).isEqualTo("foo");
-        //assertThat(response.getName()).isNotEmpty();
-        //assertThat(response.getSkills().stream().findFirst().orElseThrow().getName()).isEqualTo("Java");
+        assertThat(response.getContent()).isEqualTo("foo");
+        assertThat(response.getImage()).isEqualTo("foo");
+        //assertThat(response.getCategory()).isNotEmpty();
+
     }
 
     @Test
-    void updateNews() {
+    void updateNews_shouldReturn204() throws Exception {
+        UpdateNewsRequest request = UpdateNewsRequest.builder()
+
+                .name("foo")
+                .content("foo")
+                .image("foo")
+                .categoryId(4L)
+                .build();
+
+        willDoNothing().given(service).updateEntityIfExists(eq(99L), any(News.class),eq(4L));
+
+        mockMvc.perform(patch(ApiConstants.NEWS_URI + "/99")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtils.objectToJson(request)))
+                .andExpect(status().isNoContent())
+                .andDo(print());
     }
 
     @Test
-    void deleteNews() {
+    void deleteNews_shouldReturn204() throws Exception {
+        mockMvc.perform(delete(ApiConstants.NEWS_URI + "/1"))
+                .andExpect(status().isNoContent())
+                .andDo(print())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
     }
 
-    @Test
-    void getNew() {
-    }
 
     @Test
-    void getCommentsByNewsId() {
+    void getCommentsByNewsId_shouldReturn200() {
+
+        Comment comment = new Comment();
+
+
     }
 
 
