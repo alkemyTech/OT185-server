@@ -216,7 +216,7 @@ class MemberControllerIT {
                 .description("some description update")
                 .build();
 
-        mockMvc.perform(put(ApiConstants.MEMBERS_URI + "/string")
+        mockMvc.perform(put(ApiConstants.MEMBERS_URI + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
                 .andExpect(status().isUnauthorized())
@@ -308,7 +308,7 @@ class MemberControllerIT {
     @Test
     @Order(15)
     void deteleMember_shouldReturn401_Unauthorized() throws Exception {
-        mockMvc.perform(delete(ApiConstants.MEMBERS_URI + "/string"))
+        mockMvc.perform(delete(ApiConstants.MEMBERS_URI + "/1"))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -316,7 +316,7 @@ class MemberControllerIT {
     @Order(16)
     @WithUserDetails("user@somosmas.org")
     void deteleMember_shouldReturn403_role_user_forbidden() throws Exception {
-        mockMvc.perform(delete(ApiConstants.MEMBERS_URI + "/string"))
+        mockMvc.perform(delete(ApiConstants.MEMBERS_URI + "/1"))
                 .andExpect(status().isForbidden());
     }
 }
