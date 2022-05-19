@@ -38,15 +38,15 @@ public interface NewsApi {
 
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorDetails.class),
-                            examples = @ExampleObject(value="Incorrect parameters in JSON Object"))),
+                            schema = @Schema(implementation = ErrorDetails.class)
+                            )),
 
 
 
             @ApiResponse(responseCode = "404",description = "Not Found",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorDetails.class),
-                            examples = @ExampleObject(value = ("News's ID is not found."))
+                            schema = @Schema(implementation = ErrorDetails.class)
+
                     )),
 
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
@@ -70,14 +70,14 @@ public interface NewsApi {
 
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorDetails.class),
-                            examples = @ExampleObject(value="Incorrect parameter (ID)"))),
+                            schema = @Schema(implementation = ErrorDetails.class)
+                            )),
 
 
             @ApiResponse(responseCode = "404",description = "Not Found",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorDetails.class),
-                            examples = @ExampleObject(value = ("Id is not found."))
+                            schema = @Schema(implementation = ErrorDetails.class)
+
                     )),
 
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
@@ -95,17 +95,8 @@ public interface NewsApi {
 
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorDetails.class),
-                            examples = @ExampleObject(value="Incorrect parameter (ID)"))),
-
-
-
-            @ApiResponse(responseCode = "404",description = "Not Found",
-                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorDetails.class),
-                            examples = @ExampleObject(value = ("Id is not found."))
-                    )),
-
+                            schema = @Schema(implementation = ErrorDetails.class)
+                            )),
 
 
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
@@ -128,14 +119,14 @@ public interface NewsApi {
 
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorDetails.class),
-                            examples = @ExampleObject(value="Incorrect parameter (ID)"))),
+                            schema = @Schema(implementation = ErrorDetails.class)
+                            )),
 
 
             @ApiResponse(responseCode = "404",description = "Not Found",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorDetails.class),
-                            examples = @ExampleObject(value = ("Id is not found."))
+                            schema = @Schema(implementation = ErrorDetails.class)
+
                     )),
 
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
@@ -153,8 +144,7 @@ public interface NewsApi {
 
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorDetails.class),
-                            examples = @ExampleObject(value="Incorrect parameters in JSON Object"))),
+                            schema = @Schema(implementation = ErrorDetails.class))),
 
 
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
