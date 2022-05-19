@@ -35,9 +35,6 @@ public interface CommentApi {
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "403", description = "Invalid User or Role",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
     })
     ResponseEntity<Void> createComment(@Valid @RequestBody CreateCommentRequest createCommentRequest, @AuthenticationPrincipal User user);
@@ -54,7 +51,6 @@ public interface CommentApi {
             @ApiResponse(responseCode = "403", description = "Invalid User or Role",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
     })
     void deleteComment(@Valid @NotNull @PathVariable Long id, @AuthenticationPrincipal User user);
