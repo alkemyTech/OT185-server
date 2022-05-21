@@ -34,7 +34,7 @@ public class Member implements Auditable {
 	@Column(name = "member_id")
 	private Long id;
 
-	@Column(name = "name", nullable = false, updatable = false)
+	@Column(name = "name", nullable = false, updatable = true)
 	private String name;
 
 	@Column(name = "facebook_url", nullable = true, updatable = true)
