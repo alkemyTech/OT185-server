@@ -100,9 +100,9 @@ class MemberControllerTest {
 
         final long id = 1L;
 
-        willDoNothing().given(service).updateMember(eq(1L), any(Member.class));
+        willDoNothing().given(service).updateMember(eq(id), any(Member.class));
 
-        mockMvc.perform(put(ApiConstants.MEMBERS_URI + "/1")
+        mockMvc.perform(put(ApiConstants.MEMBERS_URI + "/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
                 .andExpect(status().isNoContent())
