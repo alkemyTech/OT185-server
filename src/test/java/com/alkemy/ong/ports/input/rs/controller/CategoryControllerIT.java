@@ -56,7 +56,7 @@ class CategoryControllerIT {
                 .getResponse()
                 .getHeader(HttpHeaders.LOCATION);
 
-        assertThat(actualLocation).isEqualTo("http://localhost/v1/categories/1");
+        assertThat(actualLocation).isEqualTo("http://localhost/v1/categories/2");
 
     }
 
@@ -64,7 +64,7 @@ class CategoryControllerIT {
     @Order(2)
     @WithUserDetails("admin@somosmas.org")
     void getCategory_shouldReturn200() throws Exception {
-        String content = mockMvc.perform(get(ApiConstants.CATEGORIES_URI + "/1"))
+        String content = mockMvc.perform(get(ApiConstants.CATEGORIES_URI + "/2"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn()
@@ -74,7 +74,7 @@ class CategoryControllerIT {
         assertThat(content).isNotBlank();
 
         CategoryResponse response = JsonUtils.jsonToObject(content, CategoryResponse.class);
-        assertThat(response.getId()).isEqualTo(1);
+        assertThat(response.getId()).isEqualTo(2);
         assertThat(response.getName()).isEqualTo("foo");
         assertThat(response.getDescription()).isEqualTo("foo description");
         assertThat(response.getImage()).isEqualTo("foo.jpg");
@@ -97,7 +97,7 @@ class CategoryControllerIT {
 
         CategoryNameResponseList response = JsonUtils.jsonToObject(content, CategoryNameResponseList.class);
 
-        assertThat(response.getTotalElements()).isEqualTo(1);
+        assertThat(response.getTotalElements()).isEqualTo(2);
         assertThat(response.getTotalPages()).isEqualTo(1);
         assertThat(response.getNextUri()).isEqualTo("http://localhost/v1/categories?page=1");
         assertThat(response.getPreviousUri()).isEqualTo("http://localhost/v1/categories?page=0");
@@ -115,7 +115,7 @@ class CategoryControllerIT {
                 .image("new.jpg")
                 .build();
 
-        mockMvc.perform(put(ApiConstants.CATEGORIES_URI +  "/1")
+        mockMvc.perform(put(ApiConstants.CATEGORIES_URI +  "/2")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
                 .andExpect(status().isOk())
@@ -127,7 +127,7 @@ class CategoryControllerIT {
     @Order(5)
     @WithUserDetails("admin@somosmas.org")
     void deleteCategory() throws Exception {
-        mockMvc.perform(delete(ApiConstants.CATEGORIES_URI + "/1"))
+        mockMvc.perform(delete(ApiConstants.CATEGORIES_URI + "/2"))
                 .andExpect(status().isNoContent())
                 .andDo(print())
                 .andReturn()
@@ -139,7 +139,7 @@ class CategoryControllerIT {
     @Order(6)
     @WithUserDetails("fbar@somosmas.org")
     void getCategory_shouldReturn404() throws Exception {
-        mockMvc.perform(get(ApiConstants.CATEGORIES_URI + "/1"))
+        mockMvc.perform(get(ApiConstants.CATEGORIES_URI + "/2"))
                 .andExpect(status().isNotFound())
                 .andDo(print());
     }
@@ -148,7 +148,7 @@ class CategoryControllerIT {
     @Order(7)
     @WithUserDetails("fbar@somosmas.org")
     void deleteCategory_shouldReturn403() throws Exception {
-        mockMvc.perform(delete(ApiConstants.CATEGORIES_URI + "/1"))
+        mockMvc.perform(delete(ApiConstants.CATEGORIES_URI + "/2"))
                 .andExpect(status().isForbidden())
                 .andDo(print());
     }
@@ -157,7 +157,7 @@ class CategoryControllerIT {
     @Order(8)
     @WithAnonymousUser
     void getCategory_shouldReturn401() throws Exception {
-        mockMvc.perform(get(ApiConstants.CATEGORIES_URI + "/1"))
+        mockMvc.perform(get(ApiConstants.CATEGORIES_URI + "/2"))
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
     }
