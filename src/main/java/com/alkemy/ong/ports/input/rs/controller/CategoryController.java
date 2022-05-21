@@ -76,7 +76,7 @@ public class CategoryController {
         final long id = categoryService.createCategory(category);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/id").buildAndExpand(id)
+                .path("/{id}").buildAndExpand(id)
                 .toUri();
 
         return ResponseEntity.created(location).build();
