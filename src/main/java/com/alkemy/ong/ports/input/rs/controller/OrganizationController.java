@@ -3,6 +3,7 @@ package com.alkemy.ong.ports.input.rs.controller;
 import com.alkemy.ong.domain.model.Organization;
 import com.alkemy.ong.domain.model.Slide;
 import com.alkemy.ong.domain.usecase.OrganizationService;
+import com.alkemy.ong.ports.input.rs.api.OrganizationApi;
 import com.alkemy.ong.ports.input.rs.mapper.OrganizationControllerMapper;
 import com.alkemy.ong.ports.input.rs.mapper.SlideControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.OrganizationRequest;
@@ -25,7 +26,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.ORGANIZATIONS_URI;
 @RestController
 @RequestMapping(ORGANIZATIONS_URI)
 @RequiredArgsConstructor
-public class OrganizationController {
+public class OrganizationController implements OrganizationApi {
 
     private final OrganizationService service;
     private final OrganizationControllerMapper mapper;

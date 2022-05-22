@@ -1,7 +1,5 @@
 package com.alkemy.ong.ports.input.rs.request;
 
-
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,13 +12,15 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCommentRequest {
+public class CreateCategoryRequest {
 
     @NotBlank
-    @JsonProperty("comment_body")
-    private String commentBody;
+    @JsonProperty("name")
+    private String name;
 
-    @JsonProperty("news_id")
-    private Long newsId;
+    @JsonProperty("description")
+    private String description;
 
+    @JsonProperty("image")
+    private String image;
 }

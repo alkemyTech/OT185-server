@@ -4,6 +4,7 @@ import com.alkemy.ong.domain.model.Member;
 import com.alkemy.ong.domain.model.MemberList;
 import com.alkemy.ong.domain.usecase.MemberService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
+import com.alkemy.ong.ports.input.rs.api.MemberApi;
 import com.alkemy.ong.ports.input.rs.mapper.MemberControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.MemberRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateMemberRequest;
@@ -29,7 +30,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.MEMBERS_URI;
 @RestController
 @RequestMapping(MEMBERS_URI)
 @RequiredArgsConstructor
-public class MemberController {
+public class MemberController implements MemberApi {
 
     private final MemberService memberService;
     private final MemberControllerMapper mapper;
