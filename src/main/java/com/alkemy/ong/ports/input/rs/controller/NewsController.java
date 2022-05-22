@@ -111,7 +111,7 @@ public class NewsController implements NewsApi {
         final long id = service.createEntity(news, categoryId);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/id").buildAndExpand(id)
+                .path("/{id}").buildAndExpand(id)
                 .toUri();
 
         return ResponseEntity.created(location).build();
