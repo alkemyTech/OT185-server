@@ -23,9 +23,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,7 +51,7 @@ class NewsControllerIT {
                 .name("foo")
                 .image("foo")
                 .content("foo")
-                .categoryId(4L)
+                .categoryId(1L)
                 .build();
 
         final String actualLocation = mockMvc.perform(post(ApiConstants.NEWS_URI)
@@ -61,7 +63,7 @@ class NewsControllerIT {
                 .getResponse()
                 .getHeader(HttpHeaders.LOCATION);
 
-        assertThat(actualLocation).isEqualTo("http://localhost/v1/news/1");
+        assertThat(actualLocation).isEqualTo("http://localhost/v1/news/2");
     }
 
     @Test
@@ -69,7 +71,7 @@ class NewsControllerIT {
     @WithUserDetails("fbar@somosmas.org")
     void getNews_shouldReturn200() throws Exception {
 
-        String content = mockMvc.perform(get(ApiConstants.NEWS_URI + "/1"))
+        String content = mockMvc.perform(get(ApiConstants.NEWS_URI + "/2"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn()
@@ -79,7 +81,7 @@ class NewsControllerIT {
         assertThat(content).isNotBlank();
 
         NewsResponse response = JsonUtils.jsonToObject(content, NewsResponse.class);
-        assertThat(response.getId()).isEqualTo(1);
+        assertThat(response.getId()).isEqualTo(2);
         assertThat(response.getName()).isEqualTo("foo");
         assertThat(response.getImage()).isEqualTo("foo");
         assertThat(response.getContent()).isEqualTo("foo");
@@ -102,7 +104,7 @@ class NewsControllerIT {
 
         NewsResponseList response = JsonUtils.jsonToObject(content, NewsResponseList.class);
 
-        assertThat(response.getTotalElements()).isEqualTo(1);
+        assertThat(response.getTotalElements()).isEqualTo(2);
         assertThat(response.getTotalPages()).isEqualTo(1);
         assertThat(response.getNextUri()).isEqualTo("http://localhost/v1/news?page=1");
         assertThat(response.getPreviousUri()).isEqualTo("http://localhost/v1/news?page=0");
@@ -118,14 +120,13 @@ class NewsControllerIT {
                 .name("foo")
                 .content("foo")
                 .image("foo")
-                .categoryId(4L)
+                .categoryId(1L)
                 .build();
 
-
-        mockMvc.perform(patch(ApiConstants.NEWS_URI + "/1")
+        mockMvc.perform(put(ApiConstants.NEWS_URI + "/2")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.objectToJson(request)))
-                .andExpect(status().isNoContent())
+                .andExpect(status().isOk())
                 .andDo(print());
     }
 
@@ -134,7 +135,7 @@ class NewsControllerIT {
     @WithUserDetails("admin@somosmas.org")
     void deleteNews_shouldReturn204() throws Exception {
 
-        mockMvc.perform(delete(ApiConstants.NEWS_URI + "/1"))
+        mockMvc.perform(delete(ApiConstants.NEWS_URI + "/2"))
                 .andExpect(status().isNoContent())
                 .andDo(print())
                 .andReturn()
@@ -146,7 +147,7 @@ class NewsControllerIT {
     @Order(6)
     @WithUserDetails("fbar@somosmas.org")
     void getNews_shouldReturn404() throws Exception {
-        mockMvc.perform(get(ApiConstants.NEWS_URI + "/1"))
+        mockMvc.perform(get(ApiConstants.NEWS_URI + "/2"))
                 .andExpect(status().isNotFound())
                 .andDo(print());
     }
@@ -155,7 +156,7 @@ class NewsControllerIT {
     @Order(7)
     @WithUserDetails("fbar@somosmas.org")
     void deleteNews_shouldReturn403() throws Exception {
-        mockMvc.perform(delete(ApiConstants.NEWS_URI + "/1"))
+        mockMvc.perform(delete(ApiConstants.NEWS_URI + "/2"))
                 .andExpect(status().isForbidden())
                 .andDo(print());
     }
@@ -164,7 +165,7 @@ class NewsControllerIT {
     @Order(8)
     @WithAnonymousUser
     void getNews_shouldReturn401() throws Exception {
-        mockMvc.perform(get(ApiConstants.NEWS_URI + "/1"))
+        mockMvc.perform(get(ApiConstants.NEWS_URI + "/2"))
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
     }
