@@ -36,11 +36,14 @@ import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.mapper.UserControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;
 import com.alkemy.ong.ports.input.rs.response.UserResponseList;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 	
 	private MockMvc mockMvc;
+	
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 	
 	@InjectMocks UserController controller;
 	@Mock UserService service;
@@ -100,7 +103,7 @@ class UserControllerTest {
 
         assertThat(content).isNotBlank();
         
-        UserResponseList response = JsonUtils.jsonToObject(content, UserResponseList.class);
+        UserResponseList response = OBJECT_MAPPER.readValue(content, UserResponseList.class);
         
         assertThat(response.getTotalElements()).isEqualTo(1);
         assertThat(response.getTotalPages()).isEqualTo(1);
