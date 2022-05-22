@@ -59,7 +59,7 @@ class UserControllerIT {
 
 		UserResponseList response = JsonUtils.jsonToObject(content, UserResponseList.class);
 
-		assertThat(response.getTotalElements()).isEqualTo(3);
+		assertThat(response.getTotalElements()).isEqualTo(4);
 		assertThat(response.getTotalPages()).isEqualTo(1);
 		assertThat(response.getNextUri()).isEqualTo("http://localhost/v1/users?page=1");
 		assertThat(response.getPreviousUri()).isEqualTo("http://localhost/v1/users?page=0");
