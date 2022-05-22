@@ -6,6 +6,7 @@ import com.alkemy.ong.domain.model.Comment;
 import com.alkemy.ong.domain.model.CommentList;
 import com.alkemy.ong.domain.model.User;
 import com.alkemy.ong.domain.usecase.CommentService;
+import com.alkemy.ong.ports.input.rs.api.CommentApi;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import com.alkemy.ong.ports.input.rs.response.CommentResponseList;
@@ -36,11 +37,12 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.COMMENT_URI;
 @RestController
 @RequestMapping(COMMENT_URI)
 @RequiredArgsConstructor
-public class CommentController {
+public class CommentController implements CommentApi {
 
     private final CommentService service;
     private final CommentControllerMapper mapper;
 
+    @Override
     @PostMapping
     public ResponseEntity<Void> createComment(@Valid @RequestBody CreateCommentRequest createCommentRequest, @AuthenticationPrincipal User user){
         Comment comment = mapper.createCommentRequestToComment(createCommentRequest);
@@ -55,6 +57,7 @@ public class CommentController {
     }
 
 
+    @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteComment(@Valid @NotNull @PathVariable Long id, @AuthenticationPrincipal User user) {
@@ -62,6 +65,7 @@ public class CommentController {
     }
 
 
+    @Override
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateComment(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateCommentRequest updateCommentRequest, @AuthenticationPrincipal User user) {
@@ -70,6 +74,7 @@ public class CommentController {
     }
 
 
+    @Override
     @GetMapping
     public ResponseEntity<CommentResponseList> getComments(@RequestParam Optional<Integer> page,
                                                              @RequestParam Optional<Integer> size){

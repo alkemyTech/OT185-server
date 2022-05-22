@@ -5,6 +5,7 @@ import com.alkemy.ong.domain.model.News;
 import com.alkemy.ong.domain.model.NewsList;
 import com.alkemy.ong.domain.usecase.NewsService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
+import com.alkemy.ong.ports.input.rs.api.NewsApi;
 import com.alkemy.ong.ports.input.rs.mapper.CommentControllerMapper;
 import com.alkemy.ong.ports.input.rs.mapper.NewsControllerMapper;
 import com.alkemy.ong.ports.input.rs.response.*;
@@ -29,7 +30,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.NEWS_URI;
 @RestController
 @RequestMapping(NEWS_URI)
 @RequiredArgsConstructor
-public class NewsController {
+public class NewsController implements NewsApi {
 
     private final NewsService service;
 

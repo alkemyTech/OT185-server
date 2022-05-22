@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UpdateUserRequest {
 
 

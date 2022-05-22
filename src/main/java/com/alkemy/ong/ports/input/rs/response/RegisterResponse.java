@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisterResponse {
-
 	private UserResponse userResponse;
 	private AuthenticationResponse authResponse;
 }
