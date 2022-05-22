@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -28,47 +29,64 @@ import java.util.Optional;
 public interface CommentApi {
     @Parameter(name = "user", hidden = true)
     @Operation(summary = "create a new comment", responses = {
-            @ApiResponse(responseCode = "201", description = "comment created", content = @Content),
+            @ApiResponse(responseCode = "201", description = "comment created"),
             @ApiResponse(responseCode = "400", description = "Invalid request",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorDetails.class))}),
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "[{\"code\":\"INVALID_FIELD_VALUE\",\"detail\":\"must not be blank\",\"field\":\"content\",\"location\":\"BODY\"}]"))}),
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "[{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}]"))}),
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class))})
     })
     ResponseEntity<Void> createComment(@Valid @RequestBody CreateCommentRequest createCommentRequest, @AuthenticationPrincipal User user);
 
     @Parameter(name = "user", hidden = true)
     @Operation(summary = "delete comment", description = "delete a comment", responses = {
-            @ApiResponse(responseCode = "200", description = "comment deleted ",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CommentResponse.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
+            @ApiResponse(responseCode = "204", description = "comment deleted "),
+            @ApiResponse(responseCode = "400", description = "Invalid request",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(schema = @Schema(implementation = ErrorDetails.class)),
+                            examples = @ExampleObject(value = "[{\"code\":\"INVALID_FIELD_VALUE\",\"detail\":\"must not be blank\",\"field\":\"content\",\"location\":\"BODY\"}]"))}),
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorDetails.class))}),
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "[{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}]"))}),
             @ApiResponse(responseCode = "403", description = "Invalid User or Role",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "[{\"code\":\"ROLE_INVALID\",\"detail\":\"The user does not have access to the current resource\"}]"))}),
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class))})
     })
     void deleteComment(@Valid @NotNull @PathVariable Long id, @AuthenticationPrincipal User user);
 
     @Parameter(name = "user", hidden = true)
     @Operation(summary = "update comment", description = "update a comment completely", responses = {
-            @ApiResponse(responseCode = "200", description = "comment updated ",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CommentResponse.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
+            @ApiResponse(responseCode = "204", description = "comment updated "),
+            @ApiResponse(responseCode = "400", description = "Invalid request",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(schema = @Schema(implementation = ErrorDetails.class)),
+                            examples = @ExampleObject(value = "[{\"code\":\"INVALID_FIELD_VALUE\",\"detail\":\"must not be blank\",\"field\":\"content\",\"location\":\"BODY\"}]"))}),
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorDetails.class))}),
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "[{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}]"))}),
             @ApiResponse(responseCode = "403", description = "Invalid User or Role",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "[{\"code\":\"ROLE_INVALID\",\"detail\":\"The user does not have access to the current resource\"}]"))}),
+            @ApiResponse(responseCode = "404", description = "Not found",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "[{\"code\":\"RESOURCE_NOT_FOUND\",\"detail\":\"The resource with id is not found\",\"location\":\"PATH\"}]"))}),
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class))})
     })
     void updateComment(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateCommentRequest updateCommentRequest, @AuthenticationPrincipal User user);
 
@@ -76,11 +94,16 @@ public interface CommentApi {
             @ApiResponse(responseCode = "200", description = "get comments ",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             array = @ArraySchema(schema = @Schema(implementation = CommentResponse.class)))}),
-            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
-            @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
-                    content = {@Content(mediaType = "application/json",
+            @ApiResponse(responseCode = "400", description = "Invalid request",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
+            @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class),
+                            examples = @ExampleObject(value = "[{\"code\":\"BAD_CREDENTIALS\",\"detail\":\"The server cannot return a response due to invalid credentials.\"}]"))}),
+            @ApiResponse(responseCode = "500", description = "Internal error",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class))})
     })
     ResponseEntity<CommentResponseList> getComments(@RequestParam Optional<Integer> page,
                                                     @RequestParam Optional<Integer> size);
