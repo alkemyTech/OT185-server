@@ -7,6 +7,7 @@ import com.alkemy.ong.ports.input.rs.request.UpdateNewsRequest;
 import com.alkemy.ong.ports.input.rs.response.CommentResponse;
 import com.alkemy.ong.ports.input.rs.response.NewsResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -32,7 +33,7 @@ public interface NewsApi {
 
             @ApiResponse(responseCode = "200", description = "News updated",
                     content = { @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorDetails.class))}),
+                            schema = @Schema(implementation = NewsResponse.class))}),
 
 
 
@@ -65,7 +66,8 @@ public interface NewsApi {
     @ApiResponses(value = {
 
             @ApiResponse(responseCode = "200", description = "News found",
-                    content = { @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)}),
+                    content = { @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = NewsResponse.class))}),
 
 
             @ApiResponse(responseCode = "400", description = "Bad Request",
@@ -114,7 +116,9 @@ public interface NewsApi {
     @Operation(summary = "Get news's comments", description = "Get news's comments by ID ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Comments found",
-                    content = { @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)}),
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(schema = @Schema(implementation = CommentResponse.class)))
+                    }),
 
 
             @ApiResponse(responseCode = "400", description = "Bad Request",
@@ -148,6 +152,10 @@ public interface NewsApi {
 
 
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorDetails.class))}),
+
+            @ApiResponse(responseCode = "403", description = "Invalid Role",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorDetails.class))}),
     }
