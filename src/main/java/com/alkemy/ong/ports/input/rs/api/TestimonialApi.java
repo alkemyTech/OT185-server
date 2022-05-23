@@ -57,7 +57,6 @@ public interface TestimonialApi {
             @ApiResponse(responseCode = "403", description = "Invalid Role",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal error",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class)))
@@ -68,7 +67,7 @@ public interface TestimonialApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Testimonial Updated",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MemberResponse.class))}),
+                            schema = @Schema(implementation = TestimonialResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
@@ -89,7 +88,7 @@ public interface TestimonialApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Testimonials paged list retrieval succesful",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MemberResponseList.class))}),
+                            schema = @Schema(implementation = TestimonialResponseList.class))}),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
