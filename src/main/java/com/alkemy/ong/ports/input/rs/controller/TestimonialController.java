@@ -4,6 +4,7 @@ import com.alkemy.ong.domain.model.Testimonial;
 import com.alkemy.ong.domain.model.TestimonialList;
 import com.alkemy.ong.domain.usecase.TestimonialService;
 import com.alkemy.ong.ports.input.rs.api.ApiConstants;
+import com.alkemy.ong.ports.input.rs.api.TestimonialApi;
 import com.alkemy.ong.ports.input.rs.mapper.TestimonialControllerMapper;
 import com.alkemy.ong.ports.input.rs.request.CreateTestimonialRequest;
 import com.alkemy.ong.ports.input.rs.request.UpdateTestimonialRequest;
@@ -28,7 +29,7 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.TESTIMONIAL_URI;
 @RestController
 @RequestMapping(TESTIMONIAL_URI)
 @RequiredArgsConstructor
-public class TestimonialController {
+public class TestimonialController implements TestimonialApi {
 
     private final TestimonialService testimonialService;
     private final TestimonialControllerMapper mapper;
