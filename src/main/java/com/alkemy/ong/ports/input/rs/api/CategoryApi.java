@@ -31,7 +31,7 @@ public interface CategoryApi {
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "404", description = "Not found",
                     content = {@Content(mediaType = "application/json",
-                            examples = @ExampleObject(value = ("Category ID is not found.")),
+                            examples = @ExampleObject(value = ("{\"code\":\"RESOURCE_NOT_FOUND\",\"detail\":\"The resource with id 123 is not found\",\"location\":\"PATH\"}")),
                             schema = @Schema(implementation = ErrorDetails.class))}),
             @ApiResponse(responseCode = "401", description = "Invalid token or token expired",
                     content = {@Content(mediaType = "application/json",
@@ -64,9 +64,7 @@ public interface CategoryApi {
                                                            @RequestParam Optional<Integer> size);
 
     @Operation(summary = "create a new Category", responses = {
-            @ApiResponse(responseCode = "201", description = "Category created",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CategoryResponse.class))}),
+            @ApiResponse(responseCode = "201", description = "Category created"),
             @ApiResponse(responseCode = "400", description = "Invalid request",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
@@ -111,7 +109,6 @@ public interface CategoryApi {
             @ApiResponse(responseCode = "403", description = "Invalid Role",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorDetails.class))}),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
     })
     void deleteCategory(@Valid @NotNull @PathVariable Long id);
