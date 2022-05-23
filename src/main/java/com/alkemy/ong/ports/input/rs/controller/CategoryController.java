@@ -28,10 +28,11 @@ import static com.alkemy.ong.ports.input.rs.api.ApiConstants.CATEGORIES_URI;
 @RestController
 @RequestMapping(CATEGORIES_URI)
 @RequiredArgsConstructor
-public class CategoryController {
+public class CategoryController implements com.alkemy.ong.ports.input.rs.api.CategoryApi {
     private final CategoryService categoryService;
     private final CategoryControllerMapper mapper;
 
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponse> getCategory(@Valid @NotNull @PathVariable Long id){
         Category category = categoryService.getByIdIfExists(id);
@@ -39,6 +40,7 @@ public class CategoryController {
         return ResponseEntity.ok(response);
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<CategoryNameResponseList> getCategories(@RequestParam Optional<Integer> page,
                                                                   @RequestParam Optional<Integer> size){
@@ -68,6 +70,7 @@ public class CategoryController {
     }
 
 
+    @Override
     @PostMapping
     public ResponseEntity<Void> createCategory(@Valid @RequestBody CategoryRequest categoryRequest){
 
@@ -82,6 +85,7 @@ public class CategoryController {
         return ResponseEntity.created(location).build();
     }
 
+    @Override
     @PutMapping("/{id}")
     public ResponseEntity<CategoryResponse> updateCategory(@Valid @NotNull @PathVariable Long id,
                                                            @Valid @RequestBody CategoryRequest categoryRequest) {
@@ -90,6 +94,7 @@ public class CategoryController {
         return ResponseEntity.ok(response);
     }
 
+    @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@Valid @NotNull @PathVariable Long id) {
